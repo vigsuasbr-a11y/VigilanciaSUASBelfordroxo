@@ -1,0 +1,36 @@
+{
+  "name": "portal-vigilancia",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "migrate:inspect": "node scripts/migration/inspect-sqlite.mjs",
+    "migrate:inspect-xlsx": "node scripts/migration/inspect-employee-xlsx.mjs",
+    "migrate:build-xlsx-seed": "node scripts/migration/build-supabase-seed-from-xlsx.mjs",
+    "migrate:export-orphans": "node scripts/migration/export-orphan-history.mjs"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.3",
+    "@supabase/supabase-js": "^2.110.8",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.25.0",
+    "next": "16.2.11",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.11",
+    "exceljs": "^4.4.0",
+    "sql.js": "^1.14.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

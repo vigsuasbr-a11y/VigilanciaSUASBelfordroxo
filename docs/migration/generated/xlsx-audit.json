@@ -1,0 +1,417 @@
+{
+  "auditedAt": "2026-07-21T19:26:37.930Z",
+  "source": {
+    "fileName": "relatorio-funcionarios.diagnostic.20260721-162336.xlsx",
+    "sizeBytes": 63407,
+    "sha256": "d0a9707813c20d0fb2058ba59f2de6f47d6d37d0df8b87db927a34e81788e39f",
+    "lastModified": "2026-07-21T19:15:24.178Z"
+  },
+  "workbook": {
+    "sheets": [
+      {
+        "name": "Funcionários",
+        "rowCount": 639,
+        "actualRowCount": 639,
+        "columnCount": 14,
+        "actualColumnCount": 14
+      },
+      {
+        "name": "Unidades",
+        "rowCount": 23,
+        "actualRowCount": 23,
+        "columnCount": 5,
+        "actualColumnCount": 5
+      }
+    ]
+  },
+  "funcionarios": {
+    "sheet": "Funcionários",
+    "detectedHeaderRow": 1,
+    "headers": [
+      "Nome",
+      "CPF",
+      "Nascimento",
+      "Cargo",
+      "Setor",
+      "Escolaridade",
+      "Unidade",
+      "Vinculo",
+      "Carga horaria",
+      "Telefone",
+      "E-mail",
+      "Admissao",
+      "Status",
+      "Observações"
+    ],
+    "missingExpectedColumns": [],
+    "totalRows": 638,
+    "countsByStatus": [
+      {
+        "value": "Ativo",
+        "total": 510
+      },
+      {
+        "value": "Exonerado",
+        "total": 128
+      }
+    ],
+    "countsByVinculo": [
+      {
+        "value": "Comissionado",
+        "total": 331
+      },
+      {
+        "value": "<<vazio>>",
+        "total": 197
+      },
+      {
+        "value": "INADH",
+        "total": 47
+      },
+      {
+        "value": "Efetivo",
+        "total": 33
+      },
+      {
+        "value": "Servidor/Estatutário",
+        "total": 11
+      },
+      {
+        "value": "comissionada",
+        "total": 3
+      },
+      {
+        "value": "Estatutária",
+        "total": 3
+      },
+      {
+        "value": "Terceirizado",
+        "total": 3
+      },
+      {
+        "value": "Estatutário",
+        "total": 2
+      },
+      {
+        "value": "Outro Vínculo não permanente",
+        "total": 2
+      },
+      {
+        "value": "Assistente Social",
+        "total": 1
+      },
+      {
+        "value": "Comissionada",
+        "total": 1
+      },
+      {
+        "value": "COMISSIONADO",
+        "total": 1
+      },
+      {
+        "value": "Contrato",
+        "total": 1
+      },
+      {
+        "value": "Coordenador",
+        "total": 1
+      },
+      {
+        "value": "Trabalhador de Empresa/Cooperativa/Entidade prestadora de serviços",
+        "total": 1
+      }
+    ],
+    "emptyFields": {
+      "nome_vazio": 0,
+      "cpf_vazio": 13,
+      "nascimento_vazio": 246,
+      "cargo_vazio": 136,
+      "setor_vazio": 514,
+      "escolaridade_vazio": 35,
+      "unidade_vazio": 5,
+      "vinculo_vazio": 197,
+      "carga_horaria_vazio": 635,
+      "telefone_vazio": 88,
+      "email_vazio": 522,
+      "admissao_vazio": 190,
+      "status_vazio": 0,
+      "observacoes_vazio": 41
+    },
+    "dateFormats": {
+      "nascimento": {
+        "counts": [
+          {
+            "format": "dd/mm/yyyy",
+            "total": 392
+          },
+          {
+            "format": "vazio",
+            "total": 246
+          }
+        ],
+        "unknownRows": []
+      },
+      "admissao": {
+        "counts": [
+          {
+            "format": "dd/mm/yyyy",
+            "total": 448
+          },
+          {
+            "format": "vazio",
+            "total": 190
+          }
+        ],
+        "unknownRows": []
+      }
+    },
+    "cpf": {
+      "totalRows": 638,
+      "emptyCount": 13,
+      "validCount": 619,
+      "invalidCount": 6,
+      "duplicateGroupCount": 31,
+      "duplicateNormalizedCount": 75,
+      "duplicateGroups": [
+        {
+          "cpf_hash": "fa69e23208a626f1",
+          "total": 7
+        },
+        {
+          "cpf_hash": "8ae0d660d87bd590",
+          "total": 4
+        },
+        {
+          "cpf_hash": "e194732bfe0823da",
+          "total": 4
+        },
+        {
+          "cpf_hash": "4439d29d71b12512",
+          "total": 3
+        },
+        {
+          "cpf_hash": "44491de92eb6aab4",
+          "total": 3
+        },
+        {
+          "cpf_hash": "44b04212551b090a",
+          "total": 3
+        },
+        {
+          "cpf_hash": "540bb9576cbc85f2",
+          "total": 3
+        },
+        {
+          "cpf_hash": "002cdce9f66dddc5",
+          "total": 2
+        },
+        {
+          "cpf_hash": "0d5b752d9b3c7755",
+          "total": 2
+        },
+        {
+          "cpf_hash": "12107c41f18cba51",
+          "total": 2
+        },
+        {
+          "cpf_hash": "2e54683c94685f1a",
+          "total": 2
+        },
+        {
+          "cpf_hash": "309d98785f440de6",
+          "total": 2
+        },
+        {
+          "cpf_hash": "4e8c840f2f7d2dd9",
+          "total": 2
+        },
+        {
+          "cpf_hash": "615691d7b4a4b127",
+          "total": 2
+        },
+        {
+          "cpf_hash": "636f8f2b5361f7bd",
+          "total": 2
+        },
+        {
+          "cpf_hash": "680a9a11c5da19cb",
+          "total": 2
+        },
+        {
+          "cpf_hash": "6fcc2893ffe1c042",
+          "total": 2
+        },
+        {
+          "cpf_hash": "960313f2b33e7ed7",
+          "total": 2
+        },
+        {
+          "cpf_hash": "b78058d015e7821e",
+          "total": 2
+        },
+        {
+          "cpf_hash": "c7ccb8577adb7859",
+          "total": 2
+        },
+        {
+          "cpf_hash": "c8076d8a8266a3c1",
+          "total": 2
+        },
+        {
+          "cpf_hash": "c96ffd0a8fa29725",
+          "total": 2
+        },
+        {
+          "cpf_hash": "cad167edea3aae23",
+          "total": 2
+        },
+        {
+          "cpf_hash": "cb624c9c038ecd36",
+          "total": 2
+        },
+        {
+          "cpf_hash": "cfb3d08d68d25ad5",
+          "total": 2
+        },
+        {
+          "cpf_hash": "d237182af479aade",
+          "total": 2
+        },
+        {
+          "cpf_hash": "e0eb9d32b219bd49",
+          "total": 2
+        },
+        {
+          "cpf_hash": "ec92c9aa00fef724",
+          "total": 2
+        },
+        {
+          "cpf_hash": "ee91f65cb4d97b72",
+          "total": 2
+        },
+        {
+          "cpf_hash": "f3450b354b87398b",
+          "total": 2
+        },
+        {
+          "cpf_hash": "fd74732fa1e98fd3",
+          "total": 2
+        }
+      ]
+    },
+    "units": {
+      "funcionarios_sem_unidade": 5,
+      "funcionarios_com_unidade_nao_listada": 0,
+      "grupos_de_unidade_nao_listada": 0,
+      "unidades_sem_funcionarios": 0,
+      "unidades_duplicadas_por_nome_normalizado": 0,
+      "unidades_nao_listadas_hash": []
+    },
+    "status": {
+      "status_vazio": 0,
+      "status_fora_do_padrao": 0
+    }
+  },
+  "unidades": {
+    "sheet": "Unidades",
+    "detectedHeaderRow": 1,
+    "headers": [
+      "Nome",
+      "Tipo",
+      "Endereco",
+      "Coordenador",
+      "Telefone"
+    ],
+    "missingExpectedColumns": [],
+    "totalRows": 22,
+    "countsByTipo": [
+      {
+        "value": "CRAS",
+        "total": 15
+      },
+      {
+        "value": "CREAS",
+        "total": 3
+      },
+      {
+        "value": "Abrigo",
+        "total": 2
+      },
+      {
+        "value": "Centro POP",
+        "total": 1
+      },
+      {
+        "value": "Secretaria",
+        "total": 1
+      }
+    ],
+    "duplicateNameGroupCount": 0
+  },
+  "comparisonWithSqlite": {
+    "sqliteAuditFile": "docs/migration/generated/sqlite-audit.json",
+    "sqliteFuncionarios": 630,
+    "xlsxFuncionarios": 638,
+    "diferencaFuncionarios": 8,
+    "sqliteUnidades": 22,
+    "xlsxUnidades": 22,
+    "diferencaUnidades": 0
+  },
+  "issueSummary": [
+    {
+      "code": "colunas_funcionarios_ausentes",
+      "severity": "ok",
+      "total": 0
+    },
+    {
+      "code": "colunas_unidades_ausentes",
+      "severity": "ok",
+      "total": 0
+    },
+    {
+      "code": "cpf_vazio",
+      "severity": "warning",
+      "total": 13
+    },
+    {
+      "code": "cpf_invalido",
+      "severity": "warning",
+      "total": 6
+    },
+    {
+      "code": "cpf_duplicado",
+      "severity": "warning",
+      "total": 75
+    },
+    {
+      "code": "unidade_vazia",
+      "severity": "warning",
+      "total": 5
+    },
+    {
+      "code": "unidade_nao_listada",
+      "severity": "ok",
+      "total": 0
+    },
+    {
+      "code": "status_vazio",
+      "severity": "ok",
+      "total": 0
+    },
+    {
+      "code": "status_fora_do_padrao",
+      "severity": "ok",
+      "total": 0
+    },
+    {
+      "code": "nascimento_formato_desconhecido",
+      "severity": "ok",
+      "total": 0
+    },
+    {
+      "code": "admissao_formato_desconhecido",
+      "severity": "ok",
+      "total": 0
+    }
+  ]
+}

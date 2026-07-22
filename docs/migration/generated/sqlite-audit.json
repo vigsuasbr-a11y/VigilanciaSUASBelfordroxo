@@ -1,0 +1,1185 @@
+{
+  "auditedAt": "2026-07-21T18:48:32.782Z",
+  "source": {
+    "path": "C:\\Users\\SEMASC\\Documents\\Projeto - SEMASC\\portal-vigilancia\\local-data\\sqlite-diagnostics\\sistema_social.diagnostic.20260721-154606.db",
+    "sizeBytes": 266240,
+    "sha256": "68799309a60e03f06637fbca002bee02214f9aa4984a279e316939f568e74170"
+  },
+  "tables": {
+    "funcionarios": {
+      "createSql": "CREATE TABLE funcionarios (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      nome TEXT NOT NULL,\n      cpf TEXT,\n      nascimento TEXT,\n      cargo TEXT,\n      setor TEXT,\n      escolaridade TEXT,\n      unidade_id INTEGER,\n      vinculo TEXT,\n      carga_horaria TEXT,\n      telefone TEXT,\n      email TEXT,\n      admissao TEXT,\n      status TEXT NOT NULL DEFAULT 'Ativo',\n      observacoes TEXT,\n      criado_em TEXT DEFAULT CURRENT_TIMESTAMP,\n      atualizado_em TEXT DEFAULT CURRENT_TIMESTAMP,\n      FOREIGN KEY (unidade_id) REFERENCES unidades(id) ON DELETE SET NULL\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "nome",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "cpf",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "nascimento",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "cargo",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "setor",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "escolaridade",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "unidade_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "vinculo",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "carga_horaria",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "telefone",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 11,
+          "name": "email",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 12,
+          "name": "admissao",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 13,
+          "name": "status",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'Ativo'",
+          "pk": 0
+        },
+        {
+          "cid": 14,
+          "name": "observacoes",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 15,
+          "name": "criado_em",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 16,
+          "name": "atualizado_em",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ],
+      "foreignKeys": [
+        {
+          "id": 0,
+          "seq": 0,
+          "table": "unidades",
+          "from": "unidade_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "SET NULL",
+          "match": "NONE"
+        }
+      ],
+      "indexes": [],
+      "count": 630
+    },
+    "historico_movimentacoes": {
+      "createSql": "CREATE TABLE historico_movimentacoes (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      funcionario_id INTEGER NOT NULL,\n      status_anterior TEXT,\n      status_novo TEXT NOT NULL,\n      data_movimentacao TEXT DEFAULT CURRENT_TIMESTAMP,\n      observacao TEXT,\n      FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id) ON DELETE CASCADE\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "funcionario_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "status_anterior",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "status_novo",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "data_movimentacao",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "observacao",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "foreignKeys": [
+        {
+          "id": 0,
+          "seq": 0,
+          "table": "funcionarios",
+          "from": "funcionario_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "CASCADE",
+          "match": "NONE"
+        }
+      ],
+      "indexes": [],
+      "count": 826
+    },
+    "unidades": {
+      "createSql": "CREATE TABLE unidades (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      nome TEXT NOT NULL,\n      tipo TEXT NOT NULL,\n      endereco TEXT,\n      coordenador TEXT,\n      telefone TEXT,\n      criado_em TEXT DEFAULT CURRENT_TIMESTAMP\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "nome",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "tipo",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "endereco",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "coordenador",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "telefone",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "criado_em",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [],
+      "count": 22
+    },
+    "usuarios": {
+      "createSql": "CREATE TABLE usuarios (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      nome TEXT NOT NULL,\n      usuario TEXT NOT NULL UNIQUE,\n      senha_hash TEXT NOT NULL,\n      perfil TEXT NOT NULL DEFAULT 'operador',\n      ativo INTEGER NOT NULL DEFAULT 1,\n      criado_em TEXT DEFAULT CURRENT_TIMESTAMP\n    )",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "nome",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "usuario",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "senha_hash",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "perfil",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'operador'",
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "ativo",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "criado_em",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "sqlite_autoindex_usuarios_1",
+          "unique": 1,
+          "origin": "u",
+          "partial": 0,
+          "columns": [
+            {
+              "seqno": 0,
+              "cid": 2,
+              "name": "usuario"
+            }
+          ]
+        }
+      ],
+      "count": 2
+    }
+  },
+  "counts": {
+    "funcionarios": 630,
+    "funcionarios_ativos": 503,
+    "funcionarios_exonerados": 127,
+    "historico_movimentacoes": 826,
+    "unidades": 22,
+    "usuarios": 2
+  },
+  "distinctValues": {
+    "status": [
+      {
+        "value": "Ativo",
+        "total": 503
+      },
+      {
+        "value": "Exonerado",
+        "total": 127
+      }
+    ],
+    "vinculos": [
+      {
+        "value": "Comissionado",
+        "total": 324
+      },
+      {
+        "value": "<<vazio>>",
+        "total": 196
+      },
+      {
+        "value": "INADH",
+        "total": 47
+      },
+      {
+        "value": "Efetivo",
+        "total": 33
+      },
+      {
+        "value": "Servidor/Estatutário",
+        "total": 11
+      },
+      {
+        "value": "comissionada",
+        "total": 3
+      },
+      {
+        "value": "Estatutária",
+        "total": 3
+      },
+      {
+        "value": "Terceirizado",
+        "total": 3
+      },
+      {
+        "value": "Estatutário",
+        "total": 2
+      },
+      {
+        "value": "Outro Vínculo não permanente",
+        "total": 2
+      },
+      {
+        "value": "Assistente Social",
+        "total": 1
+      },
+      {
+        "value": "Comissionada",
+        "total": 1
+      },
+      {
+        "value": "COMISSIONADO",
+        "total": 1
+      },
+      {
+        "value": "Contrato",
+        "total": 1
+      },
+      {
+        "value": "Coordenador",
+        "total": 1
+      },
+      {
+        "value": "Trabalhador de Empresa/Cooperativa/Entidade prestadora de serviços",
+        "total": 1
+      }
+    ],
+    "cargos": [
+      {
+        "value": "Adm / Cadunico",
+        "total": 140
+      },
+      {
+        "value": "<<vazio>>",
+        "total": 136
+      },
+      {
+        "value": "Assistente Social",
+        "total": 81
+      },
+      {
+        "value": "Educador/Orientador Social",
+        "total": 53
+      },
+      {
+        "value": "ASG",
+        "total": 25
+      },
+      {
+        "value": "Psicólogo",
+        "total": 24
+      },
+      {
+        "value": "Psicóloga",
+        "total": 18
+      },
+      {
+        "value": "OUTROS",
+        "total": 17
+      },
+      {
+        "value": "Educador / Orientador",
+        "total": 15
+      },
+      {
+        "value": "Pedagogo",
+        "total": 13
+      },
+      {
+        "value": "Advogado",
+        "total": 8
+      },
+      {
+        "value": "Coordenadora",
+        "total": 7
+      },
+      {
+        "value": "Pedagoga",
+        "total": 7
+      },
+      {
+        "value": "Educação Física",
+        "total": 6
+      },
+      {
+        "value": "Coordenador",
+        "total": 5
+      },
+      {
+        "value": "Administrador",
+        "total": 3
+      },
+      {
+        "value": "Administração",
+        "total": 3
+      },
+      {
+        "value": "Educadora Social",
+        "total": 3
+      },
+      {
+        "value": "Oficineiro",
+        "total": 3
+      },
+      {
+        "value": "Outro",
+        "total": 3
+      },
+      {
+        "value": "ADM",
+        "total": 2
+      },
+      {
+        "value": "Advogada",
+        "total": 2
+      },
+      {
+        "value": "API",
+        "total": 2
+      },
+      {
+        "value": "APOIO ADMINISTRATIVO",
+        "total": 2
+      },
+      {
+        "value": "Assessor Técnico",
+        "total": 2
+      },
+      {
+        "value": "Assistente social",
+        "total": 2
+      },
+      {
+        "value": "Assuntos de Familia",
+        "total": 2
+      },
+      {
+        "value": "Cozinheira",
+        "total": 2
+      },
+      {
+        "value": "Gestão de Recursos Humanos",
+        "total": 2
+      },
+      {
+        "value": "Nutricionista",
+        "total": 2
+      },
+      {
+        "value": "Subsecretaria",
+        "total": 2
+      },
+      {
+        "value": "ADM / Cadunico",
+        "total": 1
+      },
+      {
+        "value": "ADM Cad Unico",
+        "total": 1
+      },
+      {
+        "value": "Administradora",
+        "total": 1
+      },
+      {
+        "value": "Administrativo",
+        "total": 1
+      },
+      {
+        "value": "ADVOGADA",
+        "total": 1
+      },
+      {
+        "value": "API/ASG",
+        "total": 1
+      },
+      {
+        "value": "Assessor Regional",
+        "total": 1
+      },
+      {
+        "value": "ASSESSOR TECNICO",
+        "total": 1
+      },
+      {
+        "value": "Cedida",
+        "total": 1
+      },
+      {
+        "value": "Coordenador CadUnico",
+        "total": 1
+      },
+      {
+        "value": "Coordenador Vigilância",
+        "total": 1
+      },
+      {
+        "value": "Coordenadora / Pedagoga",
+        "total": 1
+      },
+      {
+        "value": "COZINHEIRA",
+        "total": 1
+      },
+      {
+        "value": "DIRETOR CADUNICO",
+        "total": 1
+      },
+      {
+        "value": "Diretor PSB",
+        "total": 1
+      },
+      {
+        "value": "Educador",
+        "total": 1
+      },
+      {
+        "value": "Educador Social",
+        "total": 1
+      },
+      {
+        "value": "Educadora / Orientadora",
+        "total": 1
+      },
+      {
+        "value": "Jurídico",
+        "total": 1
+      },
+      {
+        "value": "Motorista",
+        "total": 1
+      },
+      {
+        "value": "Orientador",
+        "total": 1
+      },
+      {
+        "value": "Orientadora Social",
+        "total": 1
+      },
+      {
+        "value": "Pedagoga / API",
+        "total": 1
+      },
+      {
+        "value": "Professor de educação física",
+        "total": 1
+      },
+      {
+        "value": "Professora de Ed Fisica",
+        "total": 1
+      },
+      {
+        "value": "Professora/Educadora Física",
+        "total": 1
+      },
+      {
+        "value": "Programador",
+        "total": 1
+      },
+      {
+        "value": "PSB",
+        "total": 1
+      },
+      {
+        "value": "Psicologa",
+        "total": 1
+      },
+      {
+        "value": "Psicológa",
+        "total": 1
+      },
+      {
+        "value": "Sociologo",
+        "total": 1
+      },
+      {
+        "value": "Socióloga",
+        "total": 1
+      },
+      {
+        "value": "Superintendente Fundo",
+        "total": 1
+      },
+      {
+        "value": "Superintendente PSB",
+        "total": 1
+      },
+      {
+        "value": "Superintendente PSE",
+        "total": 1
+      },
+      {
+        "value": "TECNICO DE NIVEL MEDIO",
+        "total": 1
+      },
+      {
+        "value": "TI",
+        "total": 1
+      },
+      {
+        "value": "Técnico de Referência SCFV",
+        "total": 1
+      }
+    ],
+    "unidades": [
+      {
+        "value": "ABRIGO LAR DA ESPERANÇA",
+        "tipo": "Abrigo",
+        "total": 1
+      },
+      {
+        "value": "Casa Lar",
+        "tipo": "Abrigo",
+        "total": 1
+      },
+      {
+        "value": "Centro POP",
+        "tipo": "Centro POP",
+        "total": 1
+      },
+      {
+        "value": "CRAS BABI",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS BOM PASTOR",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS CENTRO",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS JARDIM DO IPÊ",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS JARDIM REDENTOR",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS LOTE XV",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS NOVA AURORA",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS PARQUE SUÉCIA",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS PARQUE SÃO JOSÉ",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS RONCALLI",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS SANTA MARTA",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS SANTA TEREZA",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS SHANGRILÁ",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS WONA",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CRAS XAVANTES",
+        "tipo": "CRAS",
+        "total": 1
+      },
+      {
+        "value": "CREAS I",
+        "tipo": "CREAS",
+        "total": 1
+      },
+      {
+        "value": "CREAS II",
+        "tipo": "CREAS",
+        "total": 1
+      },
+      {
+        "value": "CREAS III",
+        "tipo": "CREAS",
+        "total": 1
+      },
+      {
+        "value": "SEDE",
+        "tipo": "Secretaria",
+        "total": 1
+      }
+    ],
+    "setores": [
+      {
+        "value": "<<vazio>>",
+        "total": 506
+      },
+      {
+        "value": "Complexo da Cidadania",
+        "total": 12
+      },
+      {
+        "value": "Coordenadora",
+        "total": 12
+      },
+      {
+        "value": "PSB",
+        "total": 10
+      },
+      {
+        "value": "Gabinete",
+        "total": 7
+      },
+      {
+        "value": "PSE",
+        "total": 7
+      },
+      {
+        "value": "Almoxarifado",
+        "total": 5
+      },
+      {
+        "value": "CadUnico",
+        "total": 5
+      },
+      {
+        "value": "Fundo",
+        "total": 5
+      },
+      {
+        "value": "GABINETE (F)",
+        "total": 5
+      },
+      {
+        "value": "Motorista",
+        "total": 5
+      },
+      {
+        "value": "Segurança Alimentar",
+        "total": 5
+      },
+      {
+        "value": "Coordenador",
+        "total": 4
+      },
+      {
+        "value": "Jurídico",
+        "total": 4
+      },
+      {
+        "value": "ASG",
+        "total": 3
+      },
+      {
+        "value": "Conselho",
+        "total": 3
+      },
+      {
+        "value": "Oficineiro",
+        "total": 3
+      },
+      {
+        "value": "RH",
+        "total": 3
+      },
+      {
+        "value": "Sede",
+        "total": 3
+      },
+      {
+        "value": "Vigilância Socioassistencial",
+        "total": 3
+      },
+      {
+        "value": "Comunicação",
+        "total": 2
+      },
+      {
+        "value": "Família Acolhedora",
+        "total": 2
+      },
+      {
+        "value": "TI",
+        "total": 2
+      },
+      {
+        "value": "CADUNICO",
+        "total": 1
+      },
+      {
+        "value": "COMPLEXO DA CIDADANIA",
+        "total": 1
+      },
+      {
+        "value": "Contabilidade",
+        "total": 1
+      },
+      {
+        "value": "Educação Permanente",
+        "total": 1
+      },
+      {
+        "value": "Familia acolhedora",
+        "total": 1
+      },
+      {
+        "value": "GABINETE",
+        "total": 1
+      },
+      {
+        "value": "Gestão SUAS",
+        "total": 1
+      },
+      {
+        "value": "PADARIA ESCOLA",
+        "total": 1
+      },
+      {
+        "value": "Padaria Escola",
+        "total": 1
+      },
+      {
+        "value": "Padaria escola",
+        "total": 1
+      },
+      {
+        "value": "SEMASC",
+        "total": 1
+      },
+      {
+        "value": "Superintendente SUAS",
+        "total": 1
+      },
+      {
+        "value": "TECNICO NIVEL SUPERIOR",
+        "total": 1
+      },
+      {
+        "value": "VIgilância Socioassitencial",
+        "total": 1
+      }
+    ]
+  },
+  "dateFormats": {
+    "funcionarios_nascimento": [
+      {
+        "format": "yyyy-mm-dd",
+        "total": 384
+      },
+      {
+        "format": "vazio",
+        "total": 246
+      }
+    ],
+    "funcionarios_admissao": [
+      {
+        "format": "yyyy-mm-dd",
+        "total": 439
+      },
+      {
+        "format": "vazio",
+        "total": 191
+      }
+    ],
+    "funcionarios_criado_em": [
+      {
+        "format": "sqlite_timestamp",
+        "total": 630
+      }
+    ],
+    "funcionarios_atualizado_em": [
+      {
+        "format": "sqlite_timestamp",
+        "total": 630
+      }
+    ],
+    "historico_data_movimentacao": [
+      {
+        "format": "sqlite_timestamp",
+        "total": 826
+      }
+    ]
+  },
+  "cpf": {
+    "emptyCount": 13,
+    "invalidCount": 6,
+    "duplicateNormalizedCount": 68,
+    "duplicateGroupCount": 27,
+    "duplicateGroups": [
+      {
+        "cpf_hash": "fa69e23208a626f1",
+        "total": 7
+      },
+      {
+        "cpf_hash": "8ae0d660d87bd590",
+        "total": 4
+      },
+      {
+        "cpf_hash": "e194732bfe0823da",
+        "total": 4
+      },
+      {
+        "cpf_hash": "002cdce9f66dddc5",
+        "total": 3
+      },
+      {
+        "cpf_hash": "4439d29d71b12512",
+        "total": 3
+      },
+      {
+        "cpf_hash": "44491de92eb6aab4",
+        "total": 3
+      },
+      {
+        "cpf_hash": "44b04212551b090a",
+        "total": 3
+      },
+      {
+        "cpf_hash": "540bb9576cbc85f2",
+        "total": 3
+      },
+      {
+        "cpf_hash": "0d5b752d9b3c7755",
+        "total": 2
+      },
+      {
+        "cpf_hash": "12107c41f18cba51",
+        "total": 2
+      },
+      {
+        "cpf_hash": "2e54683c94685f1a",
+        "total": 2
+      },
+      {
+        "cpf_hash": "309d98785f440de6",
+        "total": 2
+      },
+      {
+        "cpf_hash": "4e8c840f2f7d2dd9",
+        "total": 2
+      },
+      {
+        "cpf_hash": "680a9a11c5da19cb",
+        "total": 2
+      },
+      {
+        "cpf_hash": "6fcc2893ffe1c042",
+        "total": 2
+      },
+      {
+        "cpf_hash": "b78058d015e7821e",
+        "total": 2
+      },
+      {
+        "cpf_hash": "c7ccb8577adb7859",
+        "total": 2
+      },
+      {
+        "cpf_hash": "c96ffd0a8fa29725",
+        "total": 2
+      },
+      {
+        "cpf_hash": "cad167edea3aae23",
+        "total": 2
+      },
+      {
+        "cpf_hash": "cb624c9c038ecd36",
+        "total": 2
+      },
+      {
+        "cpf_hash": "cfb3d08d68d25ad5",
+        "total": 2
+      },
+      {
+        "cpf_hash": "d237182af479aade",
+        "total": 2
+      },
+      {
+        "cpf_hash": "e0eb9d32b219bd49",
+        "total": 2
+      },
+      {
+        "cpf_hash": "ec92c9aa00fef724",
+        "total": 2
+      },
+      {
+        "cpf_hash": "ee91f65cb4d97b72",
+        "total": 2
+      },
+      {
+        "cpf_hash": "f3450b354b87398b",
+        "total": 2
+      },
+      {
+        "cpf_hash": "fd74732fa1e98fd3",
+        "total": 2
+      }
+    ]
+  },
+  "emptyFields": {
+    "cpf_vazio": 13,
+    "nascimento_vazio": 246,
+    "cargo_vazio": 136,
+    "setor_vazio": 506,
+    "escolaridade_vazio": 35,
+    "unidade_vazia": 4,
+    "vinculo_vazio": 196,
+    "carga_horaria_vazia": 627,
+    "telefone_vazio": 88,
+    "email_vazio": 517,
+    "admissao_vazio": 191
+  },
+  "orphanRecords": {
+    "funcionarios_sem_unidade": 4,
+    "funcionarios_com_unidade_inexistente": 0,
+    "historicos_sem_funcionario": 69
+  },
+  "users": {
+    "total": 2,
+    "active": 2,
+    "byPerfil": [
+      {
+        "value": "administrador",
+        "total": 2
+      }
+    ]
+  }
+}

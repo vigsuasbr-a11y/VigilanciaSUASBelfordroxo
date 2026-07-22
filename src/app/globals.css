@@ -1,0 +1,410 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f5f8fc;
+  --foreground: #10213a;
+  --primary-dark: #06285f;
+  --primary: #074fb8;
+  --primary-light: #0a84ff;
+  --secondary: #00a67e;
+  --surface: #ffffff;
+  --text-primary: #10213a;
+  --text-secondary: #60708a;
+  --border: #dbe5f1;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #0a84ff;
+  color: white;
+}
+
+a,
+button {
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgba(10, 132, 255, 0.38);
+  outline-offset: 3px;
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: backgroundMove 18s linear infinite;
+}
+
+.section-anchor {
+  scroll-margin-top: 130px;
+}
+
+.public-hero-bg {
+  background:
+    radial-gradient(circle at 64% 45%, rgba(10, 132, 255, 0.28), transparent 33%),
+    linear-gradient(115deg, #031b45 0%, #06285f 48%, #084fb3 100%);
+}
+
+.hero-map-light {
+  animation: heroLightMove 12s ease-in-out infinite alternate;
+}
+
+.hero-eyebrow,
+.hero-title-line,
+.hero-copy,
+.hero-actions {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: heroFadeUp 520ms ease forwards;
+}
+
+.hero-eyebrow {
+  animation-delay: 80ms;
+}
+
+.hero-title-line {
+  animation-delay: 180ms;
+}
+
+.hero-title-suas {
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: heroRevealSuas 700ms ease forwards 420ms;
+}
+
+.hero-copy {
+  animation-delay: 520ms;
+}
+
+.hero-actions {
+  animation-delay: 640ms;
+}
+
+.hero-map-visual {
+  opacity: 0;
+  transform: scale(0.96);
+  transform-origin: center;
+  animation: mapEnter 720ms ease forwards 180ms;
+}
+
+.map-shape {
+  opacity: 0;
+  animation: mapShapeFade 900ms ease forwards 260ms;
+}
+
+.map-line {
+  stroke-dasharray: 180;
+  stroke-dashoffset: 180;
+  animation: drawLine 1.6s ease forwards;
+  animation-delay: var(--line-delay, 280ms);
+}
+
+.map-point {
+  opacity: 0;
+  transform: scale(0.72);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pointIgnite 420ms ease forwards;
+  animation-delay: var(--point-delay, 620ms);
+}
+
+.map-point-core {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulsePoint 2.8s ease-in-out infinite;
+  animation-delay: calc(var(--point-delay, 620ms) + 560ms);
+}
+
+.map-panel,
+.map-pin {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mapPanelIn 520ms ease forwards 920ms;
+}
+
+.map-pin {
+  animation-delay: 1080ms;
+}
+
+.hero-legend-card {
+  opacity: 0;
+  transform: translateX(14px);
+  animation: legendReveal 420ms ease forwards;
+  animation-delay: var(--legend-delay, 720ms);
+}
+
+.hero-action {
+  will-change: transform;
+}
+
+.hero-action svg {
+  transition: transform 180ms ease;
+}
+
+.hero-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 98, 255, 0.22);
+}
+
+.hero-action-ghost:hover {
+  box-shadow: none;
+}
+
+.hero-action:hover .hero-action-arrow {
+  transform: translateX(4px);
+}
+
+.hero-action:hover .hero-action-icon {
+  transform: translateY(-1px) scale(1.06);
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 520ms ease var(--reveal-delay, 0ms),
+    transform 520ms ease var(--reveal-delay, 0ms);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-reveal .quick-access-card,
+.scroll-reveal .numbers-card,
+.scroll-reveal .about-card,
+.scroll-reveal .project-card {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 420ms ease,
+    transform 420ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.scroll-reveal.is-visible .quick-access-card,
+.scroll-reveal.is-visible .numbers-card,
+.scroll-reveal.is-visible .about-card,
+.scroll-reveal.is-visible .project-card {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 420ms ease calc(var(--reveal-delay, 0ms) + var(--card-delay, 0ms)),
+    transform 420ms ease calc(var(--reveal-delay, 0ms) + var(--card-delay, 0ms)),
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.scroll-reveal.is-visible .quick-access-card:hover,
+.scroll-reveal.is-visible .about-card:hover,
+.scroll-reveal.is-visible .project-card:hover {
+  transform: translateY(-2px);
+}
+
+.project-svg-line {
+  stroke-dasharray: 540;
+  stroke-dashoffset: 540;
+  animation: projectLineDraw 1.4s ease forwards 180ms;
+}
+
+.project-svg-point {
+  opacity: 0;
+  transform: scale(0.78);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: projectPointIn 360ms ease forwards;
+  animation-delay: calc(360ms + var(--project-point-delay, 0ms));
+}
+
+.nav-active-line {
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: activeNavLine 260ms ease forwards;
+}
+
+@keyframes heroFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroRevealSuas {
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mapEnter {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes mapShapeFade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pulsePoint {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.18);
+    opacity: 0.75;
+  }
+}
+
+@keyframes pointIgnite {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes mapPanelIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes legendReveal {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes backgroundMove {
+  to {
+    background-position:
+      48px 48px,
+      48px 48px;
+  }
+}
+
+@keyframes heroLightMove {
+  from {
+    transform: translate3d(-12px, 4px, 0) scale(0.96);
+    opacity: 0.65;
+  }
+
+  to {
+    transform: translate3d(18px, -10px, 0) scale(1.08);
+    opacity: 0.95;
+  }
+}
+
+@keyframes activeNavLine {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes projectLineDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes projectPointIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+
+  .scroll-reveal,
+  .scroll-reveal .quick-access-card,
+  .scroll-reveal .numbers-card,
+  .scroll-reveal .about-card,
+  .scroll-reveal .project-card,
+  .hero-eyebrow,
+  .hero-title-line,
+  .hero-title-suas,
+  .hero-copy,
+  .hero-actions,
+  .hero-map-visual,
+  .hero-legend-card,
+  .map-point,
+  .map-panel,
+  .map-pin {
+    clip-path: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .map-line {
+    stroke-dashoffset: 0;
+  }
+
+  .project-svg-line {
+    stroke-dashoffset: 0;
+  }
+}
