@@ -107,13 +107,21 @@ export function EmployeeLoginForm({
   }
 
   return (
-    <form id="loginForm" className="form-grid login-form" onSubmit={handleSubmit}>
+    <form
+      id="loginForm"
+      className="form-grid login-form"
+      action="/api/auth/login"
+      method="post"
+      onSubmit={handleSubmit}
+    >
+      <input type="hidden" name="redirectTo" value={redirectTo} />
       <label className="login-field">
         <span className="login-field-label">Usuário</span>
         <span className="login-input user-input">
           <UserRound className="login-input-icon" aria-hidden="true" />
           <input
             id="loginUser"
+            name="email"
             type="text"
             value={identifier}
             onChange={(event) => setIdentifier(event.target.value)}
@@ -130,6 +138,7 @@ export function EmployeeLoginForm({
           <LockKeyhole className="login-input-icon" aria-hidden="true" />
           <input
             id="loginPassword"
+            name="password"
             type={showPassword ? "text" : "password"}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
