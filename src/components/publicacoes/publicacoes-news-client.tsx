@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   ArrowLeft,
   ArrowRight,
@@ -30,6 +31,7 @@ export function PublicacoesNewsClient({ news, categories }: PublicacoesNewsClien
   const [selectedCategory, setSelectedCategory] = useState("Todas");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   const filteredNews = useMemo(() => {
     const normalizedTerm = normalize(searchTerm);
@@ -54,6 +56,10 @@ export function PublicacoesNewsClient({ news, categories }: PublicacoesNewsClien
   const selectedIndex = selectedNews
     ? news.findIndex((item) => item.slug === selectedNews.slug)
     : -1;
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!selectedNews) {
@@ -199,14 +205,19 @@ export function PublicacoesNewsClient({ news, categories }: PublicacoesNewsClien
         </div>
       </section>
 
-      {selectedNews ? (
-        <NewsModal
-          item={selectedNews}
-          onClose={() => setSelectedSlug(null)}
-          onPrevious={() => setSelectedSlug(news[(selectedIndex - 1 + news.length) % news.length].slug)}
-          onNext={() => setSelectedSlug(news[(selectedIndex + 1) % news.length].slug)}
-        />
-      ) : null}
+      {selectedNews && isMounted
+        ? createPortal(
+            <NewsModal
+              item={selectedNews}
+              onClose={() => setSelectedSlug(null)}
+              onPrevious={() =>
+                setSelectedSlug(news[(selectedIndex - 1 + news.length) % news.length].slug)
+              }
+              onNext={() => setSelectedSlug(news[(selectedIndex + 1) % news.length].slug)}
+            />,
+            document.body,
+          )
+        : null}
     </>
   );
 }
@@ -287,8 +298,20 @@ function NewsModal({
   onPrevious: () => void;
   onNext: () => void;
 }) {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    modalRef.current?.scrollTo({ top: 0 });
+  }, [item.slug]);
+
   return (
-    <div className="fixed inset-0 z-[80] overflow-y-auto bg-[#031b45]/70 px-4 py-6 backdrop-blur-sm">
+    <div
+      ref={modalRef}
+      className="fixed inset-0 z-[120] overflow-y-auto bg-[#031b45]/78 px-4 py-6 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label={item.title}
+    >
       <div className="mx-auto max-w-5xl overflow-hidden rounded-lg bg-white shadow-[0_30px_80px_rgba(0,0,0,0.35)]">
         <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-[#dbe5f1] bg-white/95 px-4 py-3 backdrop-blur sm:px-6">
           <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#06285f]">
