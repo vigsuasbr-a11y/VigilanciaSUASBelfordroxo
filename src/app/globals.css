@@ -70,6 +70,36 @@ input:focus-visible {
   scroll-margin-top: 130px;
 }
 
+.portal-page-shell {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: portalPageEnter 360ms ease forwards;
+}
+
+html.portal-route-pending body::before {
+  content: "";
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 80;
+  height: 3px;
+  width: 100%;
+  transform-origin: left center;
+  background: linear-gradient(90deg, #0a84ff, #20d6ff 55%, #00a67e);
+  box-shadow: 0 8px 24px rgba(10, 132, 255, 0.28);
+  animation: portalRouteProgress 780ms ease-in-out infinite;
+  pointer-events: none;
+}
+
+html.portal-route-pending .portal-page-shell {
+  opacity: 0.88;
+  transform: translateY(4px);
+  filter: saturate(0.96);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    filter 180ms ease;
+}
+
 .public-hero-bg {
   background:
     radial-gradient(circle at 64% 45%, rgba(10, 132, 255, 0.28), transparent 33%),
@@ -353,6 +383,33 @@ input:focus-visible {
   }
 }
 
+@keyframes portalPageEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes portalRouteProgress {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  62% {
+    transform: scaleX(0.72);
+  }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 0.88;
+  }
+}
+
 @keyframes projectLineDraw {
   to {
     stroke-dashoffset: 0;
@@ -406,5 +463,16 @@ input:focus-visible {
 
   .project-svg-line {
     stroke-dashoffset: 0;
+  }
+
+  .portal-page-shell,
+  html.portal-route-pending .portal-page-shell {
+    filter: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  html.portal-route-pending body::before {
+    display: none;
   }
 }
