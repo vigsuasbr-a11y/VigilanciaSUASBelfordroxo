@@ -34,7 +34,7 @@ export const institutionalNumbers = [
   },
   {
     label: "Acolhimentos",
-    value: "3",
+    value: "2",
     description: "Unidades de acolhimento",
     icon: HousePlus,
   },
