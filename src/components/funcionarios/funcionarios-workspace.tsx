@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-css-tags */
 import Image from "next/image";
-import Link from "next/link";
 import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -46,6 +45,7 @@ import {
   updateUserAction,
   updateUserPasswordAction,
 } from "@/app/funcionarios/actions";
+import { DocumentLink as Link } from "@/components/funcionarios/document-link";
 import { EmployeeActionsMenu } from "@/components/funcionarios/employee-actions-menu";
 import { MobileMenuControls } from "@/components/funcionarios/mobile-menu-controls";
 import { PageSizeForm } from "@/components/funcionarios/page-size-form";

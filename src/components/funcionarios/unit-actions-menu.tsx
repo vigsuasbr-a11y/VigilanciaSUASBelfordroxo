@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import Link from "next/link";
 import { Eye, MoreVertical, Pencil, Trash2, UsersRound } from "lucide-react";
+import { DocumentLink as Link } from "@/components/funcionarios/document-link";
 
 type UnitActionsMenuProps = {
   unitId: string;

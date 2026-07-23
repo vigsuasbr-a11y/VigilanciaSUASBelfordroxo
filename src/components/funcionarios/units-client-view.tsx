@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import Link from "next/link";
 import {
   BadgeCheck,
   Building2,
@@ -13,6 +12,7 @@ import {
   UserRoundX,
   UsersRound,
 } from "lucide-react";
+import { DocumentLink as Link } from "@/components/funcionarios/document-link";
 import { UnitActionsMenu } from "@/components/funcionarios/unit-actions-menu";
 import type {
   FuncionarioListItem,

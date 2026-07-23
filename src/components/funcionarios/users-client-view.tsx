@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import Link from "next/link";
 import {
   CircleCheck,
   CircleOff,
@@ -16,6 +15,7 @@ import {
   UserRoundX,
   UsersRound,
 } from "lucide-react";
+import { DocumentLink as Link } from "@/components/funcionarios/document-link";
 import { UserActionsMenu } from "@/components/funcionarios/user-actions-menu";
 import { roleLabels } from "@/lib/permissions/roles";
 import type { ProfileListItem } from "@/services/funcionarios";

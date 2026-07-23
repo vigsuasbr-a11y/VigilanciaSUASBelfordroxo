@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import Link from "next/link";
 import {
   Eye,
   KeyRound,
@@ -12,6 +11,7 @@ import {
   UserRoundCheck,
   UserRoundX,
 } from "lucide-react";
+import { DocumentLink as Link } from "@/components/funcionarios/document-link";
 
 type UserActionsMenuProps = {
   userId: string;
