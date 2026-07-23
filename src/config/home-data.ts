@@ -22,7 +22,7 @@ export const institutionalNumbers = [
   },
   {
     label: "CREAS",
-    value: "2",
+    value: "3",
     description: "Proteção Social Especial",
     icon: UsersRound,
   },
@@ -34,7 +34,7 @@ export const institutionalNumbers = [
   },
   {
     label: "Acolhimentos",
-    value: "4",
+    value: "3",
     description: "Unidades de acolhimento",
     icon: HousePlus,
   },
