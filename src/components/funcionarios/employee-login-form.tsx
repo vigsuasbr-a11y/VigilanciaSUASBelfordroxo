@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   Check,
@@ -11,7 +10,11 @@ import {
   LockKeyhole,
   UserRound,
 } from "lucide-react";
-import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+
+type LoginResponse = {
+  ok: boolean;
+  message?: string;
+};
 
 type EmployeeLoginFormProps = {
   redirectTo: string;
@@ -24,7 +27,6 @@ export function EmployeeLoginForm({
   redirectTo,
   isSupabaseReady,
 }: EmployeeLoginFormProps) {
-  const router = useRouter();
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -84,34 +86,24 @@ export function EmployeeLoginForm({
       // Remembering the identifier is optional and never stores passwords.
     }
 
-    const supabase = createSupabaseBrowserClient();
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+      credentials: "include",
     });
+    const result = (await response.json().catch(() => null)) as LoginResponse | null;
 
-    if (error || !data.user) {
+    if (!response.ok || !result?.ok) {
       setIsSubmitting(false);
-      setMessage("Usuário ou senha inválidos.");
-      return;
-    }
-
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("id,is_active")
-      .eq("id", data.user.id)
-      .maybeSingle();
-
-    if (!profile?.is_active) {
-      await supabase.auth.signOut();
-      setIsSubmitting(false);
-      setMessage("Usuário sem perfil ativo. Procure um administrador.");
+      setMessage(result?.message ?? "Não foi possível entrar. Tente novamente.");
       return;
     }
 
     setIsSubmitting(false);
-    router.push(redirectTo);
-    router.refresh();
+    window.location.assign(redirectTo);
   }
 
   return (
