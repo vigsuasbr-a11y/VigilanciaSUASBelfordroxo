@@ -52,6 +52,12 @@ import { PageSizeForm } from "@/components/funcionarios/page-size-form";
 import { PendingSubmitButton } from "@/components/funcionarios/pending-submit-button";
 import { UnitsClientView } from "@/components/funcionarios/units-client-view";
 import { UsersClientView } from "@/components/funcionarios/users-client-view";
+import { ValidatedField } from "@/components/funcionarios/validated-field";
+import {
+  formatCpfForDisplay,
+  formatDateForInput,
+  formatPhoneForDisplay,
+} from "@/lib/forms/masks";
 import { roleLabels } from "@/lib/permissions/roles";
 import type { CurrentProfile } from "@/lib/auth/session";
 import type {
@@ -905,7 +911,7 @@ function EmployeeRow({ employee }: { employee: FuncionarioListItem }) {
           </span>
         </div>
       </td>
-      <td className="nowrap">{employee.cpf || "-"}</td>
+      <td className="nowrap">{formatCpfForDisplay(employee.cpf) || "-"}</td>
       <td className="employee-role">
         <strong>{employee.cargo || "Não informado"}</strong>
         <small>{employee.escolaridade || "Escolaridade não informada"}</small>
@@ -918,7 +924,7 @@ function EmployeeRow({ employee }: { employee: FuncionarioListItem }) {
         </span>
       </td>
       <td className="employee-contact">
-        <span>{employee.telefone || "Sem telefone"}</span>
+        <span>{formatPhoneForDisplay(employee.telefone) || "Sem telefone"}</span>
         <small>{employee.email || "Sem e-mail"}</small>
       </td>
       <td>
@@ -999,45 +1005,41 @@ function EmployeeDialog({
               Dados pessoais
             </legend>
             <div className="section-grid">
-              <label className="field-wide">
-                Nome completo
-                <input
-                  id="employeeName"
-                  name="nome"
-                  placeholder="Digite o nome completo do funcionário"
-                  required
-                  defaultValue={employee?.nome ?? ""}
-                />
-              </label>
-              <label>
-                CPF
-                <input
-                  id="employeeCpf"
-                  name="cpf"
-                  placeholder="000.000.000-00"
-                  inputMode="numeric"
-                  autoComplete="off"
-                  defaultValue={employee?.cpf ?? ""}
-                />
-              </label>
-              <label>
-                Data de nascimento
-                <input
-                  id="employeeBirth"
-                  name="nascimento"
-                  type="date"
-                  defaultValue={employee?.nascimento ?? ""}
-                />
-              </label>
-              <label>
-                Escolaridade
-                <input
-                  id="employeeEducation"
-                  name="escolaridade"
-                  placeholder="Informe a escolaridade"
-                  defaultValue={employee?.escolaridade ?? ""}
-                />
-              </label>
+              <ValidatedField
+                id="employeeName"
+                name="nome"
+                label="Nome completo"
+                fieldClassName="field-wide"
+                placeholder="Digite o nome completo do funcionário"
+                required
+                defaultValue={employee?.nome ?? ""}
+              />
+              <ValidatedField
+                id="employeeCpf"
+                name="cpf"
+                label="CPF"
+                mask="cpf"
+                placeholder="000.000.000-00"
+                autoComplete="off"
+                defaultValue={employee?.cpf ?? ""}
+              />
+              <ValidatedField
+                id="employeeBirth"
+                name="nascimento"
+                label="Data de nascimento"
+                mask="date"
+                placeholder="dd/mm/aaaa"
+                noFuture
+                autoComplete="bday"
+                defaultValue={formatDateForInput(employee?.nascimento)}
+              />
+              <ValidatedField
+                id="employeeEducation"
+                name="escolaridade"
+                label="Escolaridade"
+                placeholder="Informe a escolaridade"
+                defaultValue={employee?.escolaridade ?? ""}
+              />
             </div>
           </fieldset>
 
@@ -1047,24 +1049,20 @@ function EmployeeDialog({
               Vínculo profissional
             </legend>
             <div className="section-grid">
-              <label>
-                Cargo / Profissão
-                <input
-                  id="employeeRole"
-                  name="cargo"
-                  placeholder="Digite o cargo ou profissão"
-                  defaultValue={employee?.cargo ?? ""}
-                />
-              </label>
-              <label>
-                Setor
-                <input
-                  id="employeeSector"
-                  name="setor"
-                  placeholder="Informe o setor"
-                  defaultValue={employee?.setor ?? ""}
-                />
-              </label>
+              <ValidatedField
+                id="employeeRole"
+                name="cargo"
+                label="Cargo / Profissão"
+                placeholder="Digite o cargo ou profissão"
+                defaultValue={employee?.cargo ?? ""}
+              />
+              <ValidatedField
+                id="employeeSector"
+                name="setor"
+                label="Setor"
+                placeholder="Informe o setor"
+                defaultValue={employee?.setor ?? ""}
+              />
               <label>
                 Unidade vinculada
                 <select
@@ -1080,33 +1078,28 @@ function EmployeeDialog({
                   ))}
                 </select>
               </label>
-              <label>
-                Tipo de vínculo
-                <input
-                  id="employeeContract"
-                  name="vinculo"
-                  placeholder="Efetivo, contrato, comissionado..."
-                  defaultValue={employee?.vinculo ?? ""}
-                />
-              </label>
-              <label>
-                Carga horária
-                <input
-                  id="employeeWorkload"
-                  name="carga_horaria"
-                  placeholder="40h semanais"
-                  defaultValue={employee?.carga_horaria ?? ""}
-                />
-              </label>
-              <label>
-                Data de admissão
-                <input
-                  id="employeeAdmission"
-                  name="admissao"
-                  type="date"
-                  defaultValue={employee?.admissao ?? ""}
-                />
-              </label>
+              <ValidatedField
+                id="employeeContract"
+                name="vinculo"
+                label="Tipo de vínculo"
+                placeholder="Efetivo, contrato, comissionado..."
+                defaultValue={employee?.vinculo ?? ""}
+              />
+              <ValidatedField
+                id="employeeWorkload"
+                name="carga_horaria"
+                label="Carga horária"
+                placeholder="40h semanais"
+                defaultValue={employee?.carga_horaria ?? ""}
+              />
+              <ValidatedField
+                id="employeeAdmission"
+                name="admissao"
+                label="Data de admissão"
+                mask="date"
+                placeholder="dd/mm/aaaa"
+                defaultValue={formatDateForInput(employee?.admissao)}
+              />
               <label>
                 Situação funcional
                 <select
@@ -1121,13 +1114,11 @@ function EmployeeDialog({
                   <option>Afastado</option>
                 </select>
               </label>
-              <label>
-                Observação do histórico
-                <input
-                  name="historico_observacao"
-                  placeholder="Opcional ao alterar a situação funcional"
-                />
-              </label>
+              <ValidatedField
+                name="historico_observacao"
+                label="Observação do histórico"
+                placeholder="Opcional ao alterar a situação funcional"
+              />
             </div>
           </fieldset>
 
@@ -1137,26 +1128,24 @@ function EmployeeDialog({
               Contato e observações
             </legend>
             <div className="section-grid">
-              <label>
-                Telefone
-                <input
-                  id="employeePhone"
-                  name="telefone"
-                  inputMode="tel"
-                  autoComplete="tel"
-                  defaultValue={employee?.telefone ?? ""}
-                />
-              </label>
-              <label>
-                E-mail
-                <input
-                  id="employeeEmail"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  defaultValue={employee?.email ?? ""}
-                />
-              </label>
+              <ValidatedField
+                id="employeePhone"
+                name="telefone"
+                label="Telefone"
+                mask="phone"
+                placeholder="(21) 00000-0000"
+                autoComplete="tel"
+                defaultValue={employee?.telefone ?? ""}
+              />
+              <ValidatedField
+                id="employeeEmail"
+                name="email"
+                label="E-mail"
+                mask="email"
+                placeholder="nome@exemplo.com"
+                autoComplete="email"
+                defaultValue={employee?.email ?? ""}
+              />
               <label className="field-wide">
                 Observações
                 <textarea
@@ -1347,16 +1336,15 @@ function UnitDialog({ unit }: { unit: UnidadeRow | null }) {
               </div>
               <input type="hidden" id="unitId" name="id" value={unit?.id ?? ""} />
               <div className="form-grid">
-                <label className="full-width">
-                  Nome da unidade <span aria-hidden="true">*</span>
-                  <input
-                    id="unitName"
-                    name="nome"
-                    required
-                    placeholder="Digite o nome da unidade"
-                    defaultValue={unit?.nome ?? ""}
-                  />
-                </label>
+                <ValidatedField
+                  id="unitName"
+                  name="nome"
+                  label="Nome da unidade"
+                  fieldClassName="full-width"
+                  required
+                  placeholder="Digite o nome da unidade"
+                  defaultValue={unit?.nome ?? ""}
+                />
                 <label>
                   Tipo <span aria-hidden="true">*</span>
                   <select
@@ -1395,34 +1383,29 @@ function UnitDialog({ unit }: { unit: UnidadeRow | null }) {
                 <h3>Contato e localização</h3>
               </div>
               <div className="form-grid">
-                <label className="full-width">
-                  Endereço
-                  <input
-                    id="unitAddress"
-                    name="endereco"
-                    placeholder="Informe o endereço da unidade"
-                    defaultValue={unit?.endereco ?? ""}
-                  />
-                </label>
-                <label>
-                  Coordenador
-                  <input
-                    id="unitCoordinator"
-                    name="coordenador"
-                    placeholder="Nome do coordenador"
-                    defaultValue={unit?.coordenador ?? ""}
-                  />
-                </label>
-                <label>
-                  Telefone
-                  <input
-                    id="unitPhone"
-                    name="telefone"
-                    type="tel"
-                    placeholder="(21) 00000-0000"
-                    defaultValue={unit?.telefone ?? ""}
-                  />
-                </label>
+                <ValidatedField
+                  id="unitAddress"
+                  name="endereco"
+                  label="Endereço"
+                  fieldClassName="full-width"
+                  placeholder="Informe o endereço da unidade"
+                  defaultValue={unit?.endereco ?? ""}
+                />
+                <ValidatedField
+                  id="unitCoordinator"
+                  name="coordenador"
+                  label="Coordenador"
+                  placeholder="Nome do coordenador"
+                  defaultValue={unit?.coordenador ?? ""}
+                />
+                <ValidatedField
+                  id="unitPhone"
+                  name="telefone"
+                  label="Telefone"
+                  mask="phone"
+                  placeholder="(21) 00000-0000"
+                  defaultValue={unit?.telefone ?? ""}
+                />
               </div>
             </section>
 
@@ -1488,7 +1471,10 @@ function UnitDetailsDialog({
             label="Coordenador"
             value={unit.coordenador || "Sem coordenador"}
           />
-          <UnitDetailItem label="Telefone" value={unit.telefone || "Sem telefone"} />
+          <UnitDetailItem
+            label="Telefone"
+            value={formatPhoneForDisplay(unit.telefone) || "Sem telefone"}
+          />
           <UnitDetailItem
             label="Endereço"
             value={unit.endereco || "Endereço não informado"}
@@ -1709,51 +1695,45 @@ function UserDialog({
                 <input type="hidden" name="confirm_self_change" value="true" />
               ) : null}
               <div className="form-grid">
-                <label>
-                  Nome completo <span aria-hidden="true">*</span>
-                  <input
-                    name="full_name"
-                    required
-                    placeholder="Digite o nome completo"
-                    defaultValue={user?.full_name ?? ""}
-                    autoComplete="name"
-                  />
-                </label>
-                <label>
-                  E-mail <span aria-hidden="true">*</span>
-                  <input
-                    name="email"
-                    type="email"
-                    required
-                    placeholder="usuario@semasc.gov.br"
-                    defaultValue={user?.email ?? ""}
-                    autoComplete="email"
-                  />
-                </label>
+                <ValidatedField
+                  name="full_name"
+                  label="Nome completo"
+                  required
+                  placeholder="Digite o nome completo"
+                  defaultValue={user?.full_name ?? ""}
+                  autoComplete="name"
+                />
+                <ValidatedField
+                  name="email"
+                  label="E-mail"
+                  mask="email"
+                  required
+                  placeholder="usuario@semasc.gov.br"
+                  defaultValue={user?.email ?? ""}
+                  autoComplete="email"
+                />
                 {!isEditing ? (
                   <>
-                    <label>
-                      Senha temporária <span aria-hidden="true">*</span>
-                      <input
-                        name="password"
-                        type="password"
-                        minLength={6}
-                        required
-                        placeholder="Mínimo de 6 caracteres"
-                        autoComplete="new-password"
-                      />
-                    </label>
-                    <label>
-                      Confirmar senha <span aria-hidden="true">*</span>
-                      <input
-                        name="password_confirmation"
-                        type="password"
-                        minLength={6}
-                        required
-                        placeholder="Repita a senha temporária"
-                        autoComplete="new-password"
-                      />
-                    </label>
+                    <ValidatedField
+                      name="password"
+                      label="Senha temporária"
+                      type="password"
+                      minLength={6}
+                      required
+                      placeholder="Mínimo de 6 caracteres"
+                      autoComplete="new-password"
+                    />
+                    <ValidatedField
+                      name="password_confirmation"
+                      label="Confirmar senha"
+                      type="password"
+                      minLength={6}
+                      matchName="password"
+                      matchLabel="Senha temporária"
+                      required
+                      placeholder="Repita a senha temporária"
+                      autoComplete="new-password"
+                    />
                   </>
                 ) : null}
               </div>
@@ -2089,28 +2069,26 @@ function PasswordChangeDialog({ user }: { user: ProfileListItem }) {
           </div>
         </div>
         <div className="form-grid password-change-grid">
-          <label>
-            Nova senha <span aria-hidden="true">*</span>
-            <input
-              name="password"
-              type="password"
-              minLength={6}
-              required
-              placeholder="Mínimo de 6 caracteres"
-              autoComplete="new-password"
-            />
-          </label>
-          <label>
-            Confirmar senha <span aria-hidden="true">*</span>
-            <input
-              name="password_confirmation"
-              type="password"
-              minLength={6}
-              required
-              placeholder="Repita a nova senha"
-              autoComplete="new-password"
-            />
-          </label>
+          <ValidatedField
+            name="password"
+            label="Nova senha"
+            type="password"
+            minLength={6}
+            required
+            placeholder="Mínimo de 6 caracteres"
+            autoComplete="new-password"
+          />
+          <ValidatedField
+            name="password_confirmation"
+            label="Confirmar senha"
+            type="password"
+            minLength={6}
+            matchName="password"
+            matchLabel="Nova senha"
+            required
+            placeholder="Repita a nova senha"
+            autoComplete="new-password"
+          />
         </div>
         <div className="self-access-warning">
           <Info size={18} aria-hidden="true" />

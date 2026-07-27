@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { DocumentLink as Link } from "@/components/funcionarios/document-link";
 import { UnitActionsMenu } from "@/components/funcionarios/unit-actions-menu";
+import { formatPhoneForDisplay } from "@/lib/forms/masks";
 import type {
   FuncionarioListItem,
   UnidadeRow,
@@ -436,7 +437,7 @@ function UnitCard({
         </span>
         <span>
           <strong>Contato</strong>
-          {unit.telefone || "Sem telefone"}
+          {formatPhoneForDisplay(unit.telefone) || "Sem telefone"}
         </span>
         <span>
           <strong>Situação</strong>

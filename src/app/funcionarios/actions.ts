@@ -3,6 +3,17 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth/session";
+import {
+  cleanObservationText,
+  dateToDatabase,
+  isValidEmail as isValidMaskedEmail,
+  looksLikeImportedDateText,
+  maskEmail,
+  normalizeWhitespace,
+  sanitizeCpfForDatabase,
+  sanitizeEmailForDatabase,
+  sanitizePhoneForDatabase,
+} from "@/lib/forms/masks";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { Database, Json, UserRole } from "@/types/database.types";
@@ -49,7 +60,7 @@ export async function createUserAction(formData: FormData) {
     redirectUsersNotice("config-admin-ausente");
   }
 
-  const fullName = readString(formData, "full_name");
+  const fullName = readText(formData, "full_name");
   const email = normalizeEmail(readString(formData, "email"));
   const password = readString(formData, "password");
   const passwordConfirmation = readString(formData, "password_confirmation");
@@ -119,7 +130,7 @@ export async function updateUserAction(formData: FormData) {
   const { user, profile } = await requireActiveProfile();
   const supabase = await requireSupabase();
   const id = readString(formData, "id");
-  const fullName = readString(formData, "full_name");
+  const fullName = readText(formData, "full_name");
   const email = normalizeEmail(readString(formData, "email"));
   const role = readUserRole(formData);
   const isActive = readUserActive(formData);
@@ -695,11 +706,11 @@ function employeeSaveNotice(
 }
 
 function normalizeEmail(value: string) {
-  return value.trim().toLowerCase();
+  return maskEmail(value).trim().toLowerCase();
 }
 
 function isValidEmail(value: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  return isValidMaskedEmail(value);
 }
 
 function isDuplicateAuthError(message = "") {
@@ -715,29 +726,34 @@ function redirectUsersNotice(code: string): never {
 }
 
 function funcionarioPayload(formData: FormData, userId: string): FuncionarioPayload {
-  const cpf = readNullableString(formData, "cpf");
+  const rawCpf = readNullableString(formData, "cpf");
+  const cpf = rawCpf ? sanitizeCpfForDatabase(rawCpf) : null;
   const status = readNullableString(formData, "status") ?? "Ativo";
 
+  if (rawCpf && !cpf) {
+    redirect("/funcionarios?view=employees&notice=dados-funcionario-invalidos");
+  }
+
   return {
-    nome: readString(formData, "nome"),
+    nome: readText(formData, "nome"),
     cpf,
-    cpf_normalized: normalizeCpf(cpf),
-    nascimento: readNullableString(formData, "nascimento"),
-    cargo: readNullableString(formData, "cargo"),
-    setor: readNullableString(formData, "setor"),
-    escolaridade: readNullableString(formData, "escolaridade"),
+    cpf_normalized: cpf,
+    nascimento: readEmployeeDate(formData, "nascimento", { noFuture: true }),
+    cargo: readNullableText(formData, "cargo"),
+    setor: readNullableText(formData, "setor"),
+    escolaridade: readNullableText(formData, "escolaridade"),
     unidade_id: readNullableString(formData, "unidade_id"),
-    vinculo: readNullableString(formData, "vinculo"),
-    carga_horaria: readNullableString(formData, "carga_horaria"),
-    telefone: readNullableString(formData, "telefone"),
-    email: readNullableString(formData, "email"),
-    admissao: readNullableString(formData, "admissao"),
+    vinculo: readNullableText(formData, "vinculo"),
+    carga_horaria: readNullableText(formData, "carga_horaria"),
+    telefone: readEmployeePhone(formData, "telefone"),
+    email: readEmployeeEmail(formData, "email"),
+    admissao: readEmployeeDate(formData, "admissao"),
     data_exoneracao:
       status === "Exonerado"
-        ? readNullableString(formData, "data_exoneracao")
+        ? readEmployeeDate(formData, "data_exoneracao")
         : null,
     status,
-    observacoes: readNullableString(formData, "observacoes"),
+    observacoes: cleanObservationText(readNullableText(formData, "observacoes")),
     updated_by: userId,
   };
 }
@@ -746,12 +762,12 @@ function unidadePayload(formData: FormData, userId: string): UnidadePayload {
   const status = readString(formData, "status");
 
   return {
-    nome: readString(formData, "nome"),
-    tipo: readString(formData, "tipo"),
+    nome: readText(formData, "nome"),
+    tipo: readText(formData, "tipo"),
     status: status === "inativa" ? "inativa" : "ativa",
-    endereco: readNullableString(formData, "endereco"),
-    coordenador: readNullableString(formData, "coordenador"),
-    telefone: readNullableString(formData, "telefone"),
+    endereco: readNullableText(formData, "endereco"),
+    coordenador: readNullableText(formData, "coordenador"),
+    telefone: readUnitPhone(formData, "telefone"),
     updated_by: userId,
   };
 }
@@ -765,7 +781,63 @@ function readNullableString(formData: FormData, key: string) {
   return value || null;
 }
 
-function normalizeCpf(value: string | null) {
-  const normalized = String(value ?? "").replace(/\D/g, "");
-  return normalized || null;
+function readText(formData: FormData, key: string) {
+  return normalizeWhitespace(readString(formData, key));
+}
+
+function readNullableText(formData: FormData, key: string) {
+  const value = readText(formData, key);
+  return value || null;
+}
+
+function readEmployeeDate(
+  formData: FormData,
+  key: string,
+  options: { noFuture?: boolean } = {},
+) {
+  const value = readNullableString(formData, key);
+  if (!value) return null;
+
+  const normalized = dateToDatabase(value, options);
+  if (!normalized) {
+    redirect("/funcionarios?view=employees&notice=dados-funcionario-invalidos");
+  }
+
+  return normalized;
+}
+
+function readEmployeePhone(formData: FormData, key: string) {
+  const value = readNullableString(formData, key);
+  if (!value) return null;
+
+  const normalized = sanitizePhoneForDatabase(value);
+  if (!normalized && !looksLikeImportedDateText(value)) {
+    redirect("/funcionarios?view=employees&notice=dados-funcionario-invalidos");
+  }
+
+  return normalized;
+}
+
+function readUnitPhone(formData: FormData, key: string) {
+  const value = readNullableString(formData, key);
+  if (!value) return null;
+
+  const normalized = sanitizePhoneForDatabase(value);
+  if (!normalized && !looksLikeImportedDateText(value)) {
+    redirect("/funcionarios?view=units&notice=erro-salvar-unidade");
+  }
+
+  return normalized;
+}
+
+function readEmployeeEmail(formData: FormData, key: string) {
+  const value = readNullableString(formData, key);
+  if (!value) return null;
+
+  const normalized = sanitizeEmailForDatabase(value);
+  if (!normalized) {
+    redirect("/funcionarios?view=employees&notice=dados-funcionario-invalidos");
+  }
+
+  return normalized;
 }

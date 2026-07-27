@@ -3797,6 +3797,91 @@ a.logout-button {
   font-weight: 800;
 }
 
+.validated-field {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  min-width: 0;
+}
+
+.validated-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.validated-label-row {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  color: #2f4568;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.validated-required {
+  color: #d92d20;
+}
+
+.validated-control {
+  position: relative;
+  display: block;
+}
+
+.validated-control input {
+  width: 100%;
+  margin-top: 0 !important;
+  padding-right: 42px;
+}
+
+.validated-status-icon {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition:
+    color 160ms ease,
+    opacity 160ms ease;
+}
+
+.validated-status-icon.valid {
+  color: #0f9f65;
+}
+
+.validated-status-icon.invalid {
+  color: #d92d20;
+}
+
+.validated-field.is-valid .validated-status-icon.valid,
+.validated-field.is-invalid .validated-status-icon.invalid {
+  opacity: 1;
+}
+
+.validated-field.is-valid input {
+  border-color: #26a269 !important;
+  box-shadow: 0 0 0 3px rgba(38, 162, 105, 0.13);
+}
+
+.validated-field.is-invalid input {
+  border-color: #d92d20 !important;
+  box-shadow: 0 0 0 3px rgba(217, 45, 32, 0.13);
+}
+
+.validated-message {
+  min-height: 18px;
+  color: #c92a2a;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.validated-field[data-validation-state="valid"] .validated-message {
+  color: #0f7b51;
+}
+
 #employeeDialog input,
 #employeeDialog select,
 #employeeDialog textarea {
@@ -8917,4 +9002,77 @@ button,
   .login-network-art circle {
     opacity: 1;
   }
+}
+
+#employeeDialog .form-section,
+#unitDialog .unit-form-section,
+#userDialog .user-form-section {
+  border-color: #dbe7f6;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 14px 34px rgba(8, 39, 85, 0.07);
+}
+
+#employeeDialog .form-section legend,
+#unitDialog .unit-form-section legend,
+#userDialog .user-form-section legend {
+  color: #102d5d;
+  font-weight: 600;
+}
+
+#employeeDialog label,
+#unitDialog label,
+#userDialog label,
+#passwordChangeDialog label,
+#employeeDialog .validated-label-row,
+#unitDialog .validated-label-row,
+#userDialog .validated-label-row,
+#passwordChangeDialog .validated-label-row {
+  color: #334766;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+#employeeDialog input,
+#employeeDialog select,
+#employeeDialog textarea,
+#unitDialog input,
+#unitDialog select,
+#userDialog input,
+#passwordChangeDialog input {
+  color: #102d5d;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+#employeeDialog input::placeholder,
+#employeeDialog textarea::placeholder,
+#unitDialog input::placeholder,
+#userDialog input::placeholder,
+#passwordChangeDialog input::placeholder {
+  color: #8797ae;
+  font-weight: 400;
+}
+
+.employee-modal-rail p,
+.unit-modal-rail p,
+.user-modal-rail p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.employee-modal-rail .rail-note,
+.unit-modal-rail .rail-note,
+.user-modal-rail .rail-note {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.employee-modal-rail .rail-note span,
+.unit-modal-rail .rail-note span,
+.user-modal-rail .rail-note span {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.validated-field.is-valid input:focus,
+.validated-field.is-invalid input:focus {
+  outline: none;
 }
