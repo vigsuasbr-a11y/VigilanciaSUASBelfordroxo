@@ -51,6 +51,12 @@ export function PublicacoesNewsClient({ news, categories }: PublicacoesNewsClien
     });
   }, [news, searchTerm, selectedCategory]);
 
+  const mainCategories = categories.slice(0, 9);
+  const extraCategories = categories.slice(9);
+  const selectedExtraCategory =
+    selectedCategory !== "Todas" && !mainCategories.includes(selectedCategory)
+      ? selectedCategory
+      : "";
   const featuredNews = news.find((item) => item.featured) ?? news[0];
   const selectedNews = news.find((item) => item.slug === selectedSlug) ?? null;
   const selectedIndex = selectedNews
@@ -155,8 +161,8 @@ export function PublicacoesNewsClient({ news, categories }: PublicacoesNewsClien
 
       <section className="bg-white py-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-lg border border-[#dbe5f1] bg-[#f8fbff] p-4 shadow-sm">
-            <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div className="rounded-lg border border-[#dbe5f1] bg-white p-4 shadow-sm">
+            <div className="grid gap-3 lg:grid-cols-[minmax(280px,0.42fr)_minmax(0,1fr)] lg:items-center">
               <label className="relative block">
                 <span className="sr-only">Buscar notícia</span>
                 <Search className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-[#074fb8]" />
@@ -168,8 +174,8 @@ export function PublicacoesNewsClient({ news, categories }: PublicacoesNewsClien
                 />
               </label>
 
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
+              <div className="flex min-w-0 flex-wrap items-center gap-2">
+                {mainCategories.map((category) => (
                   <button
                     key={category}
                     type="button"
@@ -184,6 +190,30 @@ export function PublicacoesNewsClient({ news, categories }: PublicacoesNewsClien
                     {category}
                   </button>
                 ))}
+                {extraCategories.length ? (
+                  <label className="relative">
+                    <span className="sr-only">Outras categorias</span>
+                    <select
+                      value={selectedExtraCategory}
+                      onChange={(event) => {
+                        setSelectedCategory(event.target.value || "Todas");
+                      }}
+                      className={cn(
+                        "h-9 rounded-full border bg-white px-3 pr-8 text-xs font-semibold text-[#38506f] outline-none transition focus:border-[#0a84ff] focus:ring-4 focus:ring-blue-100",
+                        selectedExtraCategory
+                          ? "border-[#074fb8] bg-[#074fb8] text-white"
+                          : "border-[#cfe0f4] hover:border-[#0a84ff] hover:text-[#074fb8]",
+                      )}
+                    >
+                      <option value="">Mais categorias</option>
+                      {extraCategories.map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                ) : null}
               </div>
             </div>
           </div>

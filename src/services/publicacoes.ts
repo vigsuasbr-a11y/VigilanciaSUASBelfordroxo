@@ -342,9 +342,6 @@ function buildPublicationCategories(news: PublicationNews[]) {
 
   for (const item of news) {
     categories.add(item.category);
-    for (const tag of item.tags) {
-      categories.add(tag);
-    }
   }
 
   return ["Todas", ...Array.from(categories).filter((item) => item !== "Todas").sort((a, b) => a.localeCompare(b, "pt-BR"))];
