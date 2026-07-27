@@ -58,6 +58,7 @@ export function PublicacoesNewsClient({ news, categories }: PublicacoesNewsClien
       ? selectedCategory
       : "";
   const featuredNews = news.find((item) => item.featured) ?? news[0];
+  const featuredSummary = featuredNews ? getCardSummary(featuredNews.excerpt, 240) : "";
   const selectedNews = news.find((item) => item.slug === selectedSlug) ?? null;
   const selectedIndex = selectedNews
     ? news.findIndex((item) => item.slug === selectedNews.slug)
@@ -126,7 +127,8 @@ export function PublicacoesNewsClient({ news, categories }: PublicacoesNewsClien
               type="button"
               data-testid="featured-news-open"
               onClick={() => setSelectedSlug(featuredNews.slug)}
-              className="group mt-8 grid w-full overflow-hidden rounded-lg border border-[#cfe0f4] bg-white text-left shadow-[0_18px_42px_rgba(8,39,85,0.10)] transition hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(8,39,85,0.14)] lg:grid-cols-[1.05fr_0.95fr]"
+              className="group mt-8 grid w-full cursor-pointer overflow-hidden rounded-lg border border-[#cfe0f4] bg-white text-left shadow-[0_18px_42px_rgba(8,39,85,0.10)] transition duration-200 hover:-translate-y-1 hover:border-[#91bdf0] hover:bg-[#fbfdff] hover:shadow-[0_22px_50px_rgba(8,39,85,0.14)] focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-100 lg:grid-cols-[1.05fr_0.95fr]"
+              aria-label={`Abrir notícia: ${featuredNews.title}`}
             >
               <span className="relative block min-h-[280px] overflow-hidden bg-[#06285f]">
                 <Image
@@ -147,7 +149,7 @@ export function PublicacoesNewsClient({ news, categories }: PublicacoesNewsClien
                   {featuredNews.title}
                 </strong>
                 <span className="mt-4 block text-sm leading-6 text-[#60708a]">
-                  {featuredNews.excerpt}
+                  {featuredSummary}
                 </span>
                 <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#074fb8]">
                   Abrir leitura
@@ -264,15 +266,18 @@ function Metric({ value, label }: { value: string | number; label: string }) {
 }
 
 function NewsCard({ item, onOpen }: { item: PublicationNews; onOpen: () => void }) {
+  const summary = getCardSummary(item.excerpt, 165);
+
   return (
-    <article className="group overflow-hidden rounded-lg border border-[#dbe5f1] bg-white shadow-sm transition hover:-translate-y-1 hover:border-[#bcd5f4] hover:shadow-[0_18px_38px_rgba(8,39,85,0.12)]">
+    <article className="group h-full overflow-hidden rounded-lg border border-[#dbe5f1] bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[#91bdf0] hover:bg-[#fbfdff] hover:shadow-[0_18px_38px_rgba(8,39,85,0.12)]">
       <button
         type="button"
         data-testid={`news-card-${item.slug}`}
         onClick={onOpen}
-        className="block w-full text-left"
+        className="flex h-full w-full cursor-pointer flex-col text-left outline-none transition focus-visible:ring-4 focus-visible:ring-blue-100"
+        aria-label={`Abrir notícia: ${item.title}`}
       >
-        <span className="relative block aspect-[16/10] overflow-hidden bg-[#06285f]">
+        <span className="relative block aspect-[16/10] max-h-56 min-h-44 overflow-hidden bg-[#06285f]">
           <Image
             src={item.image}
             alt={item.imageAlt}
@@ -284,15 +289,15 @@ function NewsCard({ item, onOpen }: { item: PublicationNews; onOpen: () => void 
             {item.category}
           </span>
         </span>
-        <span className="block p-5">
+        <span className="flex flex-1 flex-col p-5">
           <NewsMeta item={item} />
-          <strong className="mt-3 line-clamp-3 block text-base font-semibold leading-snug text-[#06285f]">
+          <strong className="news-card-title mt-3 block text-base font-semibold leading-snug text-[#06285f] transition group-hover:text-[#074fb8]">
             {item.title}
           </strong>
-          <span className="mt-3 line-clamp-3 block text-sm leading-6 text-[#60708a]">
-            {item.excerpt}
+          <span className="news-card-summary mt-3 block min-h-[72px] text-sm leading-6 text-[#60708a]">
+            {summary}
           </span>
-          <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#074fb8]">
+          <span className="mt-auto inline-flex items-center gap-2 pt-4 text-sm font-semibold text-[#074fb8]">
             Ler notícia
             <ArrowRight className="size-4 transition group-hover:translate-x-1" aria-hidden="true" />
           </span>
@@ -470,4 +475,18 @@ function normalize(value: string) {
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .trim();
+}
+
+function getCardSummary(value: string, maxLength: number) {
+  const normalized = value.replace(/\s+/g, " ").trim();
+
+  if (normalized.length <= maxLength) {
+    return normalized;
+  }
+
+  const truncated = normalized.slice(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(" ");
+  const end = lastSpace > Math.floor(maxLength * 0.72) ? lastSpace : maxLength;
+
+  return `${truncated.slice(0, end).trim()}...`;
 }

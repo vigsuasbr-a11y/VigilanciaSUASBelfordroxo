@@ -346,6 +346,21 @@ html.portal-route-pending .portal-page-shell {
   animation-delay: calc(360ms + var(--project-point-delay, 0ms));
 }
 
+.news-card-title,
+.news-card-summary {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+.news-card-title {
+  -webkit-line-clamp: 2;
+}
+
+.news-card-summary {
+  -webkit-line-clamp: 3;
+}
+
 .nav-active-line {
   transform: scaleX(0);
   transform-origin: left center;
