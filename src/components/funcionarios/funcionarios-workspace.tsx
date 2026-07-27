@@ -48,6 +48,7 @@ import { DocumentLink as Link } from "@/components/funcionarios/document-link";
 import { EmployeeActionsMenu } from "@/components/funcionarios/employee-actions-menu";
 import { HeaderClock } from "@/components/funcionarios/header-clock";
 import { MobileMenuControls } from "@/components/funcionarios/mobile-menu-controls";
+import { NoticeToast } from "@/components/funcionarios/notice-toast";
 import { PageSizeForm } from "@/components/funcionarios/page-size-form";
 import { PendingSubmitButton } from "@/components/funcionarios/pending-submit-button";
 import { UnitsClientView } from "@/components/funcionarios/units-client-view";
@@ -79,6 +80,7 @@ type FuncionariosWorkspaceProps = {
   activeView: ViewName;
   profile: NonNullable<CurrentProfile>;
   notice: string;
+  noticeCode: string;
   dialog: DialogState;
 };
 
@@ -136,6 +138,7 @@ export function FuncionariosWorkspace({
   activeView,
   profile,
   notice,
+  noticeCode,
   dialog,
 }: FuncionariosWorkspaceProps) {
   const isAdmin = profile.role === "administrador";
@@ -151,6 +154,7 @@ export function FuncionariosWorkspace({
     dialog.user?.role === "administrador" &&
     dialog.user.is_active &&
     activeAdminCount <= 1;
+  const toastNotice = employeeSuccessNotice(noticeCode, notice);
   const primaryAction =
     currentView === "units"
       ? isAdmin
@@ -289,7 +293,11 @@ export function FuncionariosWorkspace({
             </div>
           </header>
 
-          {notice ? (
+          {toastNotice ? (
+            <NoticeToast title={toastNotice.title} message={toastNotice.message} />
+          ) : null}
+
+          {notice && !toastNotice ? (
             <div className="system-notice" role="status" aria-live="polite">
               {notice}
             </div>
@@ -2596,6 +2604,17 @@ function formatLastUpdated(date: Date) {
     hour: "2-digit",
     minute: "2-digit",
   });
+}
+
+function employeeSuccessNotice(code: string, message: string) {
+  const titles: Record<string, string> = {
+    "funcionario-criado": "Funcionário cadastrado",
+    "funcionario-atualizado": "Alterações salvas",
+    "funcionario-salvo": "Funcionário salvo",
+  };
+
+  const title = titles[code];
+  return title && message ? { title, message } : null;
 }
 
 function formatStatusLabel(status: string | null) {

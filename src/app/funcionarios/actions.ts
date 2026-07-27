@@ -327,6 +327,7 @@ export async function saveFuncionarioAction(formData: FormData) {
   const { user, profile } = await requireActiveProfile();
   const supabase = await requireSupabase();
   const id = readString(formData, "id");
+  const isEditing = Boolean(id);
   const data = funcionarioPayload(formData, user.id);
 
   if (!canManageFuncionarios(profile.role)) {
@@ -337,7 +338,7 @@ export async function saveFuncionarioAction(formData: FormData) {
     redirect("/funcionarios?view=employees&notice=nome-obrigatorio");
   }
 
-  if (id) {
+  if (isEditing) {
     const { data: current, error: currentError } = await supabase
       .from("funcionarios")
       .select("id,status,legacy_id")
@@ -425,7 +426,11 @@ export async function saveFuncionarioAction(formData: FormData) {
   }
 
   revalidatePath("/funcionarios");
-  redirect("/funcionarios?view=employees&notice=funcionario-salvo");
+  redirect(
+    `/funcionarios?view=employees&notice=${
+      isEditing ? "funcionario-atualizado" : "funcionario-criado"
+    }`,
+  );
 }
 
 export async function softDeleteFuncionarioAction(formData: FormData) {

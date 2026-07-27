@@ -49,6 +49,7 @@ export default async function FuncionariosPage({
   const employeeId = readParam(params?.id);
   const unitId = readParam(params?.unitId);
   const userId = readParam(params?.userId);
+  const noticeCode = readParam(params?.notice);
   const activeView = validViews.includes(requestedView as ViewName)
     ? (requestedView as ViewName)
     : "dashboard";
@@ -73,7 +74,8 @@ export default async function FuncionariosPage({
       filters={filters}
       activeView={activeView}
       profile={profile}
-      notice={noticeMessage(readParam(params?.notice))}
+      notice={noticeMessage(noticeCode)}
+      noticeCode={noticeCode}
       dialog={{
         kind: dialogKind(modal, selectedEmployee, selectedUnit, selectedProfile),
         employee: selectedEmployee,
@@ -126,6 +128,8 @@ function dialogKind(
 
 function noticeMessage(code: string) {
   const messages: Record<string, string> = {
+    "funcionario-criado": "Funcionário cadastrado com sucesso.",
+    "funcionario-atualizado": "Funcionário modificado com sucesso.",
     "funcionario-salvo": "Funcionário salvo com sucesso.",
     "funcionario-excluido": "Funcionário arquivado e removido da lista ativa.",
     "funcionario-nao-encontrado": "Funcionário não encontrado.",
