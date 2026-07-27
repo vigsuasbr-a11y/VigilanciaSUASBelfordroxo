@@ -9720,7 +9720,36 @@ button,
 }
 
 .publications-admin-heading {
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.publications-admin-heading > div {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+.publications-admin-heading .panel-kicker {
+  display: inline-flex;
+  margin: 0;
+}
+
+.publications-admin-heading h2 {
+  margin: 0;
+  color: #06285f;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.publications-admin-hero .primary-action {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  align-self: center;
+  gap: 8px;
+  min-width: 148px;
 }
 
 .publication-count-pill {
@@ -9819,6 +9848,14 @@ button,
   background: #ffe4e8;
 }
 
+.publication-origin {
+  padding: 3px 9px;
+  color: #075bd8 !important;
+  border-radius: 8px;
+  background: #eaf4ff;
+  font-weight: 600;
+}
+
 .publication-admin-content h3 {
   margin: 0;
   color: #08285c;
@@ -9847,6 +9884,29 @@ button,
   display: flex;
   align-items: center;
   gap: 8px;
+  justify-content: flex-end;
+}
+
+.publication-admin-actions .secondary-action,
+.publication-modal-actions .secondary-action,
+.confirm-modal .secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  border: 1px solid #cfe0f4;
+  color: #0b4ea2;
+  background: #fff;
+  box-shadow: none;
+}
+
+.publication-admin-actions .secondary-action:hover,
+.publication-modal-actions .secondary-action:hover,
+.confirm-modal .secondary-action:hover {
+  color: #063a84;
+  border-color: #9fc7f4;
+  background: #f5f9ff;
 }
 
 .danger-outline-action,
@@ -10094,12 +10154,17 @@ button,
 
 .publication-modal-actions {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
 
 .publication-modal-actions .primary-action,
 .publication-modal-actions .secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   min-width: 180px;
 }
 

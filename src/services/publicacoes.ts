@@ -34,15 +34,18 @@ const publicationsIndexPath = "news.json";
 
 export async function getPortalPublicationNews() {
   const managed = await readManagedPublications();
-  const published = managed.filter((item) => item.status === "publicado");
   const bySlug = new Map<string, PublicationNews>();
 
   for (const item of publicationNews) {
     bySlug.set(item.slug, item);
   }
 
-  for (const item of published) {
-    bySlug.set(item.slug, toPublicationNews(item));
+  for (const item of managed) {
+    if (item.status === "publicado") {
+      bySlug.set(item.slug, toPublicationNews(item));
+    } else {
+      bySlug.delete(item.slug);
+    }
   }
 
   const news = Array.from(bySlug.values()).sort(sortNewsByDate);
@@ -53,22 +56,32 @@ export async function getPortalPublicationNews() {
 }
 
 export async function getManagedPublications() {
-  return readManagedPublications();
+  const managed = await readManagedPublications();
+  return mergeEditablePublications(managed);
 }
 
 export async function saveManagedPublication(input: PublicationInput) {
   const now = new Date().toISOString();
   const records = await readManagedPublications({ ensureBucket: true });
-  const originalSlug = input.originalSlug?.trim();
+  const originalSlug = input.originalSlug ? slugify(input.originalSlug) : "";
   const existingIndex = originalSlug
     ? records.findIndex((item) => item.slug === originalSlug)
     : -1;
-  const existing = existingIndex >= 0 ? records[existingIndex] : null;
-  const slug = createUniqueSlug(
-    input.title,
-    records.map((item) => item.slug),
-    originalSlug,
-  );
+  const staticPublication = originalSlug
+    ? publicationNews.find((item) => item.slug === originalSlug)
+    : null;
+  const existing =
+    existingIndex >= 0
+      ? records[existingIndex]
+      : staticPublication
+        ? toEditablePublication(staticPublication)
+        : null;
+  const slug =
+    originalSlug ||
+    createUniqueSlug(input.title, [
+      ...publicationNews.map((item) => item.slug),
+      ...records.map((item) => item.slug),
+    ]);
 
   const record: ManagedPublication = {
     slug,
@@ -104,7 +117,20 @@ export async function archiveManagedPublication(slug: string, userId: string) {
   const records = await readManagedPublications({ ensureBucket: true });
   const index = records.findIndex((item) => item.slug === slug);
 
-  if (index < 0) return false;
+  if (index < 0) {
+    const staticPublication = publicationNews.find((item) => item.slug === slug);
+    if (!staticPublication) return false;
+
+    records.unshift({
+      ...toEditablePublication(staticPublication),
+      status: "arquivado",
+      updatedAt: new Date().toISOString(),
+      updatedBy: userId,
+    });
+
+    await writeManagedPublications(records);
+    return true;
+  }
 
   records[index] = {
     ...records[index],
@@ -270,9 +296,36 @@ function toPublicationNews(item: ManagedPublication): PublicationNews {
   };
 }
 
-function createUniqueSlug(title: string, slugs: string[], originalSlug?: string) {
+function mergeEditablePublications(managed: ManagedPublication[]) {
+  const bySlug = new Map<string, ManagedPublication>();
+
+  for (const item of publicationNews) {
+    bySlug.set(item.slug, toEditablePublication(item));
+  }
+
+  for (const item of managed) {
+    bySlug.set(item.slug, item);
+  }
+
+  return Array.from(bySlug.values()).sort(sortManagedPublications);
+}
+
+function toEditablePublication(item: PublicationNews): ManagedPublication {
+  const createdAt = `${item.date}T12:00:00.000Z`;
+
+  return {
+    ...item,
+    status: "publicado",
+    createdAt,
+    updatedAt: createdAt,
+    createdBy: null,
+    updatedBy: null,
+  };
+}
+
+function createUniqueSlug(title: string, slugs: string[]) {
   const base = slugify(title);
-  const existing = new Set(slugs.filter((slug) => slug !== originalSlug));
+  const existing = new Set(slugs);
   let slug = base;
   let index = 2;
 
@@ -299,6 +352,14 @@ function buildPublicationCategories(news: PublicationNews[]) {
 
 function sortNewsByDate(a: PublicationNews, b: PublicationNews) {
   return b.date.localeCompare(a.date) || a.title.localeCompare(b.title, "pt-BR");
+}
+
+function sortManagedPublications(a: ManagedPublication, b: ManagedPublication) {
+  return (
+    b.updatedAt.localeCompare(a.updatedAt) ||
+    b.date.localeCompare(a.date) ||
+    a.title.localeCompare(b.title, "pt-BR")
+  );
 }
 
 function cleanText(value: unknown) {

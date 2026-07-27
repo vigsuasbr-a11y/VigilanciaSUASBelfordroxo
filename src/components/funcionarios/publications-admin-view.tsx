@@ -52,8 +52,11 @@ export function PublicationsAdminView({
   const published = publications.filter((item) => item.status === "publicado");
   const drafts = publications.filter((item) => item.status === "rascunho");
   const archived = publications.filter((item) => item.status === "arquivado");
-  const orderedPublications = [...publications].sort((a, b) =>
-    b.updatedAt.localeCompare(a.updatedAt),
+  const orderedPublications = [...publications].sort(
+    (a, b) =>
+      b.date.localeCompare(a.date) ||
+      b.updatedAt.localeCompare(a.updatedAt) ||
+      a.title.localeCompare(b.title, "pt-BR"),
   );
 
   return (
@@ -116,8 +119,8 @@ export function PublicationsAdminView({
             <span className="panel-kicker">Notícias</span>
             <h2>Notícias cadastradas</h2>
             <span>
-              Conteúdos manuais criados pela conta administradora para aparecer
-              no Portal.
+              Conteúdos atuais do Portal e notícias criadas pela conta
+              administradora.
             </span>
           </div>
           <span className="publication-count-pill">
@@ -139,7 +142,7 @@ export function PublicationsAdminView({
             <span className="publication-empty-icon">
               <ImagePlus size={26} aria-hidden="true" />
             </span>
-            <h3>Nenhuma notícia manual cadastrada</h3>
+            <h3>Nenhuma notícia cadastrada</h3>
             <p>
               Clique em Nova notícia para criar o primeiro conteúdo do Portal.
             </p>
@@ -180,6 +183,8 @@ function PublicationAdminCard({
 }: {
   publication: ManagedPublication;
 }) {
+  const isPortalSeed = !publication.createdBy && !publication.updatedBy;
+
   return (
     <article className="publication-admin-card">
       <div className="publication-admin-image">
@@ -196,6 +201,9 @@ function PublicationAdminCard({
           <span className={`publication-status status-${publication.status}`}>
             {statusLabels[publication.status]}
           </span>
+          <span className="publication-origin">
+            {isPortalSeed ? "Portal atual" : "Editada"}
+          </span>
           <span>
             <CalendarDays size={14} aria-hidden="true" />
             {formatPublicationDate(publication.date)}
@@ -207,7 +215,11 @@ function PublicationAdminCard({
         </div>
         <h3>{publication.title}</h3>
         <p>{publication.excerpt}</p>
-        <small>Atualizada em {formatDateTime(publication.updatedAt)}</small>
+        <small>
+          {isPortalSeed
+            ? "Notícia original do Portal"
+            : `Atualizada em ${formatDateTime(publication.updatedAt)}`}
+        </small>
       </div>
       <div className="publication-admin-actions">
         <Link
