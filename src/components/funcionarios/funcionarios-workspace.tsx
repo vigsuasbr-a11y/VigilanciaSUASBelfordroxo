@@ -2096,7 +2096,7 @@ function UserAccessDialog({
 
 function PasswordChangeDialog({ user }: { user: ProfileListItem }) {
   return (
-    <dialog className="modal small-modal user-sensitive-modal" open>
+    <dialog id="passwordChangeDialog" className="modal small-modal user-sensitive-modal" open>
       <form action={updateUserPasswordAction}>
         <div className="modal-header">
           <div>
