@@ -4721,7 +4721,7 @@ a.logout-button {
   }
 
   .topbar-heading {
-    flex-basis: 360px;
+    flex: 0 1 430px;
     gap: 12px;
   }
 
@@ -4741,7 +4741,7 @@ a.logout-button {
   }
 
   .top-actions {
-    flex-basis: 390px;
+    flex: 1 1 610px;
     gap: 9px;
   }
 
@@ -4751,7 +4751,7 @@ a.logout-button {
   }
 
   .top-profile-chip {
-    flex-basis: 226px;
+    flex-basis: 198px;
     min-height: 40px;
     gap: 9px;
     padding: 4px 10px 4px 4px;
@@ -4776,8 +4776,8 @@ a.logout-button {
   }
 
   .header-clock {
-    flex-basis: 224px;
-    min-width: 204px;
+    flex-basis: 158px;
+    min-width: 150px;
   }
 
   .header-clock-icon {
@@ -4796,6 +4796,17 @@ a.logout-button {
 
   .header-clock-time {
     font-size: 0.84rem;
+  }
+
+  .header-clock-weekday,
+  .header-clock-date,
+  .header-clock-full-time {
+    display: none;
+  }
+
+  .header-clock-compact-date,
+  .header-clock-compact-time {
+    display: inline;
   }
 
   #newEmployeeBtn {
