@@ -45,8 +45,8 @@ const portalSearchItems: SearchItem[] = [
     keywords: ["funcionarios", "gestao", "servidor", "login", "sistema"],
   },
   {
-    label: "Publicações e documentos",
-    description: "Relatórios, boletins, orientações técnicas e documentos.",
+    label: "Notícias e documentos",
+    description: "Notícias, relatórios, boletins, orientações técnicas e documentos.",
     href: "/publicacoes",
     keywords: ["publicacoes", "documentos", "relatorios", "boletins", "biblioteca"],
   },

@@ -59,7 +59,7 @@ export function NoticesDevelopmentSection({ notices }: { notices: Notice[] }) {
         <article className="rounded-lg border border-[#dbe5f1] bg-white p-5 shadow-sm">
           <PanelTitle
             icon={<FileText className="size-5" aria-hidden="true" />}
-            title="Publicações em destaque"
+            title="Notícias em destaque"
             href="/publicacoes"
           />
           <div className="mt-3 grid gap-3">

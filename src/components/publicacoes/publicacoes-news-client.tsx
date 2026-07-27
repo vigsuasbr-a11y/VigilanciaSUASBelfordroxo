@@ -100,7 +100,7 @@ export function PublicacoesNewsClient({ news, categories }: PublicacoesNewsClien
                 Jornal da Vigilância
               </span>
               <h1 className="mt-4 max-w-3xl text-[28px] font-semibold leading-[1.2] tracking-[-0.025em] text-[#06285f] sm:text-4xl">
-                Publicações e notícias da Assistência Social de Belford Roxo
+                Notícias da Assistência Social de Belford Roxo
               </h1>
               <p className="mt-3 max-w-2xl text-sm leading-6 text-[#60708a]">
                 Matérias oficiais, registros institucionais e conteúdos da Vigilância

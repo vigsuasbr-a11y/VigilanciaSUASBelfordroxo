@@ -17,6 +17,7 @@ import {
   KeyRound,
   LayoutDashboard,
   LogOut,
+  Newspaper,
   Pencil,
   Plus,
   Save,
@@ -51,6 +52,11 @@ import { MobileMenuControls } from "@/components/funcionarios/mobile-menu-contro
 import { NoticeToast } from "@/components/funcionarios/notice-toast";
 import { PageSizeForm } from "@/components/funcionarios/page-size-form";
 import { PendingSubmitButton } from "@/components/funcionarios/pending-submit-button";
+import {
+  ArchivePublicationDialog,
+  PublicationDialog,
+  PublicationsAdminView,
+} from "@/components/funcionarios/publications-admin-view";
 import { UnitsClientView } from "@/components/funcionarios/units-client-view";
 import { UsersClientView } from "@/components/funcionarios/users-client-view";
 import { ValidatedField } from "@/components/funcionarios/validated-field";
@@ -70,12 +76,21 @@ import type {
   ProfileListItem,
   UnidadeRow,
 } from "@/services/funcionarios";
+import type { ManagedPublication } from "@/services/publicacoes";
 import type { UserRole } from "@/types/database.types";
 
-export type ViewName = "dashboard" | "employees" | "units" | "users" | "reports" | "about";
+export type ViewName =
+  | "dashboard"
+  | "employees"
+  | "units"
+  | "users"
+  | "reports"
+  | "publications"
+  | "about";
 
 type FuncionariosWorkspaceProps = {
   data: FuncionariosWorkspaceData;
+  publications: ManagedPublication[];
   filters: FuncionarioFilters;
   activeView: ViewName;
   profile: NonNullable<CurrentProfile>;
@@ -98,10 +113,13 @@ type DialogState = {
     | "changeUserRole"
     | "deactivateUser"
     | "reactivateUser"
-    | "changePassword";
+    | "changePassword"
+    | "publication"
+    | "archivePublication";
   employee?: FuncionarioListItem | null;
   unit?: UnidadeRow | null;
   user?: ProfileListItem | null;
+  publication?: ManagedPublication | null;
   history?: HistoricoMovimentacaoRow[];
 };
 
@@ -111,6 +129,7 @@ const viewTitles: Record<ViewName, string> = {
   units: "Unidades",
   users: "Usuários e perfis",
   reports: "Relatórios",
+  publications: "Notícias",
   about: "Sobre",
 };
 
@@ -120,6 +139,7 @@ const viewSubtitles: Record<ViewName, string> = {
   units: "Cadastre, consulte e gerencie as unidades da Assistência Social.",
   users: "Gerencie os acessos, perfis e permissões dos usuários do sistema.",
   reports: "Exportação e acompanhamento de relatórios",
+  publications: "Crie, revise e publique notícias do Portal da Vigilância.",
   about: "Informações institucionais do Sistema de Funcionários.",
 };
 
@@ -134,6 +154,7 @@ const roleHelp: Record<UserRole, string> = {
 
 export function FuncionariosWorkspace({
   data,
+  publications,
   filters,
   activeView,
   profile,
@@ -142,7 +163,10 @@ export function FuncionariosWorkspace({
   dialog,
 }: FuncionariosWorkspaceProps) {
   const isAdmin = profile.role === "administrador";
-  const currentView = activeView === "users" && !isAdmin ? "dashboard" : activeView;
+  const currentView =
+    (activeView === "users" || activeView === "publications") && !isAdmin
+      ? "dashboard"
+      : activeView;
   const lastUpdatedLabel = formatLastUpdated(new Date());
   const dialogUnitEmployeeCount = dialog.unit
     ? countEmployeesForUnit(data.employees, dialog.unit.id)
@@ -156,7 +180,15 @@ export function FuncionariosWorkspace({
     activeAdminCount <= 1;
   const toastNotice = employeeSuccessNotice(noticeCode, notice);
   const primaryAction =
-    currentView === "units"
+    currentView === "publications"
+      ? isAdmin
+        ? {
+            href: "/funcionarios?view=publications&modal=publication",
+            label: "Nova notícia",
+            icon: <Newspaper size={18} aria-hidden="true" />,
+          }
+        : null
+      : currentView === "units"
       ? isAdmin
         ? {
             href: "/funcionarios?view=units&modal=unit",
@@ -224,6 +256,11 @@ export function FuncionariosWorkspace({
             <MenuLink view="reports" activeView={currentView}>
               Relatórios
             </MenuLink>
+            {isAdmin ? (
+              <MenuLink view="publications" activeView={currentView}>
+                Notícias
+              </MenuLink>
+            ) : null}
             <MenuLink view="about" activeView={currentView}>
               Sobre
             </MenuLink>
@@ -350,6 +387,16 @@ export function FuncionariosWorkspace({
           </section>
 
           <section
+            id="publicationsView"
+            className={`view${currentView === "publications" ? " active" : ""}`}
+          >
+            <PublicationsAdminView
+              publications={publications}
+              canManage={isAdmin}
+            />
+          </section>
+
+          <section
             id="aboutView"
             className={`view${currentView === "about" ? " active" : ""}`}
           >
@@ -425,6 +472,12 @@ export function FuncionariosWorkspace({
       ) : null}
       {dialog.kind === "changePassword" && dialog.user ? (
         <PasswordChangeDialog user={dialog.user} />
+      ) : null}
+      {isAdmin && dialog.kind === "publication" ? (
+        <PublicationDialog publication={dialog.publication ?? null} />
+      ) : null}
+      {isAdmin && dialog.kind === "archivePublication" && dialog.publication ? (
+        <ArchivePublicationDialog publication={dialog.publication} />
       ) : null}
     </>
   );
@@ -2400,6 +2453,7 @@ const menuIcons: Record<ViewName, LucideIcon> = {
   units: Building2,
   users: Users,
   reports: FileText,
+  publications: Newspaper,
   about: Info,
 };
 

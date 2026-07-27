@@ -57,7 +57,7 @@ export function SiteFooter() {
             </li>
             <li>
               <Link href="/publicacoes" className="hover:text-white">
-                Publicações
+                Notícias
               </Link>
             </li>
             <li>

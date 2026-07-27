@@ -5,7 +5,7 @@ export const projectContent = {
   noticeText:
     "O Portal da Vigilância Socioassistencial foi idealizado e desenvolvido por Alessandro Araújo como iniciativa voltada à modernização da gestão, à organização das informações e ao fortalecimento da Vigilância Socioassistencial.",
   noticeComplement:
-    "Reúne conteúdos, indicadores, publicações e sistemas utilizados pela equipe.",
+    "Reúne conteúdos, indicadores, notícias e sistemas utilizados pela equipe.",
   noticePrimaryAction: "Conhecer o projeto",
   noticeSecondaryAction: "Fechar",
   pageTitle: "Sobre o projeto",
@@ -13,7 +13,7 @@ export const projectContent = {
     "Tecnologia e informação a serviço da Vigilância Socioassistencial.",
   heroTitle: "Uma iniciativa para apoiar a gestão pública",
   heroText:
-    "O Portal da Vigilância Socioassistencial foi idealizado e desenvolvido para reunir informações, serviços, publicações e acessos importantes em um ambiente organizado, moderno e acessível.",
+    "O Portal da Vigilância Socioassistencial foi idealizado e desenvolvido para reunir informações, serviços, notícias e acessos importantes em um ambiente organizado, moderno e acessível.",
   howItStarted: [
     "O projeto surgiu da necessidade de organizar informações, facilitar o acesso às ferramentas da equipe e contribuir para a modernização dos processos da Vigilância Socioassistencial.",
     "A proposta foi transformar demandas práticas do cotidiano em soluções digitais mais simples, seguras e eficientes.",
@@ -22,7 +22,7 @@ export const projectContent = {
     {
       title: "Organizar informações",
       description:
-        "Reunir conteúdos, indicadores, publicações e ferramentas em um único ambiente.",
+        "Reunir conteúdos, indicadores, notícias e ferramentas em um único ambiente.",
     },
     {
       title: "Apoiar a gestão",
@@ -61,7 +61,7 @@ export const projectContent = {
       description: "Números consolidados para leitura e acompanhamento da rede.",
     },
     {
-      title: "Publicações",
+      title: "Notícias",
       description: "Notícias, boletins, relatórios e registros institucionais.",
     },
     {
@@ -104,7 +104,7 @@ export const projectContent = {
     "O portal foi pensado para ser simples de utilizar, fácil de manter e preparado para receber novas ferramentas ao longo do tempo.",
   finalTitle: "Conheça os recursos do portal",
   finalText:
-    "Continue navegando pelo portal para acessar serviços, indicadores e publicações da Vigilância Socioassistencial.",
+    "Continue navegando pelo portal para acessar serviços, indicadores e notícias da Vigilância Socioassistencial.",
   footerCredit: "Portal idealizado e desenvolvido por Alessandro Araújo.",
   footerNote:
     "Iniciativa voltada ao apoio e à modernização da Vigilância Socioassistencial.",

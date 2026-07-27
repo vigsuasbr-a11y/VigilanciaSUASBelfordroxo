@@ -11,6 +11,10 @@ import {
   parseFuncionarioFilters,
   type HistoricoMovimentacaoRow,
 } from "@/services/funcionarios";
+import {
+  getManagedPublications,
+  getPublicationBySlug,
+} from "@/services/publicacoes";
 
 export const metadata: Metadata = {
   title: "Sistema de Funcionários",
@@ -22,7 +26,15 @@ type FuncionariosPageProps = {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
-const validViews: ViewName[] = ["dashboard", "employees", "units", "users", "reports", "about"];
+const validViews: ViewName[] = [
+  "dashboard",
+  "employees",
+  "units",
+  "users",
+  "reports",
+  "publications",
+  "about",
+];
 
 export default async function FuncionariosPage({
   searchParams,
@@ -49,11 +61,14 @@ export default async function FuncionariosPage({
   const employeeId = readParam(params?.id);
   const unitId = readParam(params?.unitId);
   const userId = readParam(params?.userId);
+  const publicationSlug = readParam(params?.publicationSlug);
   const noticeCode = readParam(params?.notice);
   const activeView = validViews.includes(requestedView as ViewName)
     ? (requestedView as ViewName)
     : "dashboard";
   const data = await getFuncionariosWorkspaceData(supabase, filters);
+  const publications =
+    profile.role === "administrador" ? await getManagedPublications() : [];
   const selectedEmployee = employeeId
     ? data.employees.find((employee) => employee.id === employeeId) ?? null
     : null;
@@ -63,6 +78,9 @@ export default async function FuncionariosPage({
   const selectedProfile = userId
     ? data.profiles.find((item) => item.id === userId) ?? null
     : null;
+  const selectedPublication = publicationSlug
+    ? getPublicationBySlug(publications, publicationSlug)
+    : null;
   const history =
     modal === "history" && selectedEmployee
       ? await getHistory(supabase, selectedEmployee.id)
@@ -71,16 +89,24 @@ export default async function FuncionariosPage({
   return (
     <FuncionariosWorkspace
       data={data}
+      publications={publications}
       filters={filters}
       activeView={activeView}
       profile={profile}
       notice={noticeMessage(noticeCode)}
       noticeCode={noticeCode}
       dialog={{
-        kind: dialogKind(modal, selectedEmployee, selectedUnit, selectedProfile),
+        kind: dialogKind(
+          modal,
+          selectedEmployee,
+          selectedUnit,
+          selectedProfile,
+          selectedPublication,
+        ),
         employee: selectedEmployee,
         unit: selectedUnit,
         user: selectedProfile,
+        publication: selectedPublication,
         history,
       }}
     />
@@ -110,6 +136,7 @@ function dialogKind(
   selectedEmployee: unknown,
   selectedUnit: unknown,
   selectedProfile: unknown,
+  selectedPublication: unknown,
 ) {
   if (modal === "employee") return "employee";
   if (modal === "history" && selectedEmployee) return "history";
@@ -123,6 +150,10 @@ function dialogKind(
   if (modal === "deactivateUser" && selectedProfile) return "deactivateUser";
   if (modal === "reactivateUser" && selectedProfile) return "reactivateUser";
   if (modal === "changePassword" && selectedProfile) return "changePassword";
+  if (modal === "publication") return "publication";
+  if (modal === "archivePublication" && selectedPublication) {
+    return "archivePublication";
+  }
   return "none";
 }
 
@@ -167,6 +198,14 @@ function noticeMessage(code: string) {
     "erro-desativar-usuario": "Não foi possível desativar o acesso. Tente novamente.",
     "erro-reativar-usuario": "Não foi possível reativar o acesso. Tente novamente.",
     "erro-alterar-senha": "Não foi possível alterar a senha. Tente novamente.",
+    "publicacao-criada": "Notícia criada com sucesso.",
+    "publicacao-atualizada": "Notícia atualizada com sucesso.",
+    "publicacao-arquivada": "Notícia arquivada.",
+    "publicacao-obrigatoria": "Informe título, resumo e imagem da notícia.",
+    "publicacao-imagem-invalida": "Envie uma imagem válida para a notícia.",
+    "publicacao-nao-encontrada": "Notícia não encontrada.",
+    "erro-salvar-publicacao": "Não foi possível salvar a notícia. Tente novamente.",
+    "erro-arquivar-publicacao": "Não foi possível arquivar a notícia. Tente novamente.",
     "acesso-restrito": "Você não possui permissão para realizar esta ação.",
   };
 

@@ -4,6 +4,12 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth/session";
 import {
+  archiveManagedPublication,
+  normalizePublicationStatus,
+  saveManagedPublication,
+  uploadPublicationImage,
+} from "@/services/publicacoes";
+import {
   cleanObservationText,
   dateToDatabase,
   isValidEmail as isValidMaskedEmail,
@@ -528,6 +534,115 @@ export async function deleteUnidadeAction(formData: FormData) {
   redirect("/funcionarios?view=units&notice=unidade-excluida");
 }
 
+export async function savePublicationAction(formData: FormData) {
+  const { user, profile } = await requireActiveProfile();
+
+  if (profile.role !== "administrador") {
+    redirect("/funcionarios?view=publications&notice=acesso-restrito");
+  }
+
+  const originalSlug = readString(formData, "slug");
+  const title = readText(formData, "title");
+  const excerpt = readText(formData, "excerpt");
+  const requestedDate = readString(formData, "date");
+  const date =
+    dateToDatabase(requestedDate) ?? new Date().toISOString().slice(0, 10);
+  const category = readText(formData, "category") || "Institucional";
+  const sourceLabel =
+    readText(formData, "source_label") || "Vigilância Socioassistencial";
+  const sourceUrl = readNullableText(formData, "source_url") ?? undefined;
+  const imageAlt = readNullableText(formData, "image_alt") || title;
+  const tags = splitPublicationTags(readString(formData, "tags"));
+  const body = splitPublicationBody(readString(formData, "body"));
+  const status = normalizePublicationStatus(readString(formData, "status"));
+  const featured = readString(formData, "featured") === "on";
+  const imageUrl =
+    readNullableString(formData, "image_url") ??
+    readNullableString(formData, "existing_image") ??
+    "";
+  const file = formData.get("image_file");
+  let image = imageUrl;
+
+  if (!title || !excerpt) {
+    redirect("/funcionarios?view=publications&notice=publicacao-obrigatoria");
+  }
+
+  if (isUploadedImage(file)) {
+    try {
+      image = await uploadPublicationImage(file, title);
+    } catch (error) {
+      console.error("[publicacoes] erro ao enviar imagem", error);
+      redirect("/funcionarios?view=publications&notice=erro-salvar-publicacao");
+    }
+  } else if (isUploadedFile(file)) {
+    redirect("/funcionarios?view=publications&notice=publicacao-imagem-invalida");
+  }
+
+  if (!image) {
+    redirect("/funcionarios?view=publications&notice=publicacao-obrigatoria");
+  }
+
+  try {
+    await saveManagedPublication({
+      originalSlug,
+      title,
+      date,
+      category,
+      sourceLabel,
+      sourceUrl,
+      image,
+      imageAlt,
+      excerpt,
+      body: body.length ? body : [excerpt],
+      tags,
+      featured,
+      status,
+      userId: user.id,
+    });
+  } catch (error) {
+    console.error("[publicacoes] erro ao salvar publicacao", error);
+    redirect("/funcionarios?view=publications&notice=erro-salvar-publicacao");
+  }
+
+  revalidatePath("/publicacoes");
+  revalidatePath("/funcionarios");
+  redirect(
+    `/funcionarios?view=publications&notice=${
+      originalSlug ? "publicacao-atualizada" : "publicacao-criada"
+    }`,
+  );
+}
+
+export async function archivePublicationAction(formData: FormData) {
+  const { user, profile } = await requireActiveProfile();
+  const slug = readString(formData, "slug");
+
+  if (profile.role !== "administrador") {
+    redirect("/funcionarios?view=publications&notice=acesso-restrito");
+  }
+
+  if (!slug) {
+    redirect("/funcionarios?view=publications&notice=publicacao-nao-encontrada");
+  }
+
+  let archived = false;
+
+  try {
+    archived = await archiveManagedPublication(slug, user.id);
+  } catch (error) {
+    console.error("[publicacoes] erro ao arquivar publicacao", error);
+    redirect("/funcionarios?view=publications&notice=erro-arquivar-publicacao");
+  }
+
+  if (!archived) {
+    redirect("/funcionarios?view=publications&notice=publicacao-nao-encontrada");
+  }
+
+  revalidatePath("/publicacoes");
+  revalidatePath("/funcionarios");
+  redirect("/funcionarios?view=publications&notice=publicacao-arquivada");
+}
+
 async function requireSupabase() {
   const supabase = await createSupabaseServerClient();
   if (!supabase) {
@@ -793,6 +908,28 @@ function readText(formData: FormData, key: string) {
 function readNullableText(formData: FormData, key: string) {
   const value = readText(formData, key);
   return value || null;
+}
+
+function splitPublicationBody(value: string) {
+  return value
+    .split(/\r?\n\s*\r?\n/g)
+    .map((item) => normalizeWhitespace(item))
+    .filter(Boolean);
+}
+
+function splitPublicationTags(value: string) {
+  return value
+    .split(",")
+    .map((item) => normalizeWhitespace(item))
+    .filter(Boolean);
+}
+
+function isUploadedFile(value: FormDataEntryValue | null): value is File {
+  return typeof File !== "undefined" && value instanceof File && value.size > 0;
+}
+
+function isUploadedImage(value: FormDataEntryValue | null): value is File {
+  return isUploadedFile(value) && value.type.startsWith("image/");
 }
 
 function readEmployeeDate(

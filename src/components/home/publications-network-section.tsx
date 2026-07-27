@@ -13,8 +13,8 @@ export function PublicationsNetworkSection() {
         <div>
           <SectionHeading
             centered={false}
-            title="Publicações e documentos"
-            description="Estrutura preparada para organizar materiais técnicos validados pela Vigilância."
+            title="Notícias e documentos"
+            description="Estrutura preparada para organizar notícias e materiais técnicos validados pela Vigilância."
           />
           <div className="mt-6 grid gap-4">
             {preparedPublications.map((item) => {
@@ -45,7 +45,7 @@ export function PublicationsNetworkSection() {
             href="/publicacoes"
             className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#074fb8]"
           >
-            Ver publicações
+            Ver notícias
             <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
         </div>

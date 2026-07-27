@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
 import { PortalChrome } from "@/components/layout/portal-chrome";
 import { PublicacoesNewsClient } from "@/components/publicacoes/publicacoes-news-client";
-import { publicationCategories, publicationNews } from "@/data/publicacoes";
+import { getPortalPublicationNews } from "@/services/publicacoes";
 
 export const metadata: Metadata = {
-  title: "Publicações",
+  title: "Notícias",
 };
 
-export default function PublicacoesPage() {
+export const dynamic = "force-dynamic";
+
+export default async function PublicacoesPage() {
+  const { categories, news } = await getPortalPublicationNews();
+
   return (
     <PortalChrome>
       <main id="conteudo">
-        <PublicacoesNewsClient news={publicationNews} categories={publicationCategories} />
+        <PublicacoesNewsClient news={news} categories={categories} />
       </main>
     </PortalChrome>
   );

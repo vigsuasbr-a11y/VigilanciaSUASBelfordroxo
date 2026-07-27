@@ -15,7 +15,7 @@ export const navItems = [
   { label: "A Vigilância", href: "/a-vigilancia" },
   { label: "Serviços", href: "/servicos" },
   { label: "Indicadores", href: "/indicadores" },
-  { label: "Publicações", href: "/publicacoes" },
+  { label: "Notícias", href: "/publicacoes" },
   { label: "Sistemas", href: "/sistemas", featured: true },
   { label: "Contato", href: "/contato" },
 ];
