@@ -2349,7 +2349,8 @@ body {
 }
 
 .top-icon-button,
-.period-card {
+.period-card,
+.header-clock {
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.86);
   box-shadow: var(--shadow-sm);
@@ -2408,6 +2409,90 @@ body {
 
 .period-card strong {
   font-size: 0.9rem;
+}
+
+.header-clock {
+  display: flex;
+  flex: 0 1 260px;
+  align-items: center;
+  gap: 10px;
+  min-width: 224px;
+  min-height: 58px;
+  padding: 9px 13px;
+  border-radius: 12px;
+  color: var(--blue-900);
+}
+
+.header-clock-icon {
+  display: grid;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--blue-800);
+  background: linear-gradient(180deg, #eef6ff, #e6f1ff);
+}
+
+.header-clock-copy {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.header-clock small,
+.header-clock strong,
+.header-clock-time {
+  display: block;
+}
+
+.header-clock small {
+  color: var(--muted);
+  font-size: 0.73rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.header-clock strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  overflow: hidden;
+  color: var(--blue-900);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-clock-date-icon {
+  flex: 0 0 auto;
+  color: #0d63d8;
+}
+
+.header-clock-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--blue-800);
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.header-clock-time svg {
+  color: #0d63d8;
+}
+
+.header-clock-compact-date,
+.header-clock-compact-time {
+  display: none;
+}
+
+.header-clock.is-loading {
+  opacity: 0.82;
 }
 
 #newEmployeeBtn {
@@ -3024,8 +3109,13 @@ body {
     justify-self: start;
   }
 
-  .period-card {
+  .period-card,
+  .header-clock {
     width: 100%;
+  }
+
+  .header-clock {
+    min-width: 0;
   }
 
   #newEmployeeBtn {
@@ -4211,9 +4301,15 @@ a.logout-button {
   min-width: 0;
 }
 
-.period-card {
+.period-card,
+.header-clock {
   flex: 0 1 210px;
   min-width: 0;
+}
+
+.header-clock {
+  flex-basis: 260px;
+  min-width: 224px;
 }
 
 #newEmployeeBtn {
@@ -4570,7 +4666,8 @@ a.logout-button {
     height: 36px;
   }
 
-  .period-card {
+  .period-card,
+  .header-clock {
     flex-basis: 188px;
     min-height: 44px;
     padding: 7px 10px;
@@ -4582,8 +4679,27 @@ a.logout-button {
     padding: 7px;
   }
 
+  .header-clock {
+    flex-basis: 224px;
+    min-width: 204px;
+  }
+
+  .header-clock-icon {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+
   .period-card strong {
     font-size: 0.82rem;
+  }
+
+  .header-clock strong {
+    font-size: 0.78rem;
+  }
+
+  .header-clock-time {
+    font-size: 0.84rem;
   }
 
   #newEmployeeBtn {
@@ -4870,9 +4986,37 @@ a.logout-button {
   .top-actions,
   .top-actions .primary-action,
   .period-card,
+  .header-clock,
   .page-size-control,
   .table-export {
     width: 100%;
+  }
+
+  .header-clock {
+    flex-basis: auto;
+    min-width: 0;
+    min-height: 52px;
+    padding: 9px 12px;
+  }
+
+  .header-clock small,
+  .header-clock-weekday,
+  .header-clock-date,
+  .header-clock-full-time {
+    display: none;
+  }
+
+  .header-clock-compact-date,
+  .header-clock-compact-time {
+    display: inline;
+  }
+
+  .header-clock strong {
+    font-size: 0.86rem;
+  }
+
+  .header-clock-time {
+    font-size: 0.86rem;
   }
 
   .filter-grid,

@@ -7,7 +7,6 @@ import {
   Bell,
   BriefcaseBusiness,
   Building2,
-  CalendarDays,
   CircleCheck,
   Clock3,
   Download,
@@ -47,6 +46,7 @@ import {
 } from "@/app/funcionarios/actions";
 import { DocumentLink as Link } from "@/components/funcionarios/document-link";
 import { EmployeeActionsMenu } from "@/components/funcionarios/employee-actions-menu";
+import { HeaderClock } from "@/components/funcionarios/header-clock";
 import { MobileMenuControls } from "@/components/funcionarios/mobile-menu-controls";
 import { PageSizeForm } from "@/components/funcionarios/page-size-form";
 import { PendingSubmitButton } from "@/components/funcionarios/pending-submit-button";
@@ -275,13 +275,7 @@ export function FuncionariosWorkspace({
                   <small>{roleLabels[profile.role]}</small>
                 </span>
               </div>
-              <div className="period-card" aria-label="Atualização dos dados">
-                <CalendarDays size={18} aria-hidden="true" />
-                <span>
-                  <small>Atualização</small>
-                  <strong>{lastUpdatedLabel}</strong>
-                </span>
-              </div>
+              <HeaderClock />
               {primaryAction ? (
                 <Link
                   id="newEmployeeBtn"
