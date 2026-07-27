@@ -36,6 +36,11 @@ html {
   scroll-behavior: smooth;
 }
 
+html.site-intro-active,
+html.site-intro-active body {
+  overflow: hidden;
+}
+
 ::selection {
   background: #0a84ff;
   color: white;
@@ -98,6 +103,64 @@ html.portal-route-pending .portal-page-shell {
     opacity 180ms ease,
     transform 180ms ease,
     filter 180ms ease;
+}
+
+.site-intro {
+  animation: siteIntroEnter 480ms ease forwards;
+}
+
+.site-intro-leaving {
+  animation: siteIntroLeave 360ms ease forwards;
+  pointer-events: none;
+}
+
+.site-intro video {
+  animation: siteIntroVideoIn 900ms ease forwards;
+  filter: saturate(1.05) contrast(1.02);
+}
+
+.site-intro::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 74% 28%, rgba(32, 214, 255, 0.22), transparent 32%),
+    radial-gradient(circle at 22% 70%, rgba(10, 132, 255, 0.2), transparent 34%);
+  opacity: 0.9;
+  animation: siteIntroLight 5.2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.site-intro-leaving video,
+.site-intro-leaving::before {
+  animation-play-state: paused;
+}
+
+.site-intro h1,
+.site-intro p,
+.site-intro-kicker {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: siteIntroContentIn 560ms ease forwards;
+}
+
+.site-intro h1 {
+  animation-delay: 140ms;
+}
+
+.site-intro p {
+  animation-delay: 240ms;
+}
+
+.site-intro-kicker {
+  animation-delay: 60ms;
+}
+
+.site-intro button {
+  opacity: 0;
+  transform: translateY(-6px);
+  animation: siteIntroControlsIn 380ms ease forwards 220ms;
 }
 
 .public-hero-bg {
@@ -410,6 +473,59 @@ html.portal-route-pending .portal-page-shell {
   }
 }
 
+@keyframes siteIntroEnter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes siteIntroLeave {
+  to {
+    opacity: 0;
+    transform: scale(1.015);
+  }
+}
+
+@keyframes siteIntroVideoIn {
+  from {
+    opacity: 0;
+    transform: scale(1.035);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes siteIntroContentIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes siteIntroControlsIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes siteIntroLight {
+  from {
+    transform: translate3d(-18px, 12px, 0) scale(0.98);
+  }
+
+  to {
+    transform: translate3d(18px, -10px, 0) scale(1.04);
+  }
+}
+
 @keyframes projectLineDraw {
   to {
     stroke-dashoffset: 0;
@@ -473,6 +589,10 @@ html.portal-route-pending .portal-page-shell {
   }
 
   html.portal-route-pending body::before {
+    display: none;
+  }
+
+  .site-intro {
     display: none;
   }
 }

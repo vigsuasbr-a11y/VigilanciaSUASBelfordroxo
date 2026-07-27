@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils/cn";
 
 const showDelayMs = 1100;
 const exitDelayMs = 260;
+const showDelayAfterIntroMs = 3200;
 
 export function ProjectIntroductionNotice() {
   const [shouldRender, setShouldRender] = useState(false);
@@ -59,13 +60,44 @@ export function ProjectIntroductionNotice() {
       return;
     }
 
-    const showTimer = window.setTimeout(() => {
-      setShouldRender(true);
-      window.requestAnimationFrame(() => setIsVisible(true));
-    }, showDelayMs);
+    let showTimer: number | null = null;
+    let startTimer: number | null = null;
+
+    const scheduleNotice = (delay: number) => {
+      showTimer = window.setTimeout(() => {
+        setShouldRender(true);
+        window.requestAnimationFrame(() => setIsVisible(true));
+      }, delay);
+    };
+
+    const handleIntroFinished = () => scheduleNotice(showDelayAfterIntroMs);
+
+    startTimer = window.setTimeout(() => {
+      const waitForIntro =
+        document.documentElement.classList.contains("site-intro-active") ||
+        Boolean(document.querySelector(".site-intro"));
+
+      if (waitForIntro) {
+        window.addEventListener(
+          "portal-vigilancia:intro-finished",
+          handleIntroFinished,
+          { once: true },
+        );
+      } else {
+        scheduleNotice(showDelayMs);
+      }
+    }, 220);
 
     return () => {
-      window.clearTimeout(showTimer);
+      if (startTimer) {
+        window.clearTimeout(startTimer);
+      }
+
+      if (showTimer) {
+        window.clearTimeout(showTimer);
+      }
+
+      window.removeEventListener("portal-vigilancia:intro-finished", handleIntroFinished);
 
       if (exitTimerRef.current) {
         window.clearTimeout(exitTimerRef.current);

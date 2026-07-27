@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { PortalPageTransition } from "@/components/layout/portal-page-transition";
+import { SiteIntro } from "@/components/layout/site-intro";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ProjectIntroductionNotice } from "@/components/project/project-introduction-notice";
@@ -11,6 +12,7 @@ type PortalChromeProps = {
 export function PortalChrome({ children }: PortalChromeProps) {
   return (
     <>
+      <SiteIntro />
       <SiteHeader />
       <PortalPageTransition>
         <div className="flex-1">{children}</div>
