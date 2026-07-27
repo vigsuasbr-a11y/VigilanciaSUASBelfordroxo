@@ -78,11 +78,11 @@ export function SystemAccessButton({
         onClick={handleAccess}
         disabled={disabled || isLogging}
         className={cn(
-          "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-bold text-white shadow-sm",
+          "inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 disabled:hover:translate-y-0",
           "disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-600 disabled:shadow-none",
           color === "green"
-            ? "bg-[#00a67e] hover:bg-[#008b6c]"
-            : "bg-[#074fb8] hover:bg-[#063f93]",
+            ? "bg-[#00a67e] shadow-emerald-900/10 hover:bg-[#008b6c] hover:shadow-lg"
+            : "bg-[#074fb8] shadow-blue-950/10 hover:bg-[#063f93] hover:shadow-lg",
         )}
       >
         {disabled ? <Lock className="size-4" aria-hidden="true" /> : null}

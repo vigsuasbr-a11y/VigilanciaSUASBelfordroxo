@@ -1,91 +1,150 @@
-import { CheckCircle2, Globe2, ShieldCheck, UsersRound } from "lucide-react";
+import type { ComponentType } from "react";
+import {
+  CheckCircle2,
+  Globe2,
+  LockKeyhole,
+  MapPinned,
+  ShieldCheck,
+  UsersRound,
+} from "lucide-react";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { SystemAccessButton } from "@/components/systems/system-access-button";
 import { SystemIcon } from "@/components/systems/system-icon";
+import { SystemIllustration } from "@/components/systems/system-illustration";
 import { cn } from "@/lib/utils/cn";
 import type { PortalSystem } from "@/types/domain";
 
 export function SystemDetailCard({ system }: { system: PortalSystem }) {
+  const isGreen = system.color === "green";
+
   return (
-    <article className="rounded-lg border border-[#dbe5f1] bg-white p-6 shadow-sm">
-      <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-        <div className="flex gap-5">
-          <SystemIcon system={system} />
-          <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <h2 className="text-2xl font-black text-[#06285f]">{system.name}</h2>
+    <article className="group overflow-hidden rounded-lg border border-[#dbe5f1] bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[#91bdf0] hover:shadow-[0_22px_54px_rgba(8,39,85,0.12)]">
+      <div
+        className={cn(
+          "grid gap-6 border-b p-5 sm:p-6 lg:grid-cols-[minmax(0,1fr)_auto]",
+          isGreen
+            ? "border-emerald-100 bg-gradient-to-br from-white via-white to-emerald-50"
+            : "border-blue-100 bg-gradient-to-br from-white via-white to-blue-50",
+        )}
+      >
+        <div className="flex min-w-0 gap-4 sm:gap-5">
+          <SystemIcon system={system} className="size-14 sm:size-16" />
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <span
+                className={cn(
+                  "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold",
+                  isGreen
+                    ? "bg-emerald-100 text-emerald-800"
+                    : "bg-blue-100 text-[#074fb8]",
+                )}
+              >
+                <LockKeyhole className="size-3.5" aria-hidden="true" />
+                {system.accessType}
+              </span>
               <StatusBadge status={system.status} />
             </div>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-[#10213a]">
+            <h2 className="mt-3 text-2xl font-semibold leading-tight tracking-[-0.02em] text-[#06285f]">
+              {system.name}
+            </h2>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-[#4d5f7a]">
               {system.description}
             </p>
           </div>
         </div>
-        <SystemAccessButton
-          systemSlug={system.slug}
-          status={system.status}
-          url={system.url}
-          color={system.color}
-          className="lg:min-w-60"
-        />
+
+        <div className="flex flex-col items-stretch gap-4 lg:w-72">
+          <SystemAccessButton
+            systemSlug={system.slug}
+            status={system.status}
+            url={system.url}
+            color={system.color}
+            className="w-full"
+          />
+          <SystemIllustration color={system.color} />
+        </div>
       </div>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-3">
-        <InfoBlock
-          icon={Globe2}
-          title="Tipo de acesso"
-          description={system.accessType}
-        />
-        <InfoBlock
-          icon={ShieldCheck}
-          title="Endereço"
-          description={system.addressLabel}
-        />
-        <InfoBlock
-          icon={UsersRound}
-          title="Público autorizado"
-          description={system.authorizedAudience}
-        />
+      <div className="grid gap-6 p-5 sm:p-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <div>
+          <h3 className="text-sm font-semibold uppercase tracking-[0.025em] text-[#06285f]">
+            Principais recursos
+          </h3>
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+            {system.details.map((detail) => (
+              <li
+                key={detail}
+                className="flex gap-3 rounded-lg border border-[#e6edf7] bg-[#f8fbff] p-3 text-sm leading-6 text-[#4d5f7a]"
+              >
+                <CheckCircle2
+                  className="mt-0.5 size-4 shrink-0 text-[#00a67e]"
+                  aria-hidden="true"
+                />
+                <span>{detail}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <aside className="grid gap-3">
+          <InfoBlock
+            icon={Globe2}
+            title="Tipo de acesso"
+            description={system.accessType}
+          />
+          <InfoBlock
+            icon={MapPinned}
+            title="Endereço"
+            description={system.addressLabel}
+          />
+          <InfoBlock
+            icon={UsersRound}
+            title="Público autorizado"
+            description={system.authorizedAudience}
+          />
+        </aside>
       </div>
 
       <div
         className={cn(
-          "mt-6 rounded-lg border p-4 text-sm leading-6",
-          system.color === "green"
-            ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+          "mx-5 mb-5 flex gap-3 rounded-lg border p-4 text-sm leading-6 sm:mx-6 sm:mb-6",
+          isGreen
+            ? "border-emerald-200 bg-emerald-50 text-emerald-900"
             : "border-blue-200 bg-blue-50 text-[#06285f]",
         )}
       >
-        <strong>Mensagem de restrição:</strong> {system.restrictionMessage}
-      </div>
-
-      <div className="mt-6">
-        <h3 className="text-sm font-black text-[#10213a]">Principais recursos</h3>
-        <ul className="mt-3 grid gap-3 sm:grid-cols-2">
-          {system.details.map((detail) => (
-            <li key={detail} className="flex gap-2 text-sm leading-6 text-[#60708a]">
-              <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-[#00a67e]" aria-hidden="true" />
-              <span>{detail}</span>
-            </li>
-          ))}
-        </ul>
+        <ShieldCheck className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
+        <p>
+          <strong className="font-semibold">Mensagem de restrição:</strong>{" "}
+          {system.restrictionMessage}
+        </p>
       </div>
     </article>
   );
 }
 
 type InfoBlockProps = {
-  icon: React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
+  icon: ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
   title: string;
   description: string;
 };
 
 function InfoBlock({ icon: Icon, title, description }: InfoBlockProps) {
   return (
-    <div className="rounded-lg border border-[#e6edf7] bg-[#f7f9fd] p-4">
-      <Icon className="size-5 text-[#074fb8]" aria-hidden={true} />
-      <h3 className="mt-3 text-xs font-black uppercase text-[#60708a]">{title}</h3>
-      <p className="mt-1 text-sm font-semibold leading-6 text-[#10213a]">{description}</p>
+    <div className="rounded-lg border border-[#e6edf7] bg-white p-4 shadow-sm">
+      <div className="flex items-start gap-3">
+        <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-[#f1f6fd] text-[#074fb8]">
+          <Icon className="size-5" aria-hidden={true} />
+        </span>
+        <span className="min-w-0">
+          <span className="block text-xs font-semibold uppercase tracking-[0.025em] text-[#60708a]">
+            {title}
+          </span>
+          <span className="mt-1 block text-sm font-semibold leading-6 text-[#102d5d]">
+            {description}
+          </span>
+        </span>
+      </div>
     </div>
   );
 }
