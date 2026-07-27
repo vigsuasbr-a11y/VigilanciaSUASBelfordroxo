@@ -132,6 +132,7 @@ function noticeMessage(code: string) {
     "erro-salvar-funcionario": "Não foi possível salvar o funcionário. Revise os campos e tente novamente.",
     "erro-criar-funcionario": "Não foi possível concluir o cadastro. Tente novamente.",
     "erro-excluir-funcionario": "Não foi possível arquivar o funcionário. Tente novamente.",
+    "dados-funcionario-invalidos": "Revise CPF, datas e campos obrigatórios antes de salvar.",
     "nome-obrigatorio": "Informe o nome completo do funcionário.",
     "unidade-salva": "Unidade salva com sucesso.",
     "unidade-excluida": "Unidade excluída com sucesso.",

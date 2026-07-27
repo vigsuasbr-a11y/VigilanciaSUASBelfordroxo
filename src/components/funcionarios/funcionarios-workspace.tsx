@@ -49,6 +49,7 @@ import { DocumentLink as Link } from "@/components/funcionarios/document-link";
 import { EmployeeActionsMenu } from "@/components/funcionarios/employee-actions-menu";
 import { MobileMenuControls } from "@/components/funcionarios/mobile-menu-controls";
 import { PageSizeForm } from "@/components/funcionarios/page-size-form";
+import { PendingSubmitButton } from "@/components/funcionarios/pending-submit-button";
 import { UnitsClientView } from "@/components/funcionarios/units-client-view";
 import { UsersClientView } from "@/components/funcionarios/users-client-view";
 import { roleLabels } from "@/lib/permissions/roles";
@@ -1184,10 +1185,13 @@ function EmployeeDialog({
           >
             Cancelar
           </Link>
-          <button className="primary-action" type="submit">
+          <PendingSubmitButton
+            className="primary-action"
+            pendingLabel="Salvando..."
+          >
             <Save size={18} aria-hidden="true" />
             Salvar funcionário
-          </button>
+          </PendingSubmitButton>
         </div>
       </form>
     </dialog>
@@ -1260,9 +1264,12 @@ function DeleteEmployeeDialog({ employee }: { employee: FuncionarioListItem }) {
           para auditoria.
         </p>
         <div className="form-actions">
-          <button className="primary-action" type="submit">
+          <PendingSubmitButton
+            className="primary-action"
+            pendingLabel="Arquivando..."
+          >
             Confirmar arquivamento
-          </button>
+          </PendingSubmitButton>
           <Link className="ghost-action" href="/funcionarios?view=employees">
             Cancelar
           </Link>

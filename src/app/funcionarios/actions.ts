@@ -34,6 +34,7 @@ const allowedRoles = new Set<UserRole>([
   "operador",
   "consulta",
 ]);
+const funcionarioManagerRoles = new Set<UserRole>(["administrador", "operador"]);
 
 export async function createUserAction(formData: FormData) {
   const { user, profile } = await requireActiveProfile();
@@ -317,6 +318,10 @@ export async function saveFuncionarioAction(formData: FormData) {
   const id = readString(formData, "id");
   const data = funcionarioPayload(formData, user.id);
 
+  if (!canManageFuncionarios(profile.role)) {
+    redirect("/funcionarios?view=employees&notice=acesso-restrito");
+  }
+
   if (!data.nome) {
     redirect("/funcionarios?view=employees&notice=nome-obrigatorio");
   }
@@ -338,11 +343,17 @@ export async function saveFuncionarioAction(formData: FormData) {
       .eq("id", id);
 
     if (error) {
-      redirect("/funcionarios?view=employees&notice=erro-salvar-funcionario");
+      console.error("[funcionarios] erro ao atualizar funcionario", error);
+      redirect(
+        `/funcionarios?view=employees&notice=${employeeSaveNotice(
+          error,
+          "erro-salvar-funcionario",
+        )}`,
+      );
     }
 
     if (current.status !== data.status) {
-      await supabase.from("historico_movimentacoes").insert({
+      const { error: historyError } = await supabase.from("historico_movimentacoes").insert({
         funcionario_id: id,
         funcionario_legacy_id: current.legacy_id,
         status_anterior: current.status,
@@ -354,6 +365,10 @@ export async function saveFuncionarioAction(formData: FormData) {
         performed_by: user.id,
         metadata: { source: "portal-web" },
       });
+
+      if (historyError) {
+        console.error("[funcionarios] erro ao registrar historico", historyError);
+      }
     }
   } else {
     const insertData: FuncionarioInsert = {
@@ -373,10 +388,16 @@ export async function saveFuncionarioAction(formData: FormData) {
       .single();
 
     if (error || !created) {
-      redirect("/funcionarios?view=employees&notice=erro-criar-funcionario");
+      console.error("[funcionarios] erro ao criar funcionario", error);
+      redirect(
+        `/funcionarios?view=employees&notice=${employeeSaveNotice(
+          error,
+          "erro-criar-funcionario",
+        )}`,
+      );
     }
 
-    await supabase.from("historico_movimentacoes").insert({
+    const { error: historyError } = await supabase.from("historico_movimentacoes").insert({
       funcionario_id: created.id,
       funcionario_legacy_id: created.legacy_id,
       status_anterior: null,
@@ -386,6 +407,10 @@ export async function saveFuncionarioAction(formData: FormData) {
       performed_by: user.id,
       metadata: { source: "portal-web" },
     });
+
+    if (historyError) {
+      console.error("[funcionarios] erro ao registrar historico inicial", historyError);
+    }
   }
 
   revalidatePath("/funcionarios");
@@ -393,9 +418,13 @@ export async function saveFuncionarioAction(formData: FormData) {
 }
 
 export async function softDeleteFuncionarioAction(formData: FormData) {
-  const { user } = await requireActiveProfile();
+  const { user, profile } = await requireActiveProfile();
   const supabase = await requireSupabase();
   const id = readString(formData, "id");
+
+  if (!canManageFuncionarios(profile.role)) {
+    redirect("/funcionarios?view=employees&notice=acesso-restrito");
+  }
 
   if (!id) {
     redirect("/funcionarios?view=employees&notice=funcionario-nao-encontrado");
@@ -411,6 +440,7 @@ export async function softDeleteFuncionarioAction(formData: FormData) {
     .eq("id", id);
 
   if (error) {
+    console.error("[funcionarios] erro ao arquivar funcionario", error);
     redirect("/funcionarios?view=employees&notice=erro-excluir-funcionario");
   }
 
@@ -638,6 +668,30 @@ function readUserRole(formData: FormData) {
 function readUserActive(formData: FormData) {
   const value = readString(formData, "is_active").toLowerCase();
   return !["false", "0", "inativo", "inativa"].includes(value);
+}
+
+function canManageFuncionarios(role: UserRole) {
+  return funcionarioManagerRoles.has(role);
+}
+
+function employeeSaveNotice(
+  error: { code?: string; message?: string } | null,
+  fallback: string,
+) {
+  if (!error) return fallback;
+
+  if (error.code === "42501" || /row-level security|permission/i.test(error.message ?? "")) {
+    return "acesso-restrito";
+  }
+
+  if (
+    error.code === "23514" ||
+    /invalid input syntax|violates check constraint/i.test(error.message ?? "")
+  ) {
+    return "dados-funcionario-invalidos";
+  }
+
+  return fallback;
 }
 
 function normalizeEmail(value: string) {
