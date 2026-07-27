@@ -2,6 +2,49 @@ import type { PublicationNews } from "@/types/publicacoes";
 
 export const publicationNews: PublicationNews[] = [
   {
+    slug: "seminario-comunicacao-assistencia-social-educacao",
+    title:
+      "Secretarias municipais de Assistência Social e Educação promovem seminário sobre Comunicação em Belford Roxo",
+    date: "2026-07-24",
+    category: "Intersetorialidade",
+    sourceLabel: "Prefeitura de Belford Roxo",
+    sourceUrl:
+      "https://prefeituradebelfordroxo.rj.gov.br/2026/07/24/secretarias-municipais-de-assistencia-social-e-educacao-promovem-seminario-sobre-comunicacao-em-belford-roxo/",
+    image:
+      "/images/publicacoes/2026-07-24-seminario-comunicacao-assistencia-social-educacao.jpg",
+    imageAlt: "Seminário sobre comunicação com equipes da Assistência Social e Educação",
+    excerpt:
+      "Assistência Social e Educação reuniram servidores no seminário Comunicar para Alcançar, voltado a qualificar o atendimento público e reduzir ruídos na comunicação com a população.",
+    body: [
+      "A SEMASC e a Secretaria Municipal de Educação promoveram o seminário Comunicar para Alcançar, reunindo servidores das duas pastas em uma agenda de formação sobre comunicação no serviço público.",
+      "O encontro, realizado no Ciep Municipalizado Constantino Reis, buscou fortalecer práticas de atendimento, escuta, clareza institucional e circulação correta das informações entre equipes e usuários.",
+      "A notícia oficial destaca a participação do secretário Diogo Bastos, da secretária Sheila Boechat e da palestrante Ana Lucia Guimarães, reforçando a comunicação como ferramenta de confiança, respeito e organização no atendimento.",
+    ],
+    tags: ["Comunicação", "Intersetorialidade", "Diogo Bastos", "SEMASC", "Educação"],
+    featured: true,
+  },
+  {
+    slug: "capacitacao-cras-creas-trabalho-infantil",
+    title:
+      "Secretaria de Assistência Social de Belford Roxo capacita equipe de CRAS e CREAS sobre exploração no trabalho infantil",
+    date: "2026-07-23",
+    category: "Capacitação",
+    sourceLabel: "Prefeitura de Belford Roxo",
+    sourceUrl:
+      "https://prefeituradebelfordroxo.rj.gov.br/2026/07/23/secretaria-de-assistencia-social-de-belford-roxo-capacita-equipe-de-cras-e-creas-sobre-exploracao-no-trabalho-infantil/",
+    image:
+      "/images/publicacoes/2026-07-23-capacitacao-cras-creas-trabalho-infantil.jpg",
+    imageAlt: "Capacitação com equipes de CRAS e CREAS sobre exploração no trabalho infantil",
+    excerpt:
+      "Equipes dos 15 CRAS e dos três CREAS participaram de capacitação sobre PETI e estratégias de atuação diante da exploração no trabalho infantil.",
+    body: [
+      "A capacitação reuniu coordenadores, orientadores sociais, educadores sociais, agentes administrativos e técnicos da rede socioassistencial para discutir o enfrentamento à exploração no trabalho infantil.",
+      "O encontro abordou o PETI e a articulação entre as proteções do SUAS, reforçando estratégias de identificação, acompanhamento e encaminhamento de situações de vulnerabilidade.",
+      "Para a Vigilância Socioassistencial, a formação fortalece o uso qualificado das informações territoriais e ajuda a manter CRAS, CREAS e demais equipamentos alinhados nas respostas às famílias.",
+    ],
+    tags: ["CRAS", "CREAS", "PETI", "Trabalho Infantil", "SUAS"],
+  },
+  {
     slug: "carteira-municipal-identificacao-pcd",
     title:
       "Secretaria de Assistência Social de Belford Roxo cria carteira municipal de identificação da pessoa com deficiência",
@@ -21,7 +64,6 @@ export const publicationNews: PublicationNews[] = [
       "Para a Vigilância Socioassistencial, a iniciativa reforça o papel dos dados qualificados no planejamento, no monitoramento e na organização de respostas mais ágeis para a população.",
     ],
     tags: ["CMIPcD", "Pessoa com Deficiência", "SUAS", "Vigilância"],
-    featured: true,
   },
   {
     slug: "workshop-scfv-cras",
@@ -454,7 +496,9 @@ export const publicationCategories = [
   "Vigilância e SUAS",
   "CRAS",
   "Centro POP",
+  "Proteção Social",
   "Capacitação",
+  "Intersetorialidade",
   "CadÚnico",
   "SUAS",
   "Gestão",
