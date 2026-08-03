@@ -58,9 +58,9 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <main className="flex min-h-dvh flex-col overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(22,123,231,0.18),transparent_35%),linear-gradient(135deg,#031426_0%,#061f3a_50%,#04182e_100%)] px-3 py-3 text-slate-950 lg:h-dvh lg:overflow-hidden lg:px-4 lg:py-4">
-      <div className="mx-auto grid w-full max-w-[1800px] flex-1 overflow-hidden rounded-[22px] border border-white/10 bg-white shadow-[0_28px_80px_rgba(0,20,41,0.34)] lg:min-h-0 lg:grid-cols-[minmax(430px,1.02fr)_minmax(520px,0.98fr)] xl:rounded-[28px]">
-        <section className="login-panel relative hidden h-full min-h-0 overflow-hidden bg-[linear-gradient(145deg,#0066CC_0%,#07417c_40%,#052a54_72%,#041d3b_100%)] p-7 text-white lg:flex lg:flex-col lg:justify-between xl:p-9 [@media(max-height:820px)]:p-6">
+    <main className="monitoramento-login-page flex min-h-dvh flex-col overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(22,123,231,0.18),transparent_35%),linear-gradient(135deg,#031426_0%,#061f3a_50%,#04182e_100%)] px-3 py-3 text-slate-950 lg:h-dvh lg:overflow-hidden lg:px-4 lg:py-4">
+      <div className="monitoramento-login-frame mx-auto grid w-full max-w-[1800px] flex-1 overflow-hidden rounded-[22px] border border-white/10 bg-white shadow-[0_28px_80px_rgba(0,20,41,0.34)] lg:min-h-0 lg:grid-cols-[minmax(430px,1.02fr)_minmax(520px,0.98fr)] xl:rounded-[28px]">
+        <section className="monitoramento-login-aside login-panel relative hidden h-full min-h-0 overflow-hidden bg-[linear-gradient(145deg,#0066CC_0%,#07417c_40%,#052a54_72%,#041d3b_100%)] p-7 text-white lg:flex lg:flex-col lg:justify-between xl:p-9 [@media(max-height:820px)]:p-6">
           <div
             className="login-panel-orbit absolute inset-0 opacity-90"
             aria-hidden="true"
@@ -77,7 +77,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               Vigilância socioassistencial
             </div>
 
-            <h1 className="mt-8 max-w-[620px] text-[clamp(2.65rem,3.9vw,4.25rem)] font-bold leading-[0.98] [@media(max-height:820px)]:mt-6 [@media(max-height:820px)]:text-[2.55rem]">
+            <h1 className="monitoramento-login-title mt-8 max-w-[620px] text-[clamp(2.65rem,3.9vw,4.25rem)] font-bold leading-[0.98] [@media(max-height:820px)]:mt-6 [@media(max-height:820px)]:text-[2.55rem]">
               <span className="block">Sistema de</span>
               <span className="block">Monitoramento</span>
               <span className="block bg-[linear-gradient(90deg,#45a6ff,#79c9ff)] bg-clip-text text-transparent">
@@ -91,15 +91,15 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
             </p>
           </div>
 
-          <div className="relative z-10 grid grid-cols-3 gap-4 xl:gap-5 [@media(max-height:820px)]:gap-3">
+          <div className="monitoramento-login-feature-grid relative z-10 grid grid-cols-3 gap-4 xl:gap-5 [@media(max-height:820px)]:gap-3">
             {loginFeatures.map((feature) => (
               <FeatureCard key={feature.title} {...feature} />
             ))}
           </div>
 
-          <div className="login-enter relative z-10 rounded-[16px] border border-cyan-100/16 bg-white/10 p-4 shadow-[0_14px_34px_rgba(0,20,41,0.14)] backdrop-blur [@media(max-height:820px)]:p-3">
+          <div className="monitoramento-login-info login-enter relative z-10 rounded-[16px] border border-cyan-100/16 bg-white/10 p-4 shadow-[0_14px_34px_rgba(0,20,41,0.14)] backdrop-blur [@media(max-height:820px)]:p-3">
             <RealtimeClock />
-            <div className="mt-4 flex items-center gap-4 border-t border-white/10 pt-4 [@media(max-height:820px)]:mt-3 [@media(max-height:820px)]:pt-3">
+            <div className="monitoramento-login-institution-row mt-4 flex items-center gap-4 border-t border-white/10 pt-4 [@media(max-height:820px)]:mt-3 [@media(max-height:820px)]:pt-3">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center [@media(max-height:820px)]:h-10 [@media(max-height:820px)]:w-10">
                 <Image
                   src={prefeituraBrasao}
@@ -126,7 +126,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           </div>
         </section>
 
-        <section className="relative flex min-h-dvh items-start justify-center overflow-y-auto bg-[radial-gradient(circle_at_top_right,rgba(64,145,255,0.08),transparent_35%),#f5f9ff] px-4 py-5 sm:px-6 lg:h-full lg:min-h-0 lg:items-center lg:overflow-hidden lg:px-8 lg:py-6 xl:px-10 [@media(max-height:820px)]:lg:py-4">
+        <section className="monitoramento-login-content relative flex min-h-dvh items-start justify-center overflow-y-auto bg-[radial-gradient(circle_at_top_right,rgba(64,145,255,0.08),transparent_35%),#f5f9ff] px-4 py-5 sm:px-6 lg:h-full lg:min-h-0 lg:items-center lg:overflow-y-auto lg:px-8 lg:py-6 xl:px-10 [@media(max-height:820px)]:lg:py-4">
           <div className="w-full max-w-[680px]">
             <div className="login-card-enter mb-4 rounded-[18px] border border-blue-100 bg-white/92 p-4 shadow-[0_18px_45px_rgba(20,54,99,0.12)] backdrop-blur lg:hidden">
               <div className="flex items-center gap-3">
@@ -150,8 +150,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               </div>
             </div>
 
-            <div className="login-card-enter rounded-[24px] border border-white/80 bg-white/96 p-6 shadow-[0_24px_70px_rgba(20,54,99,0.1)] backdrop-blur sm:p-8 lg:p-7 xl:p-10 [@media(max-height:820px)]:lg:p-5">
-              <div className="login-logo-enter mx-auto hidden h-20 w-20 items-center justify-center lg:flex xl:h-24 xl:w-24 [@media(max-height:820px)]:lg:h-14 [@media(max-height:820px)]:lg:w-14">
+            <div className="monitoramento-login-card login-card-enter rounded-[24px] border border-white/80 bg-white/96 p-6 shadow-[0_24px_70px_rgba(20,54,99,0.1)] backdrop-blur sm:p-8 lg:p-7 xl:p-10 [@media(max-height:820px)]:lg:p-5">
+              <div className="monitoramento-login-card-logo login-logo-enter mx-auto hidden h-20 w-20 items-center justify-center lg:flex xl:h-24 xl:w-24 [@media(max-height:820px)]:lg:h-14 [@media(max-height:820px)]:lg:w-14">
                 <Image
                   src={prefeituraBrasao}
                   alt="Brasão da Prefeitura de Belford Roxo"
@@ -185,7 +185,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           </div>
         </section>
       </div>
-      <footer className="mx-auto flex min-h-8 shrink-0 items-center justify-center gap-2 px-2 pt-2 text-center text-xs font-medium text-white/70 [@media(max-height:820px)]:min-h-7 [@media(max-height:820px)]:pt-1">
+      <footer className="monitoramento-login-footer mx-auto flex min-h-8 shrink-0 items-center justify-center gap-2 px-2 pt-2 text-center text-xs font-medium text-white/70 [@media(max-height:820px)]:min-h-7 [@media(max-height:820px)]:pt-1">
         <LockKeyhole className="h-3.5 w-3.5" aria-hidden="true" />
         <span>
           © {currentYear} Prefeitura Municipal de Belford Roxo • Todos os

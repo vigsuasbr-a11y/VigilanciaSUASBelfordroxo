@@ -412,6 +412,125 @@ html.site-intro-active body {
   animation: login-shake 420ms ease-in-out;
 }
 
+.monitoramento-login-frame,
+.monitoramento-login-aside,
+.monitoramento-login-content,
+.monitoramento-login-card {
+  min-width: 0;
+}
+
+.monitoramento-login-content {
+  scrollbar-gutter: stable;
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  .monitoramento-login-page {
+    padding: 0.5rem;
+  }
+
+  .monitoramento-login-frame {
+    border-radius: 18px;
+    grid-template-columns: minmax(390px, 0.94fr) minmax(500px, 1.06fr) !important;
+  }
+
+  .monitoramento-login-aside {
+    gap: 0.85rem;
+    padding: 1.25rem !important;
+  }
+
+  .monitoramento-login-title {
+    font-size: clamp(2rem, 3.25vw, 3rem) !important;
+    letter-spacing: -0.035em;
+    margin-top: 1.05rem !important;
+  }
+
+  .monitoramento-login-title + div {
+    margin-top: 1rem !important;
+  }
+
+  .monitoramento-login-title + div + p {
+    font-size: 0.925rem;
+    line-height: 1.55;
+    margin-top: 1rem !important;
+  }
+
+  .monitoramento-login-feature-grid {
+    gap: 0.7rem !important;
+  }
+
+  .login-feature-card {
+    min-height: 104px !important;
+    padding: 0.75rem !important;
+  }
+
+  .login-feature-card > div {
+    border-radius: 12px;
+    height: 2.45rem !important;
+    width: 2.45rem !important;
+  }
+
+  .login-feature-card h2 {
+    font-size: 0.9rem;
+    margin-top: 0.65rem !important;
+  }
+
+  .login-feature-card p {
+    display: -webkit-box;
+    font-size: 0.78rem !important;
+    line-height: 1.35 !important;
+    margin-top: 0.35rem !important;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .monitoramento-login-info {
+    padding: 0.72rem !important;
+  }
+
+  .monitoramento-login-institution-row {
+    margin-top: 0.65rem !important;
+    padding-top: 0.65rem !important;
+  }
+
+  .monitoramento-login-content {
+    align-items: center;
+    padding: 0.85rem 1.35rem !important;
+  }
+
+  .monitoramento-login-card {
+    border-radius: 20px;
+    padding: 1.2rem 1.35rem !important;
+  }
+
+  .monitoramento-login-card-logo {
+    display: none !important;
+  }
+
+  .monitoramento-login-footer {
+    min-height: 1.35rem !important;
+    padding-top: 0.35rem !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 640px) {
+  .monitoramento-login-frame {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .monitoramento-login-aside {
+    display: none !important;
+  }
+
+  .monitoramento-login-content {
+    padding: 0.75rem 1rem !important;
+  }
+
+  .monitoramento-login-card {
+    max-width: 620px;
+  }
+}
+
 ::selection {
   background: #0a84ff;
   color: white;

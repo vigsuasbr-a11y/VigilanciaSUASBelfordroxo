@@ -30,7 +30,7 @@ export function SystemStatus() {
 
     async function check() {
       try {
-        const response = await fetch("/api/health", {
+        const response = await fetch("/api/monitoramento/health", {
           cache: "no-store",
         });
 
