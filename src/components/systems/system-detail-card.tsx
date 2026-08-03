@@ -18,7 +18,7 @@ export function SystemDetailCard({ system }: { system: PortalSystem }) {
   const isGreen = system.color === "green";
 
   return (
-    <article className="group overflow-hidden rounded-lg border border-[#dbe5f1] bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[#91bdf0] hover:shadow-[0_22px_54px_rgba(8,39,85,0.12)]">
+    <article className="group min-w-0 overflow-hidden rounded-lg border border-[#dbe5f1] bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:border-[#91bdf0] hover:shadow-[0_22px_54px_rgba(8,39,85,0.12)]">
       <div
         className={cn(
           "grid gap-6 border-b p-5 sm:p-6 lg:grid-cols-[minmax(0,1fr)_auto]",
@@ -27,7 +27,7 @@ export function SystemDetailCard({ system }: { system: PortalSystem }) {
             : "border-blue-100 bg-gradient-to-br from-white via-white to-blue-50",
         )}
       >
-        <div className="flex min-w-0 gap-4 sm:gap-5">
+        <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:gap-5">
           <SystemIcon system={system} className="size-14 sm:size-16" />
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
@@ -53,7 +53,7 @@ export function SystemDetailCard({ system }: { system: PortalSystem }) {
           </div>
         </div>
 
-        <div className="flex flex-col items-stretch gap-4 lg:w-72">
+        <div className="flex min-w-0 flex-col items-stretch gap-4 lg:w-[min(18rem,100%)]">
           <SystemAccessButton
             systemSlug={system.slug}
             status={system.status}
@@ -65,8 +65,8 @@ export function SystemDetailCard({ system }: { system: PortalSystem }) {
         </div>
       </div>
 
-      <div className="grid gap-6 p-5 sm:p-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <div>
+      <div className="grid min-w-0 gap-6 p-5 sm:p-6 lg:grid-cols-[minmax(0,1fr)_minmax(260px,320px)]">
+        <div className="min-w-0">
           <h3 className="text-sm font-semibold uppercase tracking-[0.025em] text-[#06285f]">
             Principais recursos
           </h3>
@@ -74,19 +74,19 @@ export function SystemDetailCard({ system }: { system: PortalSystem }) {
             {system.details.map((detail) => (
               <li
                 key={detail}
-                className="flex gap-3 rounded-lg border border-[#e6edf7] bg-[#f8fbff] p-3 text-sm leading-6 text-[#4d5f7a]"
+                className="flex min-w-0 gap-3 rounded-lg border border-[#e6edf7] bg-[#f8fbff] p-3 text-sm leading-6 text-[#4d5f7a]"
               >
                 <CheckCircle2
                   className="mt-0.5 size-4 shrink-0 text-[#00a67e]"
                   aria-hidden="true"
                 />
-                <span>{detail}</span>
+                <span className="min-w-0 break-words">{detail}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <aside className="grid gap-3">
+        <aside className="grid min-w-0 gap-3">
           <InfoBlock
             icon={Globe2}
             title="Tipo de acesso"
@@ -140,7 +140,7 @@ function InfoBlock({ icon: Icon, title, description }: InfoBlockProps) {
           <span className="block text-xs font-semibold uppercase tracking-[0.025em] text-[#60708a]">
             {title}
           </span>
-          <span className="mt-1 block text-sm font-semibold leading-6 text-[#102d5d]">
+          <span className="mt-1 block break-words text-sm font-semibold leading-6 text-[#102d5d]">
             {description}
           </span>
         </span>

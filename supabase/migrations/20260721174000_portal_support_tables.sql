@@ -185,15 +185,15 @@ values
       'Indicadores e metas da rede',
       'Acompanhamento de unidades e atividades',
       'Pendências, prazos e relatórios',
-      'Módulo preparado para evolução futura'
+      'Login próprio do Sistema de Monitoramento'
     ],
     'chart',
-    'Módulo web planejado',
-    'em_desenvolvimento',
-    '/monitoramento',
-    'Rota interna /monitoramento',
+    'Sistema restrito com login próprio',
+    'operacional',
+    '/monitoramento/login?redirect=/monitoramento/inicio',
+    'Login interno /monitoramento',
     'Gestores, técnicos e equipes autorizadas',
-    'O módulo está em desenvolvimento e será liberado após validação.',
+    'Acesso restrito a usuários autenticados no Sistema de Monitoramento.',
     'green',
     2
   )

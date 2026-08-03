@@ -78,17 +78,21 @@ export function SystemAccessButton({
         onClick={handleAccess}
         disabled={disabled || isLogging}
         className={cn(
-          "inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 disabled:hover:translate-y-0",
+          "inline-flex min-h-12 w-full min-w-0 items-center justify-center gap-2 rounded-lg px-5 py-3 text-center text-sm font-semibold leading-5 text-white shadow-sm transition duration-200 hover:-translate-y-0.5 disabled:hover:translate-y-0",
           "disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-600 disabled:shadow-none",
           color === "green"
             ? "bg-[#00a67e] shadow-emerald-900/10 hover:bg-[#008b6c] hover:shadow-lg"
             : "bg-[#074fb8] shadow-blue-950/10 hover:bg-[#063f93] hover:shadow-lg",
         )}
       >
-        {disabled ? <Lock className="size-4" aria-hidden="true" /> : null}
-        {isLogging ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : null}
-        Acessar sistema
-        {!disabled && !isLogging ? <ArrowRight className="size-4" aria-hidden="true" /> : null}
+        {disabled ? <Lock className="size-4 shrink-0" aria-hidden="true" /> : null}
+        {isLogging ? (
+          <Loader2 className="size-4 shrink-0 animate-spin" aria-hidden="true" />
+        ) : null}
+        <span className="min-w-0">Acessar sistema</span>
+        {!disabled && !isLogging ? (
+          <ArrowRight className="size-4 shrink-0" aria-hidden="true" />
+        ) : null}
       </button>
       {message || disabledMessage ? (
         <p className="max-w-sm text-xs leading-5 text-[#60708a]">

@@ -1,7 +1,8 @@
 import type { PortalSystem } from "@/types/domain";
 
 const monitoringSystemUrl =
-  process.env.NEXT_PUBLIC_MONITORING_SYSTEM_URL?.trim() || "/monitoramento";
+  process.env.NEXT_PUBLIC_MONITORING_SYSTEM_URL?.trim() ||
+  "/monitoramento/login?redirect=/monitoramento/inicio";
 
 export const fallbackSystems: PortalSystem[] = [
   {
@@ -36,19 +37,18 @@ export const fallbackSystems: PortalSystem[] = [
       "Indicadores e metas da rede",
       "Acompanhamento de unidades e atividades",
       "Pendências, prazos e relatórios",
-      "Módulo preparado para evolução futura",
+      "Login próprio do Sistema de Monitoramento",
     ],
     iconName: "chart",
-    accessType: "Módulo web planejado",
-    status: "em_desenvolvimento",
+    accessType: "Sistema restrito com login próprio",
+    status: "operacional",
     url: monitoringSystemUrl,
-    addressLabel:
-      monitoringSystemUrl === "/monitoramento"
-        ? "Rota interna /monitoramento"
-        : "Configurado por NEXT_PUBLIC_MONITORING_SYSTEM_URL",
+    addressLabel: monitoringSystemUrl.startsWith("/monitoramento")
+      ? "Login interno /monitoramento"
+      : "Configurado por NEXT_PUBLIC_MONITORING_SYSTEM_URL",
     authorizedAudience: "Gestores, técnicos e equipes autorizadas",
     restrictionMessage:
-      "O módulo está em desenvolvimento e será liberado após validação.",
+      "Acesso restrito a usuários autenticados no Sistema de Monitoramento.",
     color: "green",
     sortOrder: 2,
   },
