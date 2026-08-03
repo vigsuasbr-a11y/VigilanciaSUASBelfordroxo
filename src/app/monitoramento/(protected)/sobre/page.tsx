@@ -5,7 +5,7 @@ import { SectionCard } from "@/monitoramento/components/ui/section-card";
 
 export default function AboutPage() {
   const resources = [
-    "Formulários oficiais para PSB, PSE, Centro POP, Complexo da Cidadania e Gestão do SUAS.",
+    "Formulários oficiais para PSB, PSE, Centro POP, Complexo da Cidadania e Gestão SUAS.",
     "Login seguro, perfis de acesso e permissões por responsabilidade.",
     "Competências mensais com preenchimento, revisão, devolução e publicação.",
     "Monitoramento operacional, painel executivo, auditoria e histórico de publicações.",

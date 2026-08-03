@@ -25,7 +25,7 @@ export const EXECUTIVE_EXTRA_SERVICE_TYPE_LABELS: Record<
   string
 > = {
   complexo_cidadania: "Complexo da cidadania",
-  gestao_suas: "Gestão do SUAS",
+  gestao_suas: "Gestão SUAS",
 };
 
 export function isServiceType(value: unknown): value is ServiceType {

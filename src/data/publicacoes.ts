@@ -60,7 +60,7 @@ export const publicationNews: PublicationNews[] = [
       "Documento pioneiro na Baixada Fluminense foi regulamentado para garantir prioridade, respeito e organização no atendimento a pessoas com deficiência.",
     body: [
       "A Secretaria Municipal de Assistência Social e Cidadania estruturou a Carteira Municipal de Identificação da Pessoa com Deficiência como ferramenta de qualificação do acesso aos serviços públicos e privados.",
-      "A matéria oficial destaca a atuação da SEMASC, da Superintendência de Gestão do SUAS e do setor de Vigilância Social na construção do sistema operacional da carteira.",
+      "A matéria oficial destaca a atuação da SEMASC, da Superintendência de Gestão SUAS e do setor de Vigilância Social na construção do sistema operacional da carteira.",
       "Para a Vigilância Socioassistencial, a iniciativa reforça o papel dos dados qualificados no planejamento, no monitoramento e na organização de respostas mais ágeis para a população.",
     ],
     tags: ["CMIPcD", "Pessoa com Deficiência", "SUAS", "Vigilância"],
@@ -473,7 +473,7 @@ export const publicationNews: PublicationNews[] = [
   },
   {
     slug: "vigilancia-socioassistencial-informacao-qualificada",
-    title: "Vigilância Socioassistencial: informação qualificada para fortalecer a gestão do SUAS",
+    title: "Vigilância Socioassistencial: informação qualificada para fortalecer a Gestão SUAS",
     date: "2026-07-22",
     category: "Institucional",
     sourceLabel: "Material institucional da Vigilância",

@@ -83,11 +83,11 @@ export function HeroSection() {
           </p>
           <h1
             className="text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl"
-            aria-label="Informação que fortalece a gestão do SUAS"
+            aria-label="Informação que fortalece a Gestão SUAS"
           >
-            <span className="hero-title-line block">Informação que fortalece a gestão</span>
+            <span className="hero-title-line block">Informação que fortalece a Gestão</span>
             {" "}
-            <span className="hero-title-suas mt-1 block text-[#4ee7ff]">do SUAS</span>
+            <span className="hero-title-suas mt-1 block text-[#4ee7ff]">SUAS</span>
           </h1>
           <p className="hero-copy mt-4 max-w-xl text-base leading-7 text-blue-50">
             A Vigilância Socioassistencial transforma dados em conhecimento para

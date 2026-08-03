@@ -120,7 +120,7 @@ export function SiteIntro() {
             Portal da Vigilância Socioassistencial
           </div>
           <h1 className="mt-5 text-4xl font-semibold leading-tight tracking-[-0.035em] text-white sm:text-5xl lg:text-6xl">
-            Informação que fortalece a gestão do SUAS
+            Informação que fortalece a Gestão SUAS
           </h1>
           <p className="mt-4 max-w-xl text-base leading-7 text-blue-50/88 sm:text-lg">
             {isReady ? "Preparando a experiência do portal." : "Carregando abertura institucional."}
