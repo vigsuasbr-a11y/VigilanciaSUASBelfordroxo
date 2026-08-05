@@ -22,6 +22,7 @@ import {
 } from "@/lib/forms/masks";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { normalizeEscolaridadeOption } from "@/lib/funcionarios/escolaridades";
 import type { Database, Json, UserRole } from "@/types/database.types";
 
 type FuncionarioInsert = Database["public"]["Tables"]["funcionarios"]["Insert"];
@@ -861,7 +862,7 @@ function funcionarioPayload(formData: FormData, userId: string): FuncionarioPayl
     nascimento: readEmployeeDate(formData, "nascimento", { noFuture: true }),
     cargo: readNullableText(formData, "cargo"),
     setor: readNullableText(formData, "setor"),
-    escolaridade: readNullableText(formData, "escolaridade"),
+    escolaridade: normalizeEscolaridadeOption(readNullableText(formData, "escolaridade")),
     unidade_id: readNullableString(formData, "unidade_id"),
     vinculo: readNullableText(formData, "vinculo"),
     carga_horaria: readNullableText(formData, "carga_horaria"),

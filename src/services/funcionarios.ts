@@ -1,5 +1,9 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import {
+  normalizeEscolaridadeForFilter,
+  normalizeEscolaridadeOption,
+} from "@/lib/funcionarios/escolaridades";
 import type { Database } from "@/types/database.types";
 
 type FuncionarioRow = Database["public"]["Tables"]["funcionarios"]["Row"];
@@ -15,6 +19,7 @@ export type FuncionarioFilters = {
   search: string;
   unidadeId: string;
   cargo: string;
+  escolaridade: string;
   status: string;
   page: number;
   pageSize: number;
@@ -43,6 +48,7 @@ export type FuncionariosWorkspaceData = {
     unidades: number;
     porUnidade: ChartRow[];
     porCargo: ChartRow[];
+    porEscolaridade: ChartRow[];
     porStatus: ChartRow[];
   };
   pagination: {
@@ -67,6 +73,7 @@ export function parseFuncionarioFilters(
     search: readParam(searchParams?.search),
     unidadeId: readParam(searchParams?.unidade_id),
     cargo: readParam(searchParams?.cargo),
+    escolaridade: readParam(searchParams?.escolaridade),
     status: readParam(searchParams?.status),
     page: Math.max(Number(readParam(searchParams?.page)) || 1, 1),
     pageSize: allowedPageSizes.has(pageSize) ? pageSize : defaultPageSize,
@@ -166,6 +173,7 @@ function filterEmployees(
 ) {
   const search = normalizeForSearch(filters.search);
   const cargo = normalizeForSearch(filters.cargo);
+  const escolaridade = normalizeEscolaridadeForFilter(filters.escolaridade);
 
   return employees.filter((employee) => {
     if (filters.unidadeId && employee.unidade_id !== filters.unidadeId) {
@@ -177,6 +185,13 @@ function filterEmployees(
     }
 
     if (cargo && !normalizeForSearch(employee.cargo).includes(cargo)) {
+      return false;
+    }
+
+    if (
+      escolaridade &&
+      normalizeEscolaridadeForFilter(employee.escolaridade) !== escolaridade
+    ) {
       return false;
     }
 
@@ -207,6 +222,13 @@ function buildSummary(employees: FuncionarioListItem[], units: UnidadeRow[]) {
       (employee) => employee.unidade_nome || "Sem unidade",
     ),
     porCargo: countBy(employees, (employee) => employee.cargo || "").slice(0, 8),
+    porEscolaridade: countBy(
+      employees,
+      (employee) =>
+        normalizeEscolaridadeOption(employee.escolaridade) ||
+        employee.escolaridade ||
+        "Não informada",
+    ),
     porStatus: countBy(employees, (employee) => employee.status || "Sem status"),
   };
 }

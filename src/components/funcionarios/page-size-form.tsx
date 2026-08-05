@@ -4,6 +4,7 @@ type PageSizeFormProps = {
   search: string;
   unidadeId: string;
   cargo: string;
+  escolaridade: string;
   status: string;
   pageSize: number;
 };
@@ -12,6 +13,7 @@ export function PageSizeForm({
   search,
   unidadeId,
   cargo,
+  escolaridade,
   status,
   pageSize,
 }: PageSizeFormProps) {
@@ -21,6 +23,7 @@ export function PageSizeForm({
       <input type="hidden" name="search" value={search} />
       <input type="hidden" name="unidade_id" value={unidadeId} />
       <input type="hidden" name="cargo" value={cargo} />
+      <input type="hidden" name="escolaridade" value={escolaridade} />
       <input type="hidden" name="status" value={status} />
       <span>Itens por página</span>
       <select

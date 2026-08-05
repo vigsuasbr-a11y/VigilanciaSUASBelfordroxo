@@ -65,6 +65,10 @@ import {
   formatDateForInput,
   formatPhoneForDisplay,
 } from "@/lib/forms/masks";
+import {
+  escolaridadeOptions,
+  normalizeEscolaridadeOption,
+} from "@/lib/funcionarios/escolaridades";
 import { roleLabels } from "@/lib/permissions/roles";
 import type { CurrentProfile } from "@/lib/auth/session";
 import type {
@@ -383,7 +387,7 @@ export function FuncionariosWorkspace({
             id="reportsView"
             className={`view${currentView === "reports" ? " active" : ""}`}
           >
-            <ReportsView />
+            <ReportsView data={data} filters={filters} />
           </section>
 
           <section
@@ -639,6 +643,21 @@ function EmployeesView({
           />
         </label>
         <label>
+          <span>Escolaridade</span>
+          <select
+            id="filterEducation"
+            name="escolaridade"
+            defaultValue={filters.escolaridade}
+          >
+            <option value="">Todas as escolaridades</option>
+            {escolaridadeOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
           <span>Situação</span>
           <select id="filterStatus" name="status" defaultValue={filters.status}>
             <option value="">Todas as situações</option>
@@ -682,10 +701,11 @@ function EmployeesView({
               search={filters.search}
               unidadeId={filters.unidadeId}
               cargo={filters.cargo}
+              escolaridade={filters.escolaridade}
               status={filters.status}
               pageSize={filters.pageSize}
             />
-            <Link className="ghost-action table-export" href="/funcionarios?view=reports">
+            <Link className="ghost-action table-export" href={employeeReportViewHref(filters)}>
               <Download size={15} aria-hidden="true" />
               Relatórios
             </Link>
@@ -799,11 +819,27 @@ function UsersView({
   );
 }
 
-function ReportsView() {
+function ReportsView({
+  data,
+  filters,
+}: {
+  data: FuncionariosWorkspaceData;
+  filters: FuncionarioFilters;
+}) {
+  const pdfHref = employeeReportDownloadHref(filters, "pdf");
+  const excelHref = employeeReportDownloadHref(filters, "excel");
+
   return (
     <section className="panel report-panel">
       <div className="panel-heading">
-        <h2>Relatórios</h2>
+        <div>
+          <h2>Relatórios</h2>
+          <p>
+            {data.filteredEmployees.length} registro
+            {data.filteredEmployees.length === 1 ? "" : "s"} serão incluídos
+            conforme os filtros atuais.
+          </p>
+        </div>
       </div>
       <div className="report-grid">
         <article>
@@ -820,12 +856,14 @@ function ReportsView() {
         </article>
       </div>
       <div className="report-actions">
-        <button id="exportPdfBtn" className="primary-action" type="button" disabled>
-          PDF indisponível
-        </button>
-        <button id="exportExcelBtn" className="secondary-action" type="button" disabled>
-          Excel indisponível
-        </button>
+        <a id="exportPdfBtn" className="primary-action" href={pdfHref}>
+          <FileText size={17} aria-hidden="true" />
+          Baixar PDF
+        </a>
+        <a id="exportExcelBtn" className="secondary-action" href={excelHref}>
+          <Download size={17} aria-hidden="true" />
+          Baixar Excel
+        </a>
       </div>
     </section>
   );
@@ -996,6 +1034,8 @@ function EmployeeDialog({
   employee: FuncionarioListItem | null;
   units: UnidadeRow[];
 }) {
+  const selectedEducation = normalizeEscolaridadeOption(employee?.escolaridade) ?? "";
+
   return (
     <dialog id="employeeDialog" className="modal" open>
       <form id="employeeForm" className="employee-modal-form" action={saveFuncionarioAction}>
@@ -1088,13 +1128,21 @@ function EmployeeDialog({
                 autoComplete="bday"
                 defaultValue={formatDateForInput(employee?.nascimento)}
               />
-              <ValidatedField
-                id="employeeEducation"
-                name="escolaridade"
-                label="Escolaridade"
-                placeholder="Informe a escolaridade"
-                defaultValue={employee?.escolaridade ?? ""}
-              />
+              <label>
+                Escolaridade
+                <select
+                  id="employeeEducation"
+                  name="escolaridade"
+                  defaultValue={selectedEducation}
+                >
+                  <option value="">Selecione a escolaridade</option>
+                  {escolaridadeOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </label>
             </div>
           </fieldset>
 
@@ -2523,11 +2571,36 @@ function employeeListHref(filters: FuncionarioFilters, page: number) {
   params.set("view", "employees");
   params.set("page", String(page));
   params.set("pageSize", String(filters.pageSize));
+  appendEmployeeFilters(params, filters);
+  return `/funcionarios?${params.toString()}`;
+}
+
+function employeeReportViewHref(filters: FuncionarioFilters) {
+  const params = new URLSearchParams();
+  params.set("view", "reports");
+  appendEmployeeFilters(params, filters);
+  return `/funcionarios?${params.toString()}`;
+}
+
+function employeeReportDownloadHref(
+  filters: FuncionarioFilters,
+  format: "pdf" | "excel",
+) {
+  const params = new URLSearchParams();
+  params.set("format", format);
+  appendEmployeeFilters(params, filters);
+  return `/api/funcionarios/relatorios?${params.toString()}`;
+}
+
+function appendEmployeeFilters(
+  params: URLSearchParams,
+  filters: FuncionarioFilters,
+) {
   if (filters.search) params.set("search", filters.search);
   if (filters.unidadeId) params.set("unidade_id", filters.unidadeId);
   if (filters.cargo) params.set("cargo", filters.cargo);
+  if (filters.escolaridade) params.set("escolaridade", filters.escolaridade);
   if (filters.status) params.set("status", filters.status);
-  return `/funcionarios?${params.toString()}`;
 }
 
 function paginationItems(current: number, total: number): Array<number | "ellipsis"> {

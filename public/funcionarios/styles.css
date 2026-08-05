@@ -10934,3 +10934,33 @@ dialog.modal[open] {
     grid-template-columns: 1fr;
   }
 }
+
+#employeesView .filter-grid {
+  grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+}
+
+#employeesView .filter-grid .filter-search {
+  grid-column: span 2;
+}
+
+#employeesView .filter-submit,
+#employeesView .filter-reset {
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 1180px) {
+  #employeesView .filter-grid .filter-search {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 700px) {
+  #employeesView .filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #employeesView .filter-grid .filter-search {
+    grid-column: auto;
+  }
+}
