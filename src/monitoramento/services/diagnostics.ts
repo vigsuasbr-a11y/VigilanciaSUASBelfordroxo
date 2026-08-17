@@ -12,10 +12,13 @@ export type DiagnosticSnapshot = {
   groups: number;
   indicators: number;
   featuredIndicators: number;
-  activeFormVersion: string | null;
+  activeFormVersions: string[];
   lastMigration: string | null;
   status: "ok" | "needs_configuration" | "attention";
 };
+
+const LATEST_MONITORAMENTO_MIGRATION =
+  "016_remove_cras_v1_activate_psb_v2.sql";
 
 export async function getDiagnosticSnapshot(): Promise<DiagnosticSnapshot> {
   const env = getPublicEnvStatus();
@@ -32,7 +35,7 @@ export async function getDiagnosticSnapshot(): Promise<DiagnosticSnapshot> {
       groups: 0,
       indicators: 0,
       featuredIndicators: 0,
-      activeFormVersion: null,
+      activeFormVersions: [],
       lastMigration: null,
       status: "needs_configuration",
     };
@@ -50,8 +53,10 @@ export async function getDiagnosticSnapshot(): Promise<DiagnosticSnapshot> {
       groups: stats.groups,
       indicators: stats.indicators,
       featuredIndicators: stats.featuredIndicators,
-      activeFormVersion: stats.activeFormVersion?.code ?? null,
-      lastMigration: "015_multisector_support.sql",
+      activeFormVersions: stats.activeFormVersions.map(
+        (formVersion) => formVersion.code,
+      ),
+      lastMigration: LATEST_MONITORAMENTO_MIGRATION,
       status: "ok",
     };
   } catch {
@@ -64,8 +69,8 @@ export async function getDiagnosticSnapshot(): Promise<DiagnosticSnapshot> {
       groups: 0,
       indicators: 0,
       featuredIndicators: 0,
-      activeFormVersion: null,
-      lastMigration: "015_multisector_support.sql",
+      activeFormVersions: [],
+      lastMigration: LATEST_MONITORAMENTO_MIGRATION,
       status: "attention",
     };
   }

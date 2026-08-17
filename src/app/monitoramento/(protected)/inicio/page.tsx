@@ -65,10 +65,12 @@ export default async function HomePage() {
   const activeCentroPop = units.filter(
     (unit) => unit.active && unit.unit_type === "centro_pop",
   ).length;
-  const plannedPse = 5;
+  const activePse = units.filter(
+    (unit) => unit.active && unit.unit_type === "creas",
+  ).length;
   const complexoCidadania = 1;
   const territoryTotal = Math.max(
-    activePsb + plannedPse + activeCentroPop + complexoCidadania,
+    activePsb + activePse + activeCentroPop + complexoCidadania,
     1,
   );
   const visibleActions = quickActions.filter((action) =>
@@ -147,7 +149,7 @@ export default async function HomePage() {
           icon="creas"
           label="PSE"
           tone="success"
-          value={plannedPse}
+          value={activePse}
         />
         <MetricCard
           description="População em situação de rua"
@@ -231,7 +233,7 @@ export default async function HomePage() {
             <TerritoryBar
               label="PSE"
               total={territoryTotal}
-              value={plannedPse}
+              value={activePse}
             />
             <TerritoryBar
               label="Centro POP"

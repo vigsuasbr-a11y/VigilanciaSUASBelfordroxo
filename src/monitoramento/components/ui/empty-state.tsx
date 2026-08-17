@@ -60,9 +60,15 @@ export function EmptyState({
       <h2 className="relative z-10 mt-4 text-base font-semibold text-blue-950">
         {title}
       </h2>
-      <p className="relative z-10 mt-2 max-w-md text-sm leading-6 text-muted-foreground">
-        {description}
-      </p>
+      {typeof description === "string" || typeof description === "number" ? (
+        <p className="relative z-10 mt-2 max-w-md text-sm leading-6 text-muted-foreground">
+          {description}
+        </p>
+      ) : (
+        <div className="relative z-10 mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
+          {description}
+        </div>
+      )}
       {action ? <div className="relative z-10 mt-4">{action}</div> : null}
     </div>
   );

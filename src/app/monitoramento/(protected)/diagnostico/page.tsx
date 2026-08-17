@@ -19,8 +19,10 @@ export default async function DiagnosticsPage() {
     ["Versão da aplicação", snapshot.appVersion],
     ["Conexão de dados", formatDataConnection(snapshot.supabaseConnection)],
     [
-      "Versão ativa do formulário",
-      snapshot.activeFormVersion ?? "Não encontrada",
+      "Versões ativas dos formulários",
+      snapshot.activeFormVersions.length > 0
+        ? snapshot.activeFormVersions.join(", ")
+        : "Não encontrada",
     ],
     ["Unidades", snapshot.units],
     ["Grupos", snapshot.groups],

@@ -1,16 +1,17 @@
 "use client";
 
-import { CheckCircle2, Loader2, WifiOff } from "lucide-react";
+import { AlertCircle, CheckCircle2, Loader2, WifiOff } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { cn } from "@/monitoramento/lib/utils/cn";
 
 type SystemStatusState =
-  "checking" | "operational" | "unavailable" | "unstable";
+  "checking" | "operational" | "partial" | "unavailable" | "unstable";
 
 const labels: Record<SystemStatusState, string> = {
   checking: "Verificando sistema...",
   operational: "Sistema operacional",
+  partial: "Configuração parcial",
   unavailable: "Sistema temporariamente indisponível",
   unstable: "Conexão instável",
 };
@@ -18,8 +19,13 @@ const labels: Record<SystemStatusState, string> = {
 const styles: Record<SystemStatusState, string> = {
   checking: "border-blue-100 bg-blue-50 text-blue-800",
   operational: "border-emerald-200 bg-emerald-50 text-emerald-800",
+  partial: "border-amber-100 bg-amber-50 text-amber-800",
   unavailable: "border-red-100 bg-red-50 text-red-800",
   unstable: "border-amber-100 bg-amber-50 text-amber-800",
+};
+
+type HealthResponse = {
+  status?: "ok" | "partial" | "missing_env" | "query_failed";
 };
 
 export function SystemStatus() {
@@ -34,8 +40,12 @@ export function SystemStatus() {
           cache: "no-store",
         });
 
+        const payload = (await response
+          .json()
+          .catch(() => null)) as HealthResponse | null;
+
         if (!cancelled) {
-          setStatus(response.ok ? "operational" : "unavailable");
+          setStatus(resolveHealthStatus(response.ok, payload));
         }
       } catch {
         if (!cancelled) {
@@ -56,6 +66,8 @@ export function SystemStatus() {
       ? Loader2
       : status === "operational"
         ? CheckCircle2
+        : status === "partial"
+          ? AlertCircle
         : WifiOff;
 
   return (
@@ -74,4 +86,23 @@ export function SystemStatus() {
       {labels[status]}
     </div>
   );
+}
+
+function resolveHealthStatus(
+  responseOk: boolean,
+  payload: HealthResponse | null,
+): SystemStatusState {
+  if (!responseOk) {
+    return "unavailable";
+  }
+
+  if (payload?.status === "ok") {
+    return "operational";
+  }
+
+  if (payload?.status === "partial") {
+    return "partial";
+  }
+
+  return "unavailable";
 }
