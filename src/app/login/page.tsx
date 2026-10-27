@@ -11,6 +11,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import { EmployeeLoginForm } from "@/components/funcionarios/employee-login-form";
+import { WelcomeSessionReset } from "@/components/funcionarios/welcome-toast";
 import { createSupabaseServerClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -83,6 +84,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
     <>
       <link rel="stylesheet" href="/funcionarios/styles.css" />
       <section id="loginScreen" className="login-screen funcionarios-system">
+        <WelcomeSessionReset />
         <div className="login-ambient login-ambient-one" aria-hidden="true" />
         <div className="login-ambient login-ambient-two" aria-hidden="true" />
         <div className="login-particles" aria-hidden="true" />

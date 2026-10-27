@@ -50,6 +50,7 @@ import { EmployeeActionsMenu } from "@/components/funcionarios/employee-actions-
 import { HeaderClock } from "@/components/funcionarios/header-clock";
 import { MobileMenuControls } from "@/components/funcionarios/mobile-menu-controls";
 import { NoticeToast } from "@/components/funcionarios/notice-toast";
+import { WelcomeToast } from "@/components/funcionarios/welcome-toast";
 import { PageSizeForm } from "@/components/funcionarios/page-size-form";
 import { PendingSubmitButton } from "@/components/funcionarios/pending-submit-button";
 import {
@@ -337,6 +338,8 @@ export function FuncionariosWorkspace({
           {toastNotice ? (
             <NoticeToast title={toastNotice.title} message={toastNotice.message} />
           ) : null}
+
+          <WelcomeToast nome={profile.full_name || profile.email} perfil={roleLabels[profile.role]} />
 
           {notice && !toastNotice ? (
             <div className="system-notice" role="status" aria-live="polite">

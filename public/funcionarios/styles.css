@@ -1,32 +1,32 @@
 /* Sistema de Funcionários — tema institucional. Escopo ativo apenas com .funcionarios-system. Layout legado preservado em camada estrutural; tokens e apresentação consolidados abaixo. */ /* Tema institucional consolidado. As regras estruturais anteriores ficam na camada de menor prioridade. */
 body:has(.funcionarios-system) {
-  --brand-50: #eff5fd;
+  --brand-50: #eef4fd;
   --brand-100: #dce9fb;
-  --brand-600: #175eab;
-  --brand-700: #124d91;
-  --brand-800: #103d75;
+  --brand-600: #1d63c8;
+  --brand-700: #1450a8;
+  --brand-800: #0d3b82;
   --brand-900: #0a2a5e;
-  --gold-500: #e8bd45;
+  --gold-500: #e8b50c;
   --gold-text: #775500;
-  --bg: #f5f7fa;
-  --bg-subtle: #f0f3f7;
-  --surface: #ffffff;
-  --text-1: #172b49;
-  --text-2: #42536b;
-  --text-3: #586980;
-  --border: #dfe5ee;
-  --border-strong: #8798af;
-  --success: #14663f;
-  --success-bg: #eaf5ef;
-  --warning: #825400;
-  --warning-bg: #fff4d8;
-  --danger: #af2932;
-  --danger-bg: #fdeef0;
-  --info: #175595;
-  --info-bg: #eaf2fd;
+  --bg: var(--bg-page);
+  --bg-subtle: #f8fafc;
+  --surface: var(--bg-card);
+  --text-1: #0f1f3d;
+  --text-2: #42526e;
+  --text-3: #6b7a90;
+  --border: #dde3ec;
+  --border-strong: #c5cedb;
+  --success: #12805c;
+  --success-bg: #e4f5ee;
+  --warning: #a66300;
+  --warning-bg: #fff1d6;
+  --danger: #c42b2b;
+  --danger-bg: #fdecec;
+  --info: #1d63c8;
+  --info-bg: #e6f0fd;
   --purple: #5b4bc4;
   --purple-bg: #efedfc;
-  --focus: 0 0 0 3px rgba(23, 94, 171, 0.25);
+  --focus: 0 0 0 3px rgba(29, 99, 200, 0.28);
   --shadow-sm:
     0 1px 2px rgba(15, 31, 61, 0.06), 0 1px 3px rgba(15, 31, 61, 0.04);
   --shadow-md: 0 8px 24px rgba(15, 31, 61, 0.1);
@@ -47,9 +47,9 @@ body:has(.funcionarios-system) {
   --font-admin: var(--font-inter), Inter, Arial, sans-serif;
   --type-page-title: 22px;
   --type-modal-title: 22px;
-  --type-section-title: 16px;
+  --type-section-title: 17px;
   --type-card-title: 14px;
-  --type-indicator-number: clamp(28px, 2.2vw, 36px);
+  --type-indicator-number: 30px;
   --type-body: 14px;
   --type-helper: 12px;
   --type-label: 13px;
@@ -79,13 +79,13 @@ body:has(.funcionarios-system) {
   --border-default: var(--border);
   --text-primary: var(--text-1);
   --text-secondary: var(--text-2);
-  --text-muted: var(--text-3);
+  --text-muted: var(--text-3-readable);
   --ink: var(--text-1);
-  --muted: var(--text-3);
+  --muted: var(--text-3-readable);
   --line: var(--border);
   --background: var(--bg);
   --gold: var(--gold-500);
-  --gold-soft: var(--warning-bg);
+  --gold-soft: var(--gold-100);
   --focus-ring: var(--focus);
   --shadow: var(--shadow-sm);
   margin: 0;
@@ -93,7 +93,13 @@ body:has(.funcionarios-system) {
   overflow: hidden;
   color: var(--text-1);
   background: var(--bg);
-  font: 400 14px/1.55 var(--font-admin);
+  font: 400 14px/1.5 var(--font-admin);
+  --gold-100: #fff4cc;
+  --bg-page: #f4f6fa;
+  --bg-card: #ffffff;
+  --text-3-readable: #5e6c81;
+  --success-text: #0f7654;
+  --warning-text: #945800;
 }
 @layer funcionarios-estrutura {
   :where(body:has(.funcionarios-system)) * {
@@ -1263,7 +1269,7 @@ body:has(.funcionarios-system) {
   }
 
   :where(body:has(.funcionarios-system)) .stat-active .stat-icon {
-    color: var(--success);
+    color: var(--success-text);
     background: #e4f7ef;
   }
 
@@ -1954,7 +1960,7 @@ body:has(.funcionarios-system) {
     }
   }
 
-  @media (max-width: 920px) {
+  @media (max-width: 1100px) {
     :where(body:has(.funcionarios-system)) .login-layout {
       grid-template-columns: minmax(0, 520px);
       justify-content: center;
@@ -2175,17 +2181,6 @@ body:has(.funcionarios-system) {
 
     :where(body:has(.funcionarios-system)) h1 {
       font-size: 1.5rem;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    :where(body:has(.funcionarios-system)) *,
-    :where(body:has(.funcionarios-system)) *::before,
-    :where(body:has(.funcionarios-system)) *::after {
-      scroll-behavior: auto !important;
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
     }
   }
 
@@ -4392,7 +4387,7 @@ body:has(.funcionarios-system) {
     }
   }
 
-  @media (max-width: 980px) {
+  @media (max-width: 1100px) {
     :where(body:has(.funcionarios-system)) .top-profile-chip {
       display: none;
     }
@@ -6857,7 +6852,7 @@ body:has(.funcionarios-system) {
     }
   }
 
-  @media (max-width: 1180px) {
+  @media (max-width: 1100px) {
     :where(body:has(.funcionarios-system)) .units-metric-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -6871,7 +6866,7 @@ body:has(.funcionarios-system) {
     }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 760px) {
     :where(body:has(.funcionarios-system)) .units-list-heading,
     :where(body:has(.funcionarios-system)) .units-filter-heading,
     :where(body:has(.funcionarios-system)) .units-pagination {
@@ -7241,13 +7236,13 @@ body:has(.funcionarios-system) {
     content: "";
   }
 
-  @media (max-width: 1180px) {
+  @media (max-width: 1100px) {
     :where(body:has(.funcionarios-system)) .about-feature-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 760px) {
     :where(body:has(.funcionarios-system)) .about-hero,
     :where(body:has(.funcionarios-system)) .about-card-grid {
       grid-template-columns: 1fr;
@@ -7262,7 +7257,7 @@ body:has(.funcionarios-system) {
     }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 760px) {
     :where(body:has(.funcionarios-system)) .about-hero h2 {
       font-size: 40px;
     }
@@ -8245,7 +8240,7 @@ body:has(.funcionarios-system) {
     }
   }
 
-  @media (max-width: 1180px) {
+  @media (max-width: 1100px) {
     :where(body:has(.funcionarios-system)) .users-filter-grid {
       grid-template-columns: 1fr 1fr;
     }
@@ -8255,7 +8250,7 @@ body:has(.funcionarios-system) {
     }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 760px) {
     :where(body:has(.funcionarios-system)) .users-metric-grid,
     :where(body:has(.funcionarios-system)) .access-profile-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -9018,7 +9013,7 @@ body:has(.funcionarios-system) {
     min-width: 180px;
   }
 
-  @media (max-width: 1180px) {
+  @media (max-width: 1100px) {
     :where(body:has(.funcionarios-system)) .publication-stats-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -9033,7 +9028,7 @@ body:has(.funcionarios-system) {
     }
   }
 
-  @media (max-width: 860px) {
+  @media (max-width: 760px) {
     :where(body:has(.funcionarios-system)) .publications-admin-hero,
     :where(body:has(.funcionarios-system)) .publication-admin-card {
       grid-template-columns: 1fr;
@@ -9057,7 +9052,7 @@ body:has(.funcionarios-system) {
     }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 760px) {
     :where(body:has(.funcionarios-system)) .publication-stats-grid,
     :where(body:has(.funcionarios-system)) .publication-form-grid.two-columns {
       grid-template-columns: 1fr;
@@ -9137,7 +9132,7 @@ body:has(.funcionarios-system) {
 }
 :where(body:has(.funcionarios-system)) input::placeholder,
 :where(body:has(.funcionarios-system)) textarea::placeholder {
-  color: var(--text-3);
+  color: var(--text-3-readable);
   opacity: 1;
 }
 :where(body:has(.funcionarios-system)) .app-shell {
@@ -9146,21 +9141,28 @@ body:has(.funcionarios-system) {
   min-height: 100dvh;
 }
 :where(body:has(.funcionarios-system)) .workspace {
-  padding: 0 28px 32px;
+  padding: 0 32px 32px;
   background: var(--bg);
+  max-width: 1440px;
+  margin-inline: auto;
 }
 :where(body:has(.funcionarios-system)) .view {
   padding-top: 24px;
 }
-:where(body:has(.funcionarios-system)) .eyebrow,
 :where(body:has(.funcionarios-system)) .panel-kicker {
   color: var(--brand-700);
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.07em;
+}
+:where(body:has(.funcionarios-system)) .eyebrow {
+  color: var(--brand-700);
+  font-size: 12px;
+  font-weight: 650;
   letter-spacing: 0.07em;
 }
 :where(body:has(.funcionarios-system)) .view-subtitle {
-  color: var(--text-3);
+  color: var(--text-3-readable);
   font-size: 13px;
 } /* Login */
 :where(body:has(.funcionarios-system)) .login-screen {
@@ -9223,7 +9225,7 @@ body:has(.funcionarios-system) {
   display: grid;
   gap: 0;
   color: #fff;
-  font-size: clamp(44px, 5.2vw, 72px);
+  font-size: 40px;
   line-height: 1.05;
   font-weight: 700;
   letter-spacing: -0.04em;
@@ -9336,7 +9338,7 @@ body:has(.funcionarios-system) {
   text-align: center;
 }
 :where(body:has(.funcionarios-system)) .login-brand-name span {
-  color: var(--text-3);
+  color: var(--text-3-readable);
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -9362,7 +9364,7 @@ body:has(.funcionarios-system) {
   line-height: 1.2;
 }
 :where(body:has(.funcionarios-system)) .login-brand > span {
-  color: var(--text-3);
+  color: var(--text-3-readable);
   font-size: 13px;
   margin-top: 8px;
 }
@@ -9422,7 +9424,7 @@ body:has(.funcionarios-system) {
   font-size: 14px;
 }
 :where(body:has(.funcionarios-system)) .login-input input::placeholder {
-  color: var(--text-3);
+  color: var(--text-3-readable);
 }
 :where(body:has(.funcionarios-system))
   .login-form
@@ -9441,7 +9443,7 @@ body:has(.funcionarios-system) {
   left: 14px;
   width: 18px;
   height: 18px;
-  color: var(--text-3);
+  color: var(--text-3-readable);
   pointer-events: none;
 }
 :where(body:has(.funcionarios-system)) .password-toggle {
@@ -9453,7 +9455,7 @@ body:has(.funcionarios-system) {
   padding: 0;
   display: grid;
   place-items: center;
-  color: var(--text-3);
+  color: var(--text-3-readable);
   border: 0;
   border-radius: 8px;
   background: transparent;
@@ -9508,7 +9510,7 @@ body:has(.funcionarios-system) {
 :where(body:has(.funcionarios-system)) .login-hint {
   margin: 0;
   padding: 10px 12px;
-  color: var(--text-3);
+  color: var(--text-3-readable);
   background: var(--bg-subtle);
   border-radius: 8px;
   font-size: 12px;
@@ -9522,7 +9524,7 @@ body:has(.funcionarios-system) {
   border-top: 1px solid var(--border);
   padding-top: 16px;
   margin-top: 20px;
-  color: var(--text-3);
+  color: var(--text-3-readable);
   background: none;
   font-size: 11px;
   text-align: center;
@@ -9531,7 +9533,7 @@ body:has(.funcionarios-system) {
 :where(body:has(.funcionarios-system)) .login-credit b,
 :where(body:has(.funcionarios-system)) .login-credit small {
   display: block;
-  color: var(--text-3);
+  color: var(--text-3-readable);
   font-size: 11px;
 }
 :where(body:has(.funcionarios-system)) .login-credit b {
@@ -9549,6 +9551,9 @@ body:has(.funcionarios-system) {
   border-top: 1px solid rgba(255, 255, 255, 0.18);
   color: rgba(255, 255, 255, 0.82);
   font-size: 11px;
+  position: static;
+  inset: auto;
+  align-self: end;
 }
 :where(body:has(.funcionarios-system)) .login-footer > span {
   display: flex;
@@ -9731,6 +9736,7 @@ body:has(.funcionarios-system) {
 }
 :where(body:has(.funcionarios-system)) .logout-button {
   flex-direction: row;
+  border-color: rgba(255, 255, 255, 0.2);
 }
 :where(body:has(.funcionarios-system)) .menu-item.active::before {
   color: transparent;
@@ -9750,8 +9756,8 @@ body:has(.funcionarios-system) {
   border-bottom: 1px solid var(--border);
   background: #fff;
   box-shadow:
-    28px 0 #fff,
-    -28px 0 #fff;
+    32px 0 #fff,
+    -32px 0 #fff;
 }
 :where(body:has(.funcionarios-system)) .topbar-heading {
   display: flex;
@@ -9847,7 +9853,7 @@ body:has(.funcionarios-system) {
   font-size: 12px;
 }
 :where(body:has(.funcionarios-system)) .top-profile-chip .session-copy span {
-  color: var(--text-3);
+  color: var(--text-3-readable);
   font-size: 10px;
 }
 :where(body:has(.funcionarios-system)) .top-icon-button,
@@ -9876,7 +9882,9 @@ body:has(.funcionarios-system) {
     grid-template-columns: 1fr;
     justify-items: center;
   }
-  body:has(.funcionarios-system).funcionarios-sidebar-collapsed .sidebar .menu-item {
+  body:has(.funcionarios-system).funcionarios-sidebar-collapsed
+    .sidebar
+    .menu-item {
     font-size: 0;
     gap: 0;
     justify-content: center;
@@ -9913,11 +9921,23 @@ body:has(.funcionarios-system) {
   box-shadow: none;
   transform: none;
 }
-:where(body:has(.funcionarios-system)) .primary-action,
 :where(body:has(.funcionarios-system)) .filter-submit {
   color: #fff;
   background: var(--brand-700);
   border-color: var(--brand-700);
+  min-height: 40px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+:where(body:has(.funcionarios-system)) .primary-action {
+  color: #fff;
+  background: var(--brand-700);
+  border-color: var(--brand-700);
+  min-height: 40px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
 }
 :where(body:has(.funcionarios-system)) .primary-action:hover:not(:disabled),
 :where(body:has(.funcionarios-system)) .filter-submit:hover:not(:disabled) {
@@ -9927,24 +9947,82 @@ body:has(.funcionarios-system) {
   box-shadow: none;
   transform: none;
 }
-:where(body:has(.funcionarios-system)) .secondary-action,
-:where(body:has(.funcionarios-system)) .ghost-action,
-:where(body:has(.funcionarios-system)) .soft-action,
-:where(body:has(.funcionarios-system)) .filter-reset,
-:where(body:has(.funcionarios-system)) .table-export,
 :where(body:has(.funcionarios-system)) .users-clear-button,
 :where(body:has(.funcionarios-system)) .units-clear-button {
   color: var(--brand-700);
   background: #fff;
   border-color: var(--border);
 }
-:where(body:has(.funcionarios-system)) .secondary-action:hover,
-:where(body:has(.funcionarios-system)) .ghost-action:hover,
-:where(body:has(.funcionarios-system)) .soft-action:hover,
-:where(body:has(.funcionarios-system)) .filter-reset:hover {
+:where(body:has(.funcionarios-system)) .table-export {
+  color: var(--brand-700);
+  background: #fff;
+  border-color: var(--border);
+  min-height: 40px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+:where(body:has(.funcionarios-system)) .filter-reset {
+  color: var(--text-2);
+  background: transparent;
+  border-color: transparent;
+  min-height: 40px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+:where(body:has(.funcionarios-system)) .soft-action {
+  color: var(--text-2);
+  background: transparent;
+  border-color: transparent;
+  min-height: 40px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+:where(body:has(.funcionarios-system)) .ghost-action {
+  color: var(--text-2);
+  background: transparent;
+  border-color: transparent;
+  min-height: 40px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+:where(body:has(.funcionarios-system)) .secondary-action {
+  color: var(--brand-800);
+  background: #fff;
+  border-color: var(--border-strong);
+  min-height: 40px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+:where(body:has(.funcionarios-system)) .secondary-action:hover {
   color: var(--brand-800);
   background: var(--brand-50);
   border-color: var(--border-strong);
+  transform: none;
+  box-shadow: none;
+}
+:where(body:has(.funcionarios-system)) .filter-reset:hover {
+  color: var(--text-1);
+  background: var(--bg-subtle);
+  border-color: transparent;
+  transform: none;
+  box-shadow: none;
+}
+:where(body:has(.funcionarios-system)) .soft-action:hover {
+  color: var(--text-1);
+  background: var(--bg-subtle);
+  border-color: transparent;
+  transform: none;
+  box-shadow: none;
+}
+:where(body:has(.funcionarios-system)) .ghost-action:hover {
+  color: var(--text-1);
+  background: var(--bg-subtle);
+  border-color: transparent;
   transform: none;
   box-shadow: none;
 }
@@ -9952,11 +10030,19 @@ body:has(.funcionarios-system) {
   color: #fff;
   background: var(--danger);
   border-color: var(--danger);
+  min-height: 40px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
 }
 :where(body:has(.funcionarios-system)) .danger-outline-action {
   color: var(--danger);
   background: #fff;
   border-color: var(--danger);
+  min-height: 40px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
 }
 :where(body:has(.funcionarios-system)) .danger-submit-button:hover {
   background: #8d2028;
@@ -9986,7 +10072,6 @@ body:has(.funcionarios-system) {
 }
 :where(body:has(.funcionarios-system))
   input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
-:where(body:has(.funcionarios-system)) select,
 :where(body:has(.funcionarios-system)) textarea {
   min-height: 42px;
   padding: 9px 12px;
@@ -9997,6 +10082,23 @@ body:has(.funcionarios-system) {
   box-shadow: none;
   font-size: 14px;
   font-weight: 400;
+}
+:where(body:has(.funcionarios-system)) select {
+  min-height: 40px;
+  padding: 0 36px 0 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  color: var(--text-1);
+  background: #fff;
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: 400;
+  height: 40px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7A90' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
 }
 :where(body:has(.funcionarios-system)) input:focus,
 :where(body:has(.funcionarios-system)) select:focus,
@@ -10013,7 +10115,7 @@ body:has(.funcionarios-system) {
   padding-left: 40px;
 }
 :where(body:has(.funcionarios-system)) .filter-search-field svg {
-  color: var(--text-3);
+  color: var(--text-3-readable);
 }
 :where(body:has(.funcionarios-system)) .form-grid {
   gap: 16px;
@@ -10037,7 +10139,7 @@ body:has(.funcionarios-system) {
 :where(body:has(.funcionarios-system))
   .validated-field.is-valid
   .validated-status {
-  color: var(--success);
+  color: var(--success-text);
 }
 :where(body:has(.funcionarios-system))
   .validated-field.is-invalid
@@ -10159,15 +10261,16 @@ body:has(.funcionarios-system) {
 }
 :where(body:has(.funcionarios-system)) .metric-card strong {
   color: var(--text-1);
-  font-size: var(--type-indicator-number);
+  font-size: 30px;
   font-weight: 700;
   line-height: 1.15;
+  font-family: var(--font-jakarta), var(--font-admin);
 }
 :where(body:has(.funcionarios-system))
   .metric-card
   span:not(.metric-icon):not(.metric-trend),
 :where(body:has(.funcionarios-system)) .metric-card small {
-  color: var(--text-3);
+  color: var(--text-3-readable);
 }
 :where(body:has(.funcionarios-system)) .metric-icon,
 :where(body:has(.funcionarios-system)) .unit-metric-icon,
@@ -10191,11 +10294,11 @@ body:has(.funcionarios-system) {
 :where(body:has(.funcionarios-system)) .metric-green .metric-icon,
 :where(body:has(.funcionarios-system)) .unit-metric-green .unit-metric-icon,
 :where(body:has(.funcionarios-system)) .user-metric-green .user-metric-icon {
-  color: var(--success);
+  color: var(--success-text);
   background: var(--success-bg);
 }
 :where(body:has(.funcionarios-system)) .metric-orange .metric-icon {
-  color: var(--warning);
+  color: var(--warning-text);
   background: var(--warning-bg);
 }
 :where(body:has(.funcionarios-system)) .metric-purple .metric-icon {
@@ -10203,13 +10306,13 @@ body:has(.funcionarios-system) {
   background: var(--purple-bg);
 }
 :where(body:has(.funcionarios-system)) .metric-trend {
-  color: var(--text-3);
+  color: var(--text-3-readable);
   background: var(--bg-subtle);
   box-shadow: none;
 }
 :where(body:has(.funcionarios-system)) .employee-stat {
   padding: 14px;
-  min-height: 100px;
+  min-height: 104px;
 }
 :where(body:has(.funcionarios-system)) .dashboard-grid-upgraded {
   display: grid;
@@ -10249,7 +10352,7 @@ body:has(.funcionarios-system) {
 }
 :where(body:has(.funcionarios-system)) .panel-heading h2 {
   color: var(--text-1);
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 650;
 }
 :where(body:has(.funcionarios-system)) .panel-link {
@@ -10385,18 +10488,18 @@ body:has(.funcionarios-system) {
 :where(body:has(.funcionarios-system)) thead,
 :where(body:has(.funcionarios-system)) .units-table thead,
 :where(body:has(.funcionarios-system)) .users-table thead {
-  color: var(--text-3);
+  color: var(--text-3-readable);
   background: var(--bg-subtle);
 }
 :where(body:has(.funcionarios-system)) th {
   padding: 12px 16px;
-  color: var(--text-3);
+  color: var(--text-3-readable);
   background: var(--bg-subtle);
   border-bottom: 1px solid var(--border);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 650;
   text-transform: uppercase;
-  letter-spacing: 0.035em;
+  letter-spacing: 0.04em;
 }
 :where(body:has(.funcionarios-system)) td {
   height: 56px;
@@ -10464,12 +10567,12 @@ body:has(.funcionarios-system) {
 :where(body:has(.funcionarios-system)) .status-ativo,
 :where(body:has(.funcionarios-system)) .status-active,
 :where(body:has(.funcionarios-system)) .status-ativa {
-  color: var(--success);
+  color: var(--success-text);
   background: var(--success-bg);
 }
 :where(body:has(.funcionarios-system)) .status-licenca,
 :where(body:has(.funcionarios-system)) .status-afastado {
-  color: var(--warning);
+  color: var(--warning-text);
   background: var(--warning-bg);
 }
 :where(body:has(.funcionarios-system)) .status-exonerado,
@@ -10505,7 +10608,7 @@ body:has(.funcionarios-system) {
   background: var(--brand-100);
 }
 :where(body:has(.funcionarios-system)) .unit-address {
-  color: var(--text-3);
+  color: var(--text-3-readable);
   font-size: 12px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -10539,7 +10642,7 @@ body:has(.funcionarios-system) {
 }
 :where(body:has(.funcionarios-system)) .pagination-range,
 :where(body:has(.funcionarios-system)) .pagination-total {
-  color: var(--text-3);
+  color: var(--text-3-readable);
   font-size: 13px;
 }
 :where(body:has(.funcionarios-system)) .user-card,
@@ -10593,12 +10696,22 @@ body:has(.funcionarios-system) {
   background: #fff;
   box-shadow: var(--shadow-md);
 }
-:where(body:has(.funcionarios-system)) .row-menu-popover a,
 :where(body:has(.funcionarios-system)) .row-menu-popover button {
   display: flex;
   align-items: center;
   gap: 8px;
   min-height: 44px;
+  padding: 10px 12px;
+  color: var(--text-2);
+  border-radius: 6px;
+  background: #fff;
+  font-size: 13px;
+}
+:where(body:has(.funcionarios-system)) .row-menu-popover a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
   padding: 10px 12px;
   color: var(--text-2);
   border-radius: 6px;
@@ -10651,13 +10764,14 @@ body:has(.funcionarios-system) {
   z-index: 2;
   height: 40px;
   padding: 10px 12px;
-  color: var(--text-3);
+  color: var(--text-3-readable);
   background: var(--bg-subtle);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 650;
   text-transform: uppercase;
   line-height: 20px;
   border-bottom: 1px solid var(--border);
+  letter-spacing: 0.04em;
 }
 :where(body:has(.funcionarios-system))
   #employeesView
@@ -10730,7 +10844,7 @@ body:has(.funcionarios-system) {
 :where(body:has(.funcionarios-system)) #employeesView .employee-role small {
   display: block;
   margin: 1px 0 0;
-  color: var(--text-3);
+  color: var(--text-3-readable);
   font-size: 12px;
   line-height: 17px;
   white-space: nowrap;
@@ -10745,6 +10859,7 @@ body:has(.funcionarios-system) {
   color: var(--text-2);
   font-size: 13px;
   font-weight: 500;
+  text-transform: capitalize;
 }
 :where(body:has(.funcionarios-system)) #employeesView .employee-contact > span,
 :where(body:has(.funcionarios-system))
@@ -10760,7 +10875,7 @@ body:has(.funcionarios-system) {
   .employee-contact
   .employee-missing,
 :where(body:has(.funcionarios-system)) #employeesView .employee-missing {
-  color: #9aa7b8;
+  color: var(--text-3-readable);
   font-weight: 400;
 }
 :where(body:has(.funcionarios-system)) #employeesView .employee-avatar {
@@ -10858,7 +10973,7 @@ body:has(.funcionarios-system) {
   height: 40px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  color: var(--text-3);
+  color: var(--text-3-readable);
   background: #fff;
   box-shadow: none;
 }
@@ -10894,7 +11009,7 @@ body:has(.funcionarios-system) {
   width: 16px;
   height: 16px;
   flex: 0 0 16px;
-  color: var(--text-3);
+  color: var(--text-3-readable);
 }
 :where(body:has(.funcionarios-system))
   .employee-actions-popover
@@ -11085,7 +11200,7 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 16px 24px;
+  padding: 20px 24px;
   border-bottom: 1px solid var(--border);
   background: #fff;
 }
@@ -11243,7 +11358,7 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
 }
 :where(body:has(.funcionarios-system)) .modal input::placeholder,
 :where(body:has(.funcionarios-system)) .modal textarea::placeholder {
-  color: #6b7a90;
+  color: var(--text-3-readable);
   opacity: 1;
 }
 :where(body:has(.funcionarios-system)) .modal select {
@@ -11295,7 +11410,7 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
 :where(body:has(.funcionarios-system)) .employee-field-hint {
   display: block;
   margin-top: 4px;
-  color: var(--text-3);
+  color: var(--text-3-readable);
   font-size: 11px;
   line-height: 15px;
 }
@@ -11304,7 +11419,7 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
   gap: 2px;
   flex: 1 1 auto;
   margin: 0 auto 0 0;
-  color: var(--text-3);
+  color: var(--text-3-readable);
   font-size: 11px;
   line-height: 16px;
 }
@@ -11372,6 +11487,274 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
 :where(body:has(.funcionarios-system)) .confirm-modal .modal-title-icon {
   color: var(--danger);
   background: var(--danger-bg);
+}
+:where(body:has(.funcionarios-system))
+  input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]) {
+  min-height: 40px;
+  padding: 8px 12px;
+}
+:where(body:has(.funcionarios-system)) .unit-metric-card strong {
+  font-family: var(--font-jakarta), var(--font-admin);
+  font-size: 30px;
+  font-weight: 700;
+}
+:where(body:has(.funcionarios-system)) .user-metric-card strong {
+  font-family: var(--font-jakarta), var(--font-admin);
+  font-size: 30px;
+  font-weight: 700;
+}
+:where(body:has(.funcionarios-system)) .publication-stat-card strong {
+  font-family: var(--font-jakarta), var(--font-admin);
+  font-size: 30px;
+  font-weight: 700;
+}
+:where(body:has(.funcionarios-system)) .employee-stat strong {
+  font-family: var(--font-jakarta), var(--font-admin);
+  font-size: 28px;
+  font-weight: 700;
+}
+:where(body:has(.funcionarios-system)) .employee-stat-line {
+  display: none;
+}
+:where(body:has(.funcionarios-system)) .publication-admin-image {
+  width: 120px;
+  height: 80px;
+  border-radius: 8px;
+}
+:where(body:has(.funcionarios-system)) .publication-admin-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+:where(body:has(.funcionarios-system)) .row-menu-popover a svg {
+  color: var(--text-3-readable);
+  width: 16px;
+  height: 16px;
+} /* Boas-vindas: apresentação local, sem consultas ou alterações na sessão. */
+:where(body:has(.funcionarios-system)) .welcome-toast {
+  position: fixed;
+  z-index: 150;
+  left: calc(50% + 132px);
+  bottom: max(24px, env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(420px, calc(100vw - 32px));
+  height: 64px;
+  padding: 7px 12px 7px 8px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: #fff;
+  background: #0a2a5e;
+  box-shadow: 0 12px 32px rgba(10, 42, 94, 0.35);
+  transform: translateX(-50%);
+  animation: funcionarios-welcome-in 450ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+:where(body:has(.funcionarios-system)) .welcome-toast::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -50%;
+  z-index: -1;
+  width: 35%;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent,
+    rgba(255, 255, 255, 0.16),
+    transparent
+  );
+  transform: skewX(-15deg);
+  animation: funcionarios-welcome-shine 900ms ease-out 450ms both;
+}
+:where(body:has(.funcionarios-system)) .welcome-toast-crest {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  border: 2px solid #e8b50c;
+  border-radius: 50%;
+  background: #fff;
+  animation: funcionarios-welcome-pop 400ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+:where(body:has(.funcionarios-system)) .welcome-toast-crest img {
+  display: block;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+:where(body:has(.funcionarios-system)) .welcome-toast-copy {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  flex: 1;
+}
+:where(body:has(.funcionarios-system)) .welcome-toast-greeting {
+  color: #e8b50c;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+:where(body:has(.funcionarios-system)) .welcome-toast-copy strong {
+  display: block;
+  overflow: hidden;
+  color: #fff;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 650;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+:where(body:has(.funcionarios-system)) .welcome-toast-profile {
+  display: block;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  line-height: 14px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+:where(body:has(.funcionarios-system)) .welcome-toast-close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.82);
+  background: transparent;
+}
+:where(body:has(.funcionarios-system)) .welcome-toast-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+:where(body:has(.funcionarios-system)) .welcome-toast-close:focus-visible {
+  outline-color: #e8b50c;
+  box-shadow: 0 0 0 3px rgba(232, 181, 12, 0.28);
+}
+:where(body:has(.funcionarios-system)) .welcome-toast--leaving {
+  pointer-events: none;
+  animation: funcionarios-welcome-out 250ms ease both;
+}
+:where(body:has(.funcionarios-system)) .welcome-toast--leaving::after {
+  display: none;
+}
+@keyframes funcionarios-welcome-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 24px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+@keyframes funcionarios-welcome-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+  }
+}
+@keyframes funcionarios-welcome-pop {
+  0% {
+    transform: scale(0.8);
+  }
+  65% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes funcionarios-welcome-shine {
+  from {
+    left: -50%;
+  }
+  to {
+    left: 120%;
+  }
+}
+@keyframes funcionarios-welcome-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes funcionarios-welcome-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@media (min-width: 1101px) and (max-width: 1279px) {
+  :where(body:has(.funcionarios-system)) .welcome-toast {
+    left: calc(50% + 116px);
+  }
+}
+@media (min-width: 1101px) {
+  body:has(.funcionarios-system).funcionarios-sidebar-collapsed .welcome-toast {
+    left: calc(50% + 40px);
+  }
+}
+@media (max-width: 1100px) {
+  :where(body:has(.funcionarios-system)) .welcome-toast {
+    left: 50%;
+  }
+}
+@media (max-width: 760px) {
+  :where(body:has(.funcionarios-system)) .welcome-toast {
+    top: max(12px, env(safe-area-inset-top));
+    bottom: auto;
+    width: min(420px, calc(100vw - 24px));
+    gap: 8px;
+    padding-right: 8px;
+  }
+  :where(body:has(.funcionarios-system)) .modal-close-button {
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    flex-basis: 44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :where(body:has(.funcionarios-system)) .welcome-toast {
+    animation: funcionarios-welcome-fade-in 180ms ease both !important;
+  }
+  :where(body:has(.funcionarios-system)) .welcome-toast--leaving {
+    animation: funcionarios-welcome-fade-out 180ms ease both !important;
+  }
+  :where(body:has(.funcionarios-system)) .welcome-toast-crest {
+    animation: none !important;
+  }
+  :where(body:has(.funcionarios-system)) .welcome-toast::after {
+    display: none;
+  }
+}
+:where(body:has(.funcionarios-system)) .login-form .login-submit {
+  min-height: 46px;
+  height: 46px;
+  font-size: 15px;
+  padding: 10px 16px;
+}
+:where(body:has(.funcionarios-system)) .modal-close-button {
+  width: 36px;
+  height: 36px;
+  min-height: 36px;
+  flex-basis: 36px;
 } /* Notificações e telas complementares */
 :where(body:has(.funcionarios-system)) .notice-toast {
   --toast-tone: var(--success);
@@ -11427,7 +11810,7 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
   flex: 0 0 44px;
   margin: -8px -8px 0 0;
   border-radius: 8px;
-  color: var(--text-3);
+  color: var(--text-3-readable);
   background: transparent;
 }
 :where(body:has(.funcionarios-system)) .system-notice,
@@ -11435,7 +11818,7 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
   padding: 12px 16px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  color: var(--warning);
+  color: var(--warning-text);
   background: var(--warning-bg);
   box-shadow: none;
 }
@@ -11475,6 +11858,8 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
   border-radius: 12px;
   background: #fff;
   box-shadow: var(--shadow-sm);
+  grid-template-columns: 120px minmax(0, 1fr) auto;
+  align-items: center;
 }
 :where(body:has(.funcionarios-system)) .publication-admin-card img {
   width: 120px;
@@ -11520,7 +11905,7 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
     grid-column: 1 / -1;
   }
 }
-@media (max-width: 1100px) {
+@media (max-width: 1120px) {
   :where(body:has(.funcionarios-system)) .login-screen {
     padding: 32px;
   }
@@ -11536,7 +11921,7 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
   }
   :where(body:has(.funcionarios-system)) .login-intro h1 {
     display: block;
-    font-size: 44px;
+    font-size: 40px;
   }
   :where(body:has(.funcionarios-system)) .login-intro h1 span + span::before {
     content: " ";
@@ -11554,6 +11939,8 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
   :where(body:has(.funcionarios-system)) .login-bottom-note {
     margin-top: 16px;
   }
+}
+@media (max-width: 1100px) {
   :where(body:has(.funcionarios-system)) .sidebar {
     position: fixed;
     inset: 0 auto 0 0;
@@ -11611,6 +11998,12 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
   :where(body:has(.funcionarios-system)) .header-clock {
     min-width: 80px;
   }
+  :where(body:has(.funcionarios-system)) .login-intro .login-intro-description {
+    display: block;
+  }
+  :where(body:has(.funcionarios-system)) .login-feature-grid {
+    display: grid;
+  }
 } /* 900px mantém três campos legíveis sem reduzir a tipografia. */
 @media (min-width: 761px) and (max-width: 900px) {
   :where(body:has(.funcionarios-system)) .employee-compact-grid {
@@ -11618,11 +12011,14 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
   }
 }
 @media (max-height: 700px) {
-  :where(body:has(.funcionarios-system)) .modal .modal-header,
   :where(body:has(.funcionarios-system)) .employee-modal-body,
   :where(body:has(.funcionarios-system)) .unit-modal-body,
   :where(body:has(.funcionarios-system)) .user-modal-body,
   :where(body:has(.funcionarios-system)) .publication-modal-layout {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  :where(body:has(.funcionarios-system)) .modal .modal-header {
     padding-top: 12px;
     padding-bottom: 12px;
   }
@@ -11656,9 +12052,12 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
     min-width: 0;
     padding: 4px;
   }
-  :where(body:has(.funcionarios-system)) .top-profile-chip .session-copy,
+  :where(body:has(.funcionarios-system)) .top-profile-chip .session-copy {
+    display: none;
+  }
   :where(body:has(.funcionarios-system)) .top-icon-button {
     display: none;
+    min-height: 44px;
   }
   :where(body:has(.funcionarios-system)) .header-clock-copy strong {
     font-size: 10px;
@@ -11702,9 +12101,13 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
   :where(body:has(.funcionarios-system)) .users-search-field {
     grid-column: auto;
   }
-  :where(body:has(.funcionarios-system)) .filter-submit,
   :where(body:has(.funcionarios-system)) .filter-reset {
     width: 100%;
+    min-height: 44px;
+  }
+  :where(body:has(.funcionarios-system)) .filter-submit {
+    width: 100%;
+    min-height: 44px;
   }
   :where(body:has(.funcionarios-system)) .user-card-grid,
   :where(body:has(.funcionarios-system)) .unit-card-grid {
@@ -11756,16 +12159,11 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
     margin-bottom: 12px;
   }
   :where(body:has(.funcionarios-system)) .login-intro h1 {
-    font-size: 36px;
+    font-size: 30px;
   }
   :where(body:has(.funcionarios-system)) .login-intro .login-intro-subtitle {
     margin-top: 16px;
     font-size: 17px;
-  }
-  :where(body:has(.funcionarios-system)) .login-intro-description,
-  :where(body:has(.funcionarios-system)) .login-feature-grid,
-  :where(body:has(.funcionarios-system)) .login-bottom-note {
-    display: none;
   }
   :where(body:has(.funcionarios-system)) .login-intro-line {
     margin-top: 16px;
@@ -11784,7 +12182,6 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
     margin-top: 0;
     font-size: 10px;
   }
-  :where(body:has(.funcionarios-system)) dialog.modal,
   :where(body:has(.funcionarios-system)) dialog.small-modal,
   :where(body:has(.funcionarios-system)) dialog.unit-modal,
   :where(body:has(.funcionarios-system)) dialog.user-modal,
@@ -11797,8 +12194,17 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
     max-height: 100dvh;
     border-radius: 16px 16px 0 0;
   }
+  :where(body:has(.funcionarios-system)) dialog.modal {
+    position: fixed;
+    inset: auto 0 0;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    max-height: 92dvh;
+    border-radius: 16px 16px 0 0;
+  }
   :where(body:has(.funcionarios-system)) #employeeDialog {
-    height: 100dvh;
+    height: 92dvh;
   }
   :where(body:has(.funcionarios-system)) .employee-modal-form,
   :where(body:has(.funcionarios-system)) .unit-modal-form,
@@ -11904,6 +12310,43 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
     width: 100%;
     height: 160px;
   }
+  :where(body:has(.funcionarios-system))
+    .modal
+    > form:has(
+      > :is(
+        .employee-modal-body,
+        .unit-modal-body,
+        .user-modal-body,
+        .publication-modal-layout
+      )
+    ) {
+    max-height: calc(92dvh - 2px);
+  }
+  :where(body:has(.funcionarios-system)) .primary-action {
+    min-height: 44px;
+  }
+  :where(body:has(.funcionarios-system)) .secondary-action {
+    min-height: 44px;
+  }
+  :where(body:has(.funcionarios-system)) .ghost-action {
+    min-height: 44px;
+  }
+  :where(body:has(.funcionarios-system)) .soft-action {
+    min-height: 44px;
+  }
+  :where(body:has(.funcionarios-system)) .danger-submit-button {
+    min-height: 44px;
+  }
+  :where(body:has(.funcionarios-system)) .danger-outline-action {
+    min-height: 44px;
+  }
+  :where(body:has(.funcionarios-system)) .icon-button {
+    min-height: 44px;
+  }
+  :where(body:has(.funcionarios-system)) .publication-admin-image {
+    width: 100%;
+    height: 160px;
+  }
 }
 @media (max-width: 430px) {
   :where(body:has(.funcionarios-system)) .dashboard-metric-grid {
@@ -11921,13 +12364,43 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
     min-width: 0;
   }
   :where(body:has(.funcionarios-system)) .login-intro h1 {
-    font-size: 32px;
+    font-size: 30px;
   }
   :where(body:has(.funcionarios-system)) .login-footer {
     flex-direction: column;
   }
   :where(body:has(.funcionarios-system)) .publication-stats-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (min-width: 1101px) and (max-width: 1279px) {
+  :where(body:has(.funcionarios-system)) .sidebar {
+    flex-basis: 232px;
+    width: 232px;
+    min-width: 232px;
+    max-width: 232px;
+  }
+  :where(body:has(.funcionarios-system)) .workspace {
+    padding: 0 24px 32px;
+  }
+  :where(body:has(.funcionarios-system)) .topbar {
+    box-shadow:
+      24px 0 #fff,
+      -24px 0 #fff;
+  }
+}
+@media (max-width: 640px) {
+  :where(body:has(.funcionarios-system)) .login-intro-description {
+    display: none;
+  }
+  :where(body:has(.funcionarios-system)) .login-feature-grid {
+    display: none;
+  }
+  :where(body:has(.funcionarios-system)) .login-bottom-note {
+    display: none;
+  }
+  :where(body:has(.funcionarios-system)) .login-intro .login-intro-description {
+    display: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {
