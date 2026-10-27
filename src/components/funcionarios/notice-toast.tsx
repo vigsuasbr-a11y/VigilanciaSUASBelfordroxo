@@ -35,7 +35,7 @@ export function NoticeToast({ message, title }: NoticeToastProps) {
   if (!message || !visible) return null;
 
   return (
-    <div className="notice-toast" role="status" aria-live="polite">
+    <div className="notice-toast notice-toast--success" role="status" aria-live="polite">
       <span className="notice-toast-icon" aria-hidden="true">
         <CheckCircle2 size={19} />
       </span>

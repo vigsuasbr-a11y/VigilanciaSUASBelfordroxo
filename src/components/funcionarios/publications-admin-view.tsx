@@ -287,27 +287,13 @@ export function PublicationDialog({
         </div>
 
         <div className="publication-modal-layout">
-          <aside className="publication-modal-aside">
-            <span className="publication-aside-icon">
-              <ImagePlus size={28} aria-hidden="true" />
-            </span>
-            <h3>Conteúdo visual</h3>
-            <p>
-              Use uma foto clara e institucional. A imagem sera exibida nos
-              cards e no modal de leitura do Portal.
-            </p>
-            <div className="publication-aside-note">
-              <strong>Somente administrador</strong>
-              <span>A criação de notícias fica restrita a este perfil.</span>
-            </div>
-          </aside>
 
           <div className="publication-form-stack">
-            <fieldset className="publication-fieldset">
-              <legend>
+            <section className="publication-fieldset">
+              <h3 className="publication-section-heading">
                 <Newspaper size={16} aria-hidden="true" />
                 Dados da notícia
-              </legend>
+              </h3>
               <div className="publication-form-grid two-columns">
                 <label>
                   <span>Título *</span>
@@ -356,13 +342,13 @@ export function PublicationDialog({
                 />
                 <span>Marcar como destaque</span>
               </label>
-            </fieldset>
+            </section>
 
-            <fieldset className="publication-fieldset">
-              <legend>
+            <section className="publication-fieldset">
+              <h3 className="publication-section-heading">
                 <ImagePlus size={16} aria-hidden="true" />
                 Imagem e fonte
-              </legend>
+              </h3>
               <div className="publication-form-grid two-columns">
                 <label>
                   <span>Enviar imagem</span>
@@ -407,13 +393,13 @@ export function PublicationDialog({
                   placeholder="Descreva a imagem para acessibilidade"
                 />
               </label>
-            </fieldset>
+            </section>
 
-            <fieldset className="publication-fieldset">
-              <legend>
+            <section className="publication-fieldset">
+              <h3 className="publication-section-heading">
                 <FileText size={16} aria-hidden="true" />
                 Texto da notícia
-              </legend>
+              </h3>
               <label>
                 <span>Resumo *</span>
                 <textarea
@@ -442,7 +428,7 @@ export function PublicationDialog({
                   placeholder="CRAS, CREAS, Capacitação"
                 />
               </label>
-            </fieldset>
+            </section>
           </div>
         </div>
 

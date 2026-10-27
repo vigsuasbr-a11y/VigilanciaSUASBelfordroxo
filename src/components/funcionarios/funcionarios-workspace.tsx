@@ -219,7 +219,7 @@ export function FuncionariosWorkspace({
   return (
     <>
       <link rel="stylesheet" href="/funcionarios/styles.css" />
-      <div id="appShell" className="app-shell">
+      <div id="appShell" className="app-shell funcionarios-system">
         <aside id="appSidebar" className="sidebar" aria-label="Menu principal">
           <div className="brand">
             <Image
@@ -1034,11 +1034,16 @@ function EmployeeDialog({
   employee: FuncionarioListItem | null;
   units: UnidadeRow[];
 }) {
-  const selectedEducation = normalizeEscolaridadeOption(employee?.escolaridade) ?? "";
+  const selectedEducation =
+    normalizeEscolaridadeOption(employee?.escolaridade) ?? "";
 
   return (
     <dialog id="employeeDialog" className="modal" open>
-      <form id="employeeForm" className="employee-modal-form" action={saveFuncionarioAction}>
+      <form
+        id="employeeForm"
+        className="employee-modal-form"
+        action={saveFuncionarioAction}
+      >
         <div className="modal-header">
           <div className="modal-title-group">
             <span className="modal-title-icon">
@@ -1060,55 +1065,27 @@ function EmployeeDialog({
             <X size={24} aria-hidden="true" />
           </Link>
         </div>
-        <input type="hidden" id="employeeId" name="id" value={employee?.id ?? ""} />
+        <input
+          type="hidden"
+          id="employeeId"
+          name="id"
+          value={employee?.id ?? ""}
+        />
         <div className="employee-modal-body">
-          <aside className="employee-modal-rail" aria-label="Informações do cadastro">
-            <span className="rail-main-icon">
-              <UserPlus size={34} aria-hidden="true" />
-            </span>
-            <h3>{employee ? "Vamos atualizar este funcionário" : "Vamos cadastrar um novo funcionário"}</h3>
-            <p>
-              Preencha corretamente os dados para manter nossas informações
-              sempre atualizadas.
-            </p>
-            <div className="rail-note">
-              <ShieldCheck size={24} aria-hidden="true" />
-              <span>
-                <strong>Dados protegidos</strong>
-                Acesso restrito a usuários autorizados.
-              </span>
-            </div>
-            <div className="rail-note">
-              <FileText size={24} aria-hidden="true" />
-              <span>
-                <strong>Cadastro rápido</strong>
-                Preencha os dados e o sistema cuida do restante.
-              </span>
-            </div>
-            <div className="rail-note">
-              <Info size={24} aria-hidden="true" />
-              <span>
-                <strong>Informações importantes</strong>
-                Revise os campos antes de salvar.
-              </span>
-            </div>
-          </aside>
-          <div className="form-sections employee-modal-sections">
-          <fieldset className="form-section">
-            <legend>
-              <UserRound size={18} aria-hidden="true" />
-              Dados pessoais
-            </legend>
-            <div className="section-grid">
-              <ValidatedField
-                id="employeeName"
-                name="nome"
-                label="Nome completo"
-                fieldClassName="field-wide"
-                placeholder="Digite o nome completo do funcionário"
-                required
-                defaultValue={employee?.nome ?? ""}
-              />
+          <div className="employee-compact-grid">
+            <h3 className="employee-section-heading">
+              Dados pessoais e contato
+            </h3>
+            <ValidatedField
+              id="employeeName"
+              name="nome"
+              label="Nome completo"
+              fieldClassName="employee-name-field"
+              placeholder="Digite o nome completo do funcionário"
+              required
+              defaultValue={employee?.nome ?? ""}
+            />
+            <div className="employee-cpf-field">
               <ValidatedField
                 id="employeeCpf"
                 name="cpf"
@@ -1118,158 +1095,141 @@ function EmployeeDialog({
                 autoComplete="off"
                 defaultValue={employee?.cpf ?? ""}
               />
-              <ValidatedField
-                id="employeeBirth"
-                name="nascimento"
-                label="Data de nascimento"
-                mask="date"
-                placeholder="dd/mm/aaaa"
-                noFuture
-                autoComplete="bday"
-                defaultValue={formatDateForInput(employee?.nascimento)}
-              />
-              <label>
-                Escolaridade
-                <select
-                  id="employeeEducation"
-                  name="escolaridade"
-                  defaultValue={selectedEducation}
-                >
-                  <option value="">Selecione a escolaridade</option>
-                  {escolaridadeOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </label>
+              <small className="employee-field-hint">
+                Somente números; a pontuação é automática.
+              </small>
             </div>
-          </fieldset>
-
-          <fieldset className="form-section">
-            <legend>
-              <BriefcaseBusiness size={18} aria-hidden="true" />
-              Vínculo profissional
-            </legend>
-            <div className="section-grid">
-              <ValidatedField
-                id="employeeRole"
-                name="cargo"
-                label="Cargo / Profissão"
-                placeholder="Digite o cargo ou profissão"
-                defaultValue={employee?.cargo ?? ""}
+            <ValidatedField
+              id="employeeBirth"
+              name="nascimento"
+              label="Data de nascimento"
+              mask="date"
+              placeholder="dd/mm/aaaa"
+              noFuture
+              autoComplete="bday"
+              defaultValue={formatDateForInput(employee?.nascimento)}
+            />
+            <label>
+              Escolaridade
+              <select
+                id="employeeEducation"
+                name="escolaridade"
+                defaultValue={selectedEducation}
+              >
+                <option value="">Selecione a escolaridade</option>
+                {escolaridadeOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <ValidatedField
+              id="employeePhone"
+              name="telefone"
+              label="Telefone"
+              mask="phone"
+              placeholder="(21) 00000-0000"
+              autoComplete="tel"
+              defaultValue={employee?.telefone ?? ""}
+            />
+            <h3 className="employee-section-heading">Vínculo profissional</h3>
+            <ValidatedField
+              id="employeeRole"
+              name="cargo"
+              label="Cargo / Profissão"
+              placeholder="Digite o cargo ou profissão"
+              defaultValue={employee?.cargo ?? ""}
+            />
+            <ValidatedField
+              id="employeeSector"
+              name="setor"
+              label="Setor"
+              placeholder="Informe o setor"
+              defaultValue={employee?.setor ?? ""}
+            />
+            <label>
+              Unidade vinculada
+              <select
+                id="employeeUnit"
+                name="unidade_id"
+                defaultValue={employee?.unidade_id ?? ""}
+              >
+                <option value="">Sem unidade</option>
+                {units.map((unit) => (
+                  <option key={unit.id} value={unit.id}>
+                    {unit.nome}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <ValidatedField
+              id="employeeContract"
+              name="vinculo"
+              label="Tipo de vínculo"
+              placeholder="Efetivo, contrato, comissionado..."
+              defaultValue={employee?.vinculo ?? ""}
+            />
+            <ValidatedField
+              id="employeeWorkload"
+              name="carga_horaria"
+              label="Carga horária"
+              placeholder="40h semanais"
+              defaultValue={employee?.carga_horaria ?? ""}
+            />
+            <ValidatedField
+              id="employeeAdmission"
+              name="admissao"
+              label="Data de admissão"
+              mask="date"
+              placeholder="dd/mm/aaaa"
+              defaultValue={formatDateForInput(employee?.admissao)}
+            />
+            <label>
+              Situação funcional
+              <select
+                id="employeeStatus"
+                name="status"
+                defaultValue={employee?.status ?? "Ativo"}
+              >
+                <option>Ativo</option>
+                <option>Exonerado</option>
+                <option value="Licenca">Licença</option>
+                <option>Transferido</option>
+                <option>Afastado</option>
+              </select>
+            </label>
+            <ValidatedField
+              name="historico_observacao"
+              label="Observação do histórico"
+              placeholder="Opcional ao alterar a situação funcional"
+            />
+            <ValidatedField
+              id="employeeEmail"
+              name="email"
+              label="E-mail"
+              mask="email"
+              placeholder="nome@exemplo.com"
+              autoComplete="email"
+              defaultValue={employee?.email ?? ""}
+            />
+            <h3 className="employee-section-heading">Observações</h3>
+            <label className="employee-notes-field">
+              Observações
+              <textarea
+                id="employeeNotes"
+                name="observacoes"
+                rows={4}
+                defaultValue={employee?.observacoes ?? ""}
               />
-              <ValidatedField
-                id="employeeSector"
-                name="setor"
-                label="Setor"
-                placeholder="Informe o setor"
-                defaultValue={employee?.setor ?? ""}
-              />
-              <label>
-                Unidade vinculada
-                <select
-                  id="employeeUnit"
-                  name="unidade_id"
-                  defaultValue={employee?.unidade_id ?? ""}
-                >
-                  <option value="">Sem unidade</option>
-                  {units.map((unit) => (
-                    <option key={unit.id} value={unit.id}>
-                      {unit.nome}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <ValidatedField
-                id="employeeContract"
-                name="vinculo"
-                label="Tipo de vínculo"
-                placeholder="Efetivo, contrato, comissionado..."
-                defaultValue={employee?.vinculo ?? ""}
-              />
-              <ValidatedField
-                id="employeeWorkload"
-                name="carga_horaria"
-                label="Carga horária"
-                placeholder="40h semanais"
-                defaultValue={employee?.carga_horaria ?? ""}
-              />
-              <ValidatedField
-                id="employeeAdmission"
-                name="admissao"
-                label="Data de admissão"
-                mask="date"
-                placeholder="dd/mm/aaaa"
-                defaultValue={formatDateForInput(employee?.admissao)}
-              />
-              <label>
-                Situação funcional
-                <select
-                  id="employeeStatus"
-                  name="status"
-                  defaultValue={employee?.status ?? "Ativo"}
-                >
-                  <option>Ativo</option>
-                  <option>Exonerado</option>
-                  <option value="Licenca">Licença</option>
-                  <option>Transferido</option>
-                  <option>Afastado</option>
-                </select>
-              </label>
-              <ValidatedField
-                name="historico_observacao"
-                label="Observação do histórico"
-                placeholder="Opcional ao alterar a situação funcional"
-              />
-            </div>
-          </fieldset>
-
-          <fieldset className="form-section">
-            <legend>
-              <FileText size={18} aria-hidden="true" />
-              Contato e observações
-            </legend>
-            <div className="section-grid">
-              <ValidatedField
-                id="employeePhone"
-                name="telefone"
-                label="Telefone"
-                mask="phone"
-                placeholder="(21) 00000-0000"
-                autoComplete="tel"
-                defaultValue={employee?.telefone ?? ""}
-              />
-              <ValidatedField
-                id="employeeEmail"
-                name="email"
-                label="E-mail"
-                mask="email"
-                placeholder="nome@exemplo.com"
-                autoComplete="email"
-                defaultValue={employee?.email ?? ""}
-              />
-              <label className="field-wide">
-                Observações
-                <textarea
-                  id="employeeNotes"
-                  name="observacoes"
-                  rows={4}
-                  defaultValue={employee?.observacoes ?? ""}
-                />
-              </label>
-            </div>
-          </fieldset>
-          <div className="modal-required-note">
-            <Info size={24} aria-hidden="true" />
-            <span>
-              <strong>Importante</strong>
-              Confira os dados antes de salvar o cadastro.
-            </span>
-          </div>
+            </label>
           </div>
         </div>
         <div className="form-actions employee-modal-actions">
+          <p className="employee-footer-note">
+            <strong>* obrigatório</strong>
+            <span>Confira os dados antes de salvar.</span>
+          </p>
           <Link
             className="ghost-action"
             id="cancelEmployeeBtn"
@@ -1404,30 +1364,6 @@ function UnitDialog({ unit }: { unit: UnidadeRow | null }) {
         </div>
 
         <div className="unit-modal-body">
-          <aside className="unit-modal-rail" aria-label="Orientações do cadastro">
-            <span className="rail-main-icon">
-              <Building2 size={30} aria-hidden="true" />
-            </span>
-            <h3>{isEditing ? "Revise a unidade" : "Vamos cadastrar uma unidade"}</h3>
-            <p>
-              Mantenha nome, tipo, situação e contato alinhados com a base oficial
-              do sistema.
-            </p>
-            <div className="rail-note">
-              <ShieldCheck size={20} aria-hidden="true" />
-              <div>
-                <strong>Dados protegidos</strong>
-                <span>Cadastro restrito a administradores autorizados.</span>
-              </div>
-            </div>
-            <div className="rail-note">
-              <Info size={20} aria-hidden="true" />
-              <div>
-                <strong>Campos obrigatórios</strong>
-                <span>Nome e tipo são necessários para salvar.</span>
-              </div>
-            </div>
-          </aside>
 
           <div className="form-sections unit-modal-sections">
             <section className="form-section unit-form-section">
@@ -1760,30 +1696,6 @@ function UserDialog({
         </div>
 
         <div className="user-modal-body">
-          <aside className="user-modal-rail" aria-label="Segurança do cadastro">
-            <span className="rail-main-icon">
-              <ShieldCheck size={30} aria-hidden="true" />
-            </span>
-            <h3>Administração de acesso</h3>
-            <p>
-              Usuários do sistema devem ter perfil compatível com as ações que
-              realmente precisam executar.
-            </p>
-            <div className="rail-note">
-              <Shield size={20} aria-hidden="true" />
-              <div>
-                <strong>Validação no servidor</strong>
-                <span>Perfis e situação são conferidos antes de salvar.</span>
-              </div>
-            </div>
-            <div className="rail-note">
-              <KeyRound size={20} aria-hidden="true" />
-              <div>
-                <strong>Senha protegida</strong>
-                <span>A senha só é informada no cadastro e nunca é exibida.</span>
-              </div>
-            </div>
-          </aside>
 
           <div className="form-sections user-modal-sections">
             <section className="form-section user-form-section">

@@ -193,7 +193,7 @@ export function EmployeeLoginForm({
           </>
         )}
       </button>
-      <p className="login-hint">
+      <p className={`login-hint${message ? " login-hint--error" : ""}`}>
         {message ?? "Acesso exclusivo para usuários autorizados da SEMASC."}
       </p>
     </form>

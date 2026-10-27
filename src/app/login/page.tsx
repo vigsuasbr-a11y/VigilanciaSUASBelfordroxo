@@ -82,7 +82,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   return (
     <>
       <link rel="stylesheet" href="/funcionarios/styles.css" />
-      <section id="loginScreen" className="login-screen">
+      <section id="loginScreen" className="login-screen funcionarios-system">
         <div className="login-ambient login-ambient-one" aria-hidden="true" />
         <div className="login-ambient login-ambient-two" aria-hidden="true" />
         <div className="login-particles" aria-hidden="true" />
