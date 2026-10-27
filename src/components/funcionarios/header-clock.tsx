@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { CalendarDays, Clock3, CloudSun, Moon, Sun } from "lucide-react";
+import { CalendarDays, CloudSun, Moon, Sun } from "lucide-react";
 
 const weekdayFormatter = new Intl.DateTimeFormat("pt-BR", {
   weekday: "long",
@@ -22,8 +22,7 @@ const timeFormatter = new Intl.DateTimeFormat("pt-BR", {
 
 const compactDateFormatter = new Intl.DateTimeFormat("pt-BR", {
   day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
+  month: "short",
 });
 
 const compactTimeFormatter = new Intl.DateTimeFormat("pt-BR", {
@@ -78,17 +77,8 @@ export function HeaderClock() {
         aria-label={clock.accessibleLabel}
       >
         <small>{clock.greeting}</small>
-        <strong>
-          <CalendarDays className="header-clock-date-icon" size={13} aria-hidden="true" />
-          <span className="header-clock-weekday">{clock.weekday}</span>
-          <span className="header-clock-date">, {clock.date}</span>
-          <span className="header-clock-compact-date">{clock.compactDate}</span>
-        </strong>
-        <span className="header-clock-time">
-          <Clock3 size={13} aria-hidden="true" />
-          <span className="header-clock-full-time">{clock.time}</span>
-          <span className="header-clock-compact-time">{clock.compactTime}</span>
-        </span>
+        <span className="header-clock-full">{clock.weekday}, {clock.date} · {clock.time}</span>
+        <span className="header-clock-compact">{clock.compactDate} · {clock.compactTime}</span>
       </time>
     </div>
   );
@@ -105,7 +95,10 @@ function buildClockViewModel(date: Date) {
   const weekday = capitalizeFirst(weekdayFormatter.format(date));
   const fullDate = dateFormatter.format(date);
   const time = timeFormatter.format(date);
-  const compactDate = compactDateFormatter.format(date);
+  const compactDate = compactDateFormatter.formatToParts(date)
+    .filter((part) => part.type === "day" || part.type === "month")
+    .map((part) => part.value.replace(/\./g, ""))
+    .join(" ");
   const compactTime = compactTimeFormatter.format(date);
 
   return {

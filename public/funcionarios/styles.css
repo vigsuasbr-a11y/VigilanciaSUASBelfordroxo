@@ -1149,10 +1149,9 @@ body:has(.funcionarios-system) {
 
   :where(body:has(.funcionarios-system)) .filter-bar {
     display: grid;
-    grid-template-columns: minmax(230px, 1.6fr) repeat(
-        3,
-        minmax(150px, 1fr)
-      ) auto;
+    grid-template-columns:
+      minmax(230px, 1.6fr) repeat(3, minmax(150px, 1fr))
+      auto;
     gap: var(--space-3);
     align-items: end;
     margin-bottom: var(--space-4);
@@ -3550,10 +3549,9 @@ body:has(.funcionarios-system) {
   }
 
   :where(body:has(.funcionarios-system)) .filter-grid {
-    grid-template-columns: minmax(280px, 1.45fr) minmax(190px, 0.8fr) minmax(
-        190px,
-        0.8fr
-      ) minmax(190px, 0.8fr) auto auto;
+    grid-template-columns:
+      minmax(280px, 1.45fr) minmax(190px, 0.8fr) minmax(190px, 0.8fr)
+      minmax(190px, 0.8fr) auto auto;
     align-items: end;
     gap: 14px;
   }
@@ -9878,6 +9876,12 @@ body:has(.funcionarios-system) {
     grid-template-columns: 1fr;
     justify-items: center;
   }
+  body:has(.funcionarios-system).funcionarios-sidebar-collapsed .sidebar .menu-item {
+    font-size: 0;
+    gap: 0;
+    justify-content: center;
+    padding-inline: 0;
+  }
 } /* Botões e formulários */
 :where(body:has(.funcionarios-system)) .primary-action,
 :where(body:has(.funcionarios-system)) .secondary-action,
@@ -10607,6 +10611,407 @@ body:has(.funcionarios-system) {
 }
 :where(body:has(.funcionarios-system)) .row-menu-popover .danger-action {
   color: var(--danger);
+} /* Lista de funcionários: seis colunas de dados e ações fixas. */
+:where(body:has(.funcionarios-system)) #employeesView .employee-table-scroll {
+  max-height: min(62dvh, 716px);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+:where(body:has(.funcionarios-system)) #employeesView .employees-table {
+  width: 100%;
+  min-width: 1080px;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+:where(body:has(.funcionarios-system)) .employees-table th:nth-child(1) {
+  width: 24%;
+}
+:where(body:has(.funcionarios-system)) .employees-table th:nth-child(2) {
+  width: 12%;
+}
+:where(body:has(.funcionarios-system)) .employees-table th:nth-child(3) {
+  width: 18%;
+}
+:where(body:has(.funcionarios-system)) .employees-table th:nth-child(4) {
+  width: 15%;
+}
+:where(body:has(.funcionarios-system)) .employees-table th:nth-child(5) {
+  width: 11%;
+}
+:where(body:has(.funcionarios-system)) .employees-table th:nth-child(6) {
+  width: 14%;
+}
+:where(body:has(.funcionarios-system)) .employees-table th:nth-child(7) {
+  width: 6%;
+}
+:where(body:has(.funcionarios-system)) #employeesView .employees-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  height: 40px;
+  padding: 10px 12px;
+  color: var(--text-3);
+  background: var(--bg-subtle);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 20px;
+  border-bottom: 1px solid var(--border);
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employees-table
+  tbody
+  tr {
+  height: 56px;
+  background: #fff;
+}
+:where(body:has(.funcionarios-system)) #employeesView .employees-table td {
+  border: 0;
+  height: 56px;
+  padding: 7px 12px;
+  border-bottom: 1px solid #eef2f7;
+  background: #fff;
+  vertical-align: middle;
+  font-size: 13px;
+  line-height: 18px;
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employees-table
+  tbody
+  tr:hover
+  td {
+  background: var(--brand-50);
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employees-table
+  .employee-identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+:where(body:has(.funcionarios-system)) #employeesView .employee-identity-copy {
+  display: block;
+  flex: 1;
+  min-width: 0;
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employee-identity-copy
+  strong,
+:where(body:has(.funcionarios-system)) #employeesView .employee-role strong,
+:where(body:has(.funcionarios-system)) #employeesView .employee-role small,
+:where(body:has(.funcionarios-system)) #employeesView .employee-contact > span,
+:where(body:has(.funcionarios-system)) #employeesView .employee-contact > small,
+:where(body:has(.funcionarios-system)) #employeesView .employee-unit > span {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employee-identity-copy
+  strong {
+  color: var(--text-1);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19px;
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employee-identity-copy
+  small,
+:where(body:has(.funcionarios-system)) #employeesView .employee-role small {
+  display: block;
+  margin: 1px 0 0;
+  color: var(--text-3);
+  font-size: 12px;
+  line-height: 17px;
+  white-space: nowrap;
+}
+:where(body:has(.funcionarios-system)) #employeesView .employee-role strong {
+  color: var(--text-1);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+}
+:where(body:has(.funcionarios-system)) #employeesView .employee-unit {
+  color: var(--text-2);
+  font-size: 13px;
+  font-weight: 500;
+}
+:where(body:has(.funcionarios-system)) #employeesView .employee-contact > span,
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employee-contact
+  > small {
+  color: var(--text-2);
+  font-size: 12px;
+  line-height: 18px;
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employee-contact
+  .employee-missing,
+:where(body:has(.funcionarios-system)) #employeesView .employee-missing {
+  color: #9aa7b8;
+  font-weight: 400;
+}
+:where(body:has(.funcionarios-system)) #employeesView .employee-avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 600;
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employee-avatar[data-tone="0"] {
+  color: #174d7e;
+  background: #e4effb;
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employee-avatar[data-tone="1"] {
+  color: #29604d;
+  background: #e5f2eb;
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employee-avatar[data-tone="2"] {
+  color: #65478a;
+  background: #f0eaf8;
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employee-avatar[data-tone="3"] {
+  color: #775520;
+  background: #f8f0dd;
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employee-avatar[data-tone="4"] {
+  color: #8a435b;
+  background: #f7e9ee;
+}
+:where(body:has(.funcionarios-system)) #employeesView .status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  min-height: 24px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+}
+:where(body:has(.funcionarios-system)) #employeesView .status-pill::before {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+}
+:where(body:has(.funcionarios-system)) #employeesView .status-exonerado {
+  color: var(--danger);
+  background: var(--danger-bg);
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employees-table
+  .employee-actions-cell {
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  padding: 7px 8px;
+  text-align: center;
+  border-left: 1px solid #eef2f7;
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employees-table
+  th.employee-actions-cell {
+  top: 0;
+  z-index: 3;
+  padding: 10px 8px;
+  background: var(--bg-subtle);
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .employee-actions-cell
+  .row-menu {
+  display: flex;
+  justify-content: center;
+}
+:where(body:has(.funcionarios-system)) #employeesView .row-menu-trigger {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-3);
+  background: #fff;
+  box-shadow: none;
+}
+:where(body:has(.funcionarios-system)) #employeesView .row-menu-trigger:hover {
+  border-color: var(--border);
+  background: var(--brand-50);
+  box-shadow: none;
+}
+:where(body:has(.funcionarios-system))
+  #employeesView
+  .row-menu-trigger[aria-expanded="true"] {
+  border-color: var(--brand-600);
+  color: var(--brand-600);
+  background: var(--brand-50);
+  box-shadow: none;
+}
+:where(body:has(.funcionarios-system)) .employee-actions-popover {
+  gap: 0;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: var(--shadow-md);
+}
+:where(body:has(.funcionarios-system)) .employee-actions-popover a {
+  height: 40px;
+  min-height: 40px;
+  padding: 8px 10px;
+  color: var(--text-2);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+}
+:where(body:has(.funcionarios-system)) .employee-actions-popover a svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  color: var(--text-3);
+}
+:where(body:has(.funcionarios-system))
+  .employee-actions-popover
+  a.danger-action {
+  color: var(--danger);
+}
+:where(body:has(.funcionarios-system))
+  .employee-actions-popover
+  .row-menu-divider {
+  height: 1px;
+  margin: 4px 0;
+  background: var(--border);
+} /* Navegação: o rodapé permanece fora da área rolável do menu. */
+:where(body:has(.funcionarios-system)) .sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 16px max(16px, env(safe-area-inset-bottom));
+  overflow: hidden;
+  background: var(--brand-900);
+}
+:where(body:has(.funcionarios-system)) .sidebar > .brand,
+:where(body:has(.funcionarios-system)) .sidebar > .sidebar-title,
+:where(body:has(.funcionarios-system)) .sidebar > .signature {
+  flex: 0 0 auto;
+}
+:where(body:has(.funcionarios-system)) .sidebar > .menu {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+:where(body:has(.funcionarios-system)) .sidebar .menu-item {
+  flex: 0 0 44px;
+  height: 44px;
+  min-height: 44px;
+  padding: 10px 12px;
+}
+:where(body:has(.funcionarios-system)) .sidebar .menu-item.active {
+  background: rgba(255, 255, 255, 0.12);
+}
+:where(body:has(.funcionarios-system)) .sidebar .menu-item.active::before {
+  width: 3px;
+  background: var(--gold-500);
+  mask: none;
+  -webkit-mask: none;
+  height: auto;
+  inset: 12px auto 12px 0;
+}
+:where(body:has(.funcionarios-system)) .sidebar > .signature {
+  margin-top: 0;
+  padding-top: 12px;
+}
+:where(body:has(.funcionarios-system)) .sidebar .sidebar-user {
+  padding-bottom: 8px;
+}
+:where(body:has(.funcionarios-system)) .sidebar .logout-button {
+  display: inline-flex;
+  width: 100%;
+  height: 44px;
+  min-height: 44px;
+  padding: 10px 12px;
+}
+:where(body:has(.funcionarios-system)) .sidebar .sidebar-safe {
+  margin-top: 8px;
+}
+:where(body:has(.funcionarios-system)) .header-clock {
+  min-width: 0;
+  max-width: none;
+  font-size: 12px;
+  white-space: nowrap;
+}
+:where(body:has(.funcionarios-system)) .header-clock-copy {
+  display: block;
+}
+:where(body:has(.funcionarios-system)) .header-clock-full {
+  display: none;
+}
+:where(body:has(.funcionarios-system)) .header-clock-compact {
+  display: inline;
+  color: var(--text-2);
+  font-size: 12px;
+}
+:where(body:has(.funcionarios-system)) .top-actions > .primary-action {
+  background: var(--brand-700);
+}
+:where(body:has(.funcionarios-system)) .top-profile-chip .session-copy small {
+  display: none;
+}
+@media (min-width: 1440px) {
+  :where(body:has(.funcionarios-system)) .header-clock-full {
+    display: inline;
+    color: var(--text-2);
+    font-size: 12px;
+  }
+  :where(body:has(.funcionarios-system)) .header-clock-compact {
+    display: none;
+  }
+  :where(body:has(.funcionarios-system)) .top-profile-chip .session-copy small {
+    display: block;
+  }
+}
+@media (max-height: 740px) {
+  :where(body:has(.funcionarios-system)) .sidebar {
+    gap: 12px;
+    padding-top: 16px;
+  }
+  :where(body:has(.funcionarios-system)) .sidebar .sidebar-safe {
+    display: none;
+  }
+  :where(body:has(.funcionarios-system)) .sidebar-title strong {
+    font-size: 18px;
+  }
 } /* Modais: uma coluna, rolagem única no corpo e controles alinhados. */
 body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
   background: rgba(10, 42, 94, 0.55);
@@ -11512,7 +11917,8 @@ body:has(.funcionarios-system):has(dialog.modal[open]) .app-shell::after {
     font-size: 16px;
   }
   :where(body:has(.funcionarios-system)) .header-clock {
-    display: none;
+    display: flex;
+    min-width: 0;
   }
   :where(body:has(.funcionarios-system)) .login-intro h1 {
     font-size: 32px;

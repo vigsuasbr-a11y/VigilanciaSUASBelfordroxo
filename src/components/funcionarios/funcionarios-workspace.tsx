@@ -711,18 +711,17 @@ function EmployeesView({
             </Link>
           </div>
         </div>
-        <div className="table-scroll">
-          <table>
+        <div className="table-scroll employee-table-scroll" tabIndex={0} aria-label="Tabela de funcionários, com rolagem">
+          <table className="employees-table">
             <thead>
               <tr>
                 <th scope="col">Funcionário</th>
                 <th scope="col">CPF</th>
-                <th scope="col">Cargo</th>
+                <th scope="col">Cargo / Setor</th>
                 <th scope="col">Unidade</th>
-                <th scope="col">Setor</th>
                 <th scope="col">Situação</th>
                 <th scope="col">Contato</th>
-                <th scope="col">Ações</th>
+                <th scope="col" className="employee-actions-cell">Ações</th>
               </tr>
             </thead>
             <tbody id="employeeTable">
@@ -732,7 +731,7 @@ function EmployeesView({
                 ))
               ) : (
                 <tr>
-                  <td colSpan={8} className="empty-state">
+                  <td colSpan={7} className="empty-state">
                     Nenhum funcionário foi encontrado com os filtros selecionados.
                   </td>
                 </tr>
@@ -997,34 +996,42 @@ function EmployeeRow({ employee }: { employee: FuncionarioListItem }) {
     <tr>
       <td className="employee-name">
         <div className="employee-identity">
-          <span className="employee-avatar">{getInitials(employee.nome)}</span>
-          <span>
+          <span className="employee-avatar" data-tone={employeeAvatarTone(employee.nome)}>{getInitials(employee.nome)}</span>
+          <span className="employee-identity-copy">
             <strong title={employee.nome}>{formatPersonName(employee.nome)}</strong>
-            <small>Admissão: {formatDate(employee.admissao) || "não informada"}</small>
+            {employee.admissao ? <small>Admissão: {formatDate(employee.admissao)}</small> : <small className="employee-missing">—</small>}
           </span>
         </div>
       </td>
-      <td className="nowrap">{formatCpfForDisplay(employee.cpf) || "-"}</td>
+      <td className="nowrap">{formatCpfForDisplay(employee.cpf) || <span className="employee-missing">—</span>}</td>
       <td className="employee-role">
-        <strong>{employee.cargo || "Não informado"}</strong>
-        <small>{employee.escolaridade || "Escolaridade não informada"}</small>
+        <strong title={employee.cargo || undefined}>{employee.cargo || <span className="employee-missing">—</span>}</strong>
+        {employee.setor ? <small title={employee.setor}>{employee.setor}</small> : null}
       </td>
-      <td>{employee.unidade_nome || "Sem unidade"}</td>
-      <td>{employee.setor || "-"}</td>
+      <td className="employee-unit"><span title={employee.unidade_nome || undefined}>{employee.unidade_nome || <span className="employee-missing">—</span>}</span></td>
       <td>
         <span className={`status-pill ${statusClass(employee.status)}`}>
           {formatStatusLabel(employee.status)}
         </span>
       </td>
       <td className="employee-contact">
-        <span>{formatPhoneForDisplay(employee.telefone) || "Sem telefone"}</span>
-        <small>{employee.email || "Sem e-mail"}</small>
+        {employee.telefone ? <span>{formatPhoneForDisplay(employee.telefone)}</span> : null}
+        {employee.email ? <small title={employee.email}>{employee.email}</small> : null}
+        {!employee.telefone && !employee.email ? <span className="employee-missing">—</span> : null}
       </td>
-      <td>
+      <td className="employee-actions-cell">
         <EmployeeActionsMenu employeeId={employee.id} employeeName={employee.nome} />
       </td>
     </tr>
   );
+}
+
+function employeeAvatarTone(name: string) {
+  let hash = 0;
+  for (const character of name.trim().toLocaleLowerCase("pt-BR")) {
+    hash = (Math.imul(hash, 31) + character.charCodeAt(0)) >>> 0;
+  }
+  return hash % 5;
 }
 
 function EmployeeDialog({

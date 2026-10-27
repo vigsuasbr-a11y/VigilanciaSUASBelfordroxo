@@ -16,6 +16,7 @@ type MenuPosition = {
 };
 
 const MENU_WIDTH = 190;
+const MENU_HEIGHT = 147;
 const VIEWPORT_GAP = 12;
 
 export function EmployeeActionsMenu({
@@ -76,8 +77,8 @@ export function EmployeeActionsMenu({
         window.innerWidth - MENU_WIDTH - VIEWPORT_GAP,
         Math.max(VIEWPORT_GAP, rect.right - MENU_WIDTH),
       );
-      const shouldOpenAbove = window.innerHeight - rect.bottom < 150;
-      const top = shouldOpenAbove ? rect.top - 142 : rect.bottom + 8;
+      const shouldOpenAbove = window.innerHeight - rect.bottom < MENU_HEIGHT + 8;
+      const top = shouldOpenAbove ? rect.top - MENU_HEIGHT - 8 : rect.bottom + 8;
 
       setPosition({
         left,
@@ -91,7 +92,7 @@ export function EmployeeActionsMenu({
   const menu = isOpen ? (
     <div
       ref={menuRef}
-      className="row-menu-popover"
+      className="row-menu-popover employee-actions-popover"
       role="menu"
       style={{ top: position.top, left: position.left }}
     >
@@ -99,14 +100,14 @@ export function EmployeeActionsMenu({
         role="menuitem"
         href={`/funcionarios?view=employees&modal=employee&id=${employeeId}`}
       >
-        <Pencil size={15} aria-hidden="true" />
+        <Pencil size={16} aria-hidden="true" />
         Editar funcionário
       </Link>
       <Link
         role="menuitem"
         href={`/funcionarios?view=employees&modal=history&id=${employeeId}`}
       >
-        <Clock3 size={15} aria-hidden="true" />
+        <Clock3 size={16} aria-hidden="true" />
         Ver histórico
       </Link>
       <span className="row-menu-divider" aria-hidden="true" />
@@ -115,7 +116,7 @@ export function EmployeeActionsMenu({
         className="danger-action"
         href={`/funcionarios?view=employees&modal=deleteEmployee&id=${employeeId}`}
       >
-        <Archive size={15} aria-hidden="true" />
+        <Archive size={16} aria-hidden="true" />
         Arquivar cadastro
       </Link>
     </div>
