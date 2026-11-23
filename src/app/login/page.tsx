@@ -98,7 +98,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           <footer className={styles.footer}>
             <span>Criado por Alessandro Araújo</span>
             <span className={styles.footerLine} aria-hidden="true" />
-            <span>Versão 1.0.0</span>
+            <span>Versão 2.0.0</span>
           </footer>
         </div>
       </main>

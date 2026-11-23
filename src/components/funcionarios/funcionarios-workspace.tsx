@@ -439,7 +439,7 @@ export function FuncionariosWorkspace({
           {referenceView ? (
             <footer className="workspace-footer">
               <span><strong>SEMASC</strong> Secretaria Municipal de Assistência Social e Cidadania</span>
-              <span>Sistema de Funcionários <small>Versão 1.0.0</small></span>
+              <span>Sistema de Funcionários <small>Versão 2.0.0</small></span>
             </footer>
           ) : null}
         </main>
