@@ -2,9 +2,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { UsersRound } from "lucide-react";
 import { EmployeeLoginForm } from "@/components/funcionarios/employee-login-form";
 import { WelcomeSessionReset } from "@/components/funcionarios/welcome-toast";
 import { createSupabaseServerClient, isSupabaseConfigured } from "@/lib/supabase/server";
+import { LoginAccessArt, LoginIdentityArt, LoginNetwork } from "./login-art";
 import styles from "./login.module.css";
 
 export const metadata: Metadata = {
@@ -61,6 +63,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
       <main id="loginScreen" className={`funcionarios-system ${styles.screen}`}>
         <WelcomeSessionReset />
         <header className={styles.identity}>
+          <LoginIdentityArt />
+          <LoginNetwork />
           <div className={styles.municipality}>
             <Image
               className={styles.crest}
@@ -81,12 +85,19 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           </div>
         </header>
         <div className={styles.access}>
+          <LoginAccessArt />
           <section className={styles.card} aria-labelledby="accessTitle">
-            <h2 id="accessTitle">Acesse sua conta</h2>
+            <h2 id="accessTitle">
+              <span className={styles.accessIcon}>
+                <UsersRound aria-hidden="true" strokeWidth={2.2} />
+              </span>
+              Acesse sua conta
+            </h2>
             <EmployeeLoginForm redirectTo={redirectTo} isSupabaseReady={isReady} />
           </section>
           <footer className={styles.footer}>
             <span>Criado por Alessandro Araújo</span>
+            <span className={styles.footerLine} aria-hidden="true" />
             <span>Versão 1.0.0</span>
           </footer>
         </div>
