@@ -1,0 +1,166 @@
+.screen {
+  display: grid;
+  grid-template-columns: minmax(0, 47fr) minmax(0, 53fr);
+  height: 100dvh;
+  overflow: auto;
+  font-family: var(--font-jakarta), var(--font-admin);
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 14vh, 144px);
+  padding: clamp(36px, 6vw, 96px);
+  color: #fff;
+  background:
+    linear-gradient(180deg, #081e46 0%, #0a2552 38%, rgb(8 30 70 / 24%) 100%),
+    url("/funcionarios/assets/login-background.png") 72% bottom / cover;
+  background-color: #081e46;
+}
+
+.municipality {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.crest {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.municipality span,
+.municipality strong {
+  display: block;
+}
+
+.municipality span {
+  color: #ccdcf4;
+  font-size: 13px;
+}
+
+.municipality strong {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.intro h1 {
+  max-width: 10ch;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(40px, 5.25vw, 80px);
+  font-weight: 750;
+  letter-spacing: -0.055em;
+  line-height: 1.04;
+}
+
+.intro h1::before {
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin-bottom: 24px;
+  border-radius: 2px;
+  background: var(--gold-500);
+  content: "";
+}
+
+.intro p {
+  max-width: 32ch;
+  margin: 20px 0 0;
+  color: #e2ebfb;
+  font-size: clamp(15px, 1.35vw, 19px);
+  line-height: 1.55;
+}
+
+.access {
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  justify-items: center;
+  padding: 32px clamp(24px, 5vw, 80px);
+  background: #f3f6fb;
+}
+
+.card {
+  grid-row: 2;
+  width: min(100%, 448px);
+  padding: clamp(28px, 3vw, 44px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: 0 16px 48px rgb(8 30 70 / 8%);
+}
+
+.card h2 {
+  margin: 0 0 28px;
+  color: var(--text-1);
+  font-size: clamp(25px, 2.25vw, 32px);
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+}
+
+.footer {
+  grid-row: 3;
+  align-self: end;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 16px;
+  width: min(100%, 448px);
+  margin-top: 24px;
+  color: var(--text-3-readable);
+  font-size: 12px;
+}
+
+@media (max-width: 800px) {
+  .screen {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+
+  .identity {
+    gap: 24px;
+    padding: 28px max(24px, calc((100% - 448px) / 2));
+    background-position: center, 72% 60%;
+  }
+
+  .crest {
+    width: 44px;
+    height: 44px;
+  }
+
+  .intro h1 {
+    max-width: none;
+    font-size: clamp(26px, 5.8vw, 40px);
+  }
+
+  .intro h1::before {
+    margin-bottom: 12px;
+  }
+
+  .intro p {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  .access {
+    grid-template-rows: auto 1fr;
+    padding: 20px 16px 24px;
+  }
+
+  .card,
+  .footer {
+    grid-row: auto;
+  }
+
+  .card {
+    padding: 24px;
+    border-radius: 16px;
+  }
+
+  .card h2 {
+    margin-bottom: 20px;
+  }
+}

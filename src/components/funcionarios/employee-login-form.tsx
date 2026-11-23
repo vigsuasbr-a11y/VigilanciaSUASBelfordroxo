@@ -116,7 +116,7 @@ export function EmployeeLoginForm({
     >
       <input type="hidden" name="redirectTo" value={redirectTo} />
       <label className="login-field">
-        <span className="login-field-label">Usuário</span>
+        <span className="login-field-label">E-mail</span>
         <span className="login-input user-input">
           <UserRound className="login-input-icon" aria-hidden="true" />
           <input
@@ -125,7 +125,7 @@ export function EmployeeLoginForm({
             type="text"
             value={identifier}
             onChange={(event) => setIdentifier(event.target.value)}
-            placeholder="Digite seu usuário"
+            placeholder="Digite seu e-mail"
             autoComplete="username"
             required
             disabled={!isSupabaseReady || isSubmitting}
