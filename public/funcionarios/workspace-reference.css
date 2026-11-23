@@ -873,14 +873,28 @@ body:has(#appShell.workspace-reference) .employee-actions-popover {
 
 body:has(#appShell.workspace-reference) .employee-actions-popover a {
   color: inherit;
+  background: transparent;
 }
 
-body:has(#appShell.workspace-reference) .employee-actions-popover a:hover {
+body:has(#appShell.workspace-reference) .employee-actions-popover a svg {
+  color: inherit;
+}
+
+body:has(#appShell.workspace-reference) .employee-actions-popover a:is(:hover, :focus-visible) {
   background: #193850;
+}
+
+body:has(#appShell.workspace-reference) .employee-actions-popover a:focus-visible {
+  outline: 2px solid #20c8ff;
+  outline-offset: -2px;
 }
 
 body:has(#appShell.workspace-reference) .employee-actions-popover .danger-action {
   color: #ff9ca8;
+}
+
+body:has(#appShell.workspace-reference) .employee-actions-popover .danger-action:is(:hover, :focus-visible) {
+  background: #402535;
 }
 
 #appShell.workspace-reference .workspace-footer {
