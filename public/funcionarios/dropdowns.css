@@ -1,0 +1,153 @@
+body:has(#appShell.funcionarios-system) {
+  --dropdown-surface: #10283c;
+  --dropdown-text: #f4f8fd;
+  --dropdown-muted: #a7c4db;
+  --dropdown-border: #466581;
+  --dropdown-cyan: #0bbfff;
+  --dropdown-gold: #ffc829;
+  --dropdown-option-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8'%3E%3Ccircle cx='12' cy='12' r='6'/%3E%3C/svg%3E");
+}
+
+body:has(#appShell.funcionarios-system) select:not([multiple], [size]:not([size="1"])) {
+  appearance: auto;
+  color-scheme: dark;
+  color: var(--dropdown-text);
+  background-color: var(--dropdown-surface);
+  background-image: none;
+  border-color: var(--dropdown-border);
+  border-radius: 11px;
+  cursor: pointer;
+}
+
+body:has(#appShell.funcionarios-system) select:not([multiple], [size]:not([size="1"])):focus-visible {
+  border-color: var(--dropdown-cyan);
+  box-shadow: 0 0 0 2px #0bbfff38;
+}
+
+body:has(#appShell.funcionarios-system) select:disabled {
+  cursor: default;
+  opacity: .65;
+}
+
+@supports (appearance: base-select) and selector(select::picker(select)) {
+  body:has(#appShell.funcionarios-system) select:not([multiple], [size]:not([size="1"])),
+  body:has(#appShell.funcionarios-system) select:not([multiple], [size]:not([size="1"]))::picker(select) {
+    appearance: base-select;
+  }
+
+  body:has(#appShell.funcionarios-system) select:not([multiple], [size]:not([size="1"])) {
+    align-items: center;
+    gap: 8px;
+    min-inline-size: 0;
+    padding-inline-end: 11px;
+    text-overflow: ellipsis;
+  }
+
+  body:has(#appShell.funcionarios-system) select[name="escolaridade"] {
+    --dropdown-option-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 9l10-5 10 5-10 5L2 9Zm4 2v5c3 3 9 3 12 0v-5M22 9v6'/%3E%3C/svg%3E");
+    --dropdown-minimum: min(21rem, calc(100vi - 20px));
+  }
+
+  body:has(#appShell.funcionarios-system) select[name="unidade_id"] {
+    --dropdown-option-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 21V9h6m0 12V3h10v18M2 21h20M7 12v1m0 3v1m6-10h4m-4 4h4m-4 4h4'/%3E%3C/svg%3E");
+  }
+
+  body:has(#appShell.funcionarios-system) select::picker-icon {
+    flex: 0 0 14px;
+    block-size: 14px;
+    color: var(--dropdown-muted);
+    background: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 9 7 7 7-7'/%3E%3C/svg%3E") center / contain no-repeat;
+    content: "";
+  }
+
+  body:has(#appShell.funcionarios-system) :is(#filterEducation, #filterUnit)::before {
+    flex: 0 0 17px;
+    block-size: 17px;
+    color: var(--dropdown-cyan);
+    background: currentColor;
+    mask: var(--dropdown-option-icon) center / contain no-repeat;
+    content: "";
+  }
+
+  body:has(#appShell.funcionarios-system) select:not([multiple], [size]:not([size="1"])):open {
+    border-color: var(--dropdown-cyan);
+    box-shadow: 0 0 0 2px #0bbfff38, 0 0 14px #0bbfff38;
+  }
+
+  body:has(#appShell.funcionarios-system) select:open::picker-icon {
+    rotate: 180deg;
+    color: var(--dropdown-cyan);
+  }
+
+  body:has(#appShell.funcionarios-system) select:not([multiple], [size]:not([size="1"]))::picker(select) {
+    inline-size: max(anchor-size(width), var(--dropdown-minimum, 7rem));
+    max-inline-size: calc(100vi - 20px);
+    max-block-size: min(28rem, 47dvh);
+    margin-block: 5px;
+    padding: 8px;
+    border: 1px solid #159dce;
+    border-radius: 17px;
+    color: var(--dropdown-text);
+    background: linear-gradient(155deg, #0d2437, #071a2a 78%);
+    box-shadow: 0 13px 25px #020a14a6, inset 0 -6px 18px #00b9ff19;
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #168dc5 #17364f;
+  }
+
+  body:has(#appShell.funcionarios-system) select:where(:not([multiple], [size]:not([size="1"]))) option {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-block-size: 36px;
+    padding: 6px 9px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: var(--dropdown-text);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  body:has(#appShell.funcionarios-system) select:where(:not([multiple], [size]:not([size="1"]))) option::before {
+    flex: 0 0 17px;
+    block-size: 17px;
+    color: var(--dropdown-muted);
+    background: currentColor;
+    mask: var(--dropdown-option-icon) center / contain no-repeat;
+    content: "";
+  }
+
+  body:has(#appShell.funcionarios-system) select:where(:not([multiple], [size]:not([size="1"]))) option:is(:hover, :focus-visible) {
+    background: #17364f;
+  }
+
+  body:has(#appShell.funcionarios-system) select:where(:not([multiple], [size]:not([size="1"]))) option:checked {
+    border-color: #a47b1e;
+    font-weight: 700;
+    background: linear-gradient(100deg, #624713, #30291b);
+  }
+
+  body:has(#appShell.funcionarios-system) select:where(:not([multiple], [size]:not([size="1"]))) option:checked::before {
+    color: var(--dropdown-gold);
+  }
+
+  body:has(#appShell.funcionarios-system) select:where(:not([multiple], [size]:not([size="1"]))) option::checkmark {
+    order: 1;
+    margin-inline-start: auto;
+    flex: 0 0 19px;
+    block-size: 19px;
+    border-radius: 50%;
+    color: #0d1821;
+    background: var(--dropdown-gold);
+    line-height: 19px;
+    text-align: center;
+    content: "✓";
+  }
+
+  body:has(#appShell.funcionarios-system) select:where(:not([multiple], [size]:not([size="1"]))) option:disabled {
+    color: var(--dropdown-muted);
+    cursor: default;
+    opacity: .65;
+  }
+}

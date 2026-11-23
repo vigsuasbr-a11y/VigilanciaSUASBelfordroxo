@@ -232,6 +232,7 @@ export function FuncionariosWorkspace({
     <>
       <link rel="stylesheet" href="/funcionarios/styles.css" />
       {referenceView || dialog.kind === "employee" ? <link rel="stylesheet" href="/funcionarios/workspace-reference.css" /> : null}
+      <link rel="stylesheet" href="/funcionarios/dropdowns.css" />
       <div id="appShell" className={`app-shell funcionarios-system${referenceView ? " workspace-reference" : ""}`}>
         <aside id="appSidebar" className="sidebar" aria-label="Menu principal">
           <div className="brand">
