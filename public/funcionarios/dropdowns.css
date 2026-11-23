@@ -61,10 +61,10 @@ body:has(#appShell.funcionarios-system) select:disabled {
     content: "";
   }
 
-  body:has(#appShell.funcionarios-system) :is(#filterEducation, #filterUnit)::before {
+  body:has(#appShell.funcionarios-system) :is(#filterEducation, #filterUnit, #filterStatus)::before {
     flex: 0 0 17px;
     block-size: 17px;
-    color: var(--dropdown-cyan);
+    color: var(--dropdown-status-color, var(--dropdown-cyan));
     background: currentColor;
     mask: var(--dropdown-option-icon) center / contain no-repeat;
     content: "";
@@ -149,5 +149,60 @@ body:has(#appShell.funcionarios-system) select:disabled {
     color: var(--dropdown-muted);
     cursor: default;
     opacity: .65;
+  }
+
+  /* SVG masks rendered from the corresponding Lucide React icons at stroke-width 1.9. */
+  #filterStatus,
+  #filterStatus > option[value=""] {
+    --dropdown-status-color: #53c9ff;
+    --dropdown-option-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 5h20'%3E%3C/path%3E%3Cpath d='M6 12h12'%3E%3C/path%3E%3Cpath d='M9 19h6'%3E%3C/path%3E%3C/svg%3E");
+  }
+
+  #filterStatus:has(> option[value="Ativo"]:checked),
+  #filterStatus > option[value="Ativo"] {
+    --dropdown-status-color: #00dfa2;
+    --dropdown-option-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 21a8 8 0 0 1 13.292-6'%3E%3C/path%3E%3Ccircle cx='10' cy='8' r='5'%3E%3C/circle%3E%3Cpath d='m16 19 2 2 4-4'%3E%3C/path%3E%3C/svg%3E");
+  }
+
+  #filterStatus:has(> option[value="Exonerado"]:checked),
+  #filterStatus > option[value="Exonerado"] {
+    --dropdown-status-color: #fb6684;
+    --dropdown-option-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 21a8 8 0 0 1 11.873-7'%3E%3C/path%3E%3Ccircle cx='10' cy='8' r='5'%3E%3C/circle%3E%3Cpath d='m17 17 5 5'%3E%3C/path%3E%3Cpath d='m22 17-5 5'%3E%3C/path%3E%3C/svg%3E");
+  }
+
+  #filterStatus:has(> option[value="Licenca"]:checked),
+  #filterStatus > option[value="Licenca"] {
+    --dropdown-status-color: #f5b82e;
+    --dropdown-option-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 14v2.2l1.6 1'%3E%3C/path%3E%3Cpath d='M16 2v4'%3E%3C/path%3E%3Cpath d='M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5'%3E%3C/path%3E%3Cpath d='M3 10h5'%3E%3C/path%3E%3Cpath d='M8 2v4'%3E%3C/path%3E%3Ccircle cx='16' cy='16' r='6'%3E%3C/circle%3E%3C/svg%3E");
+  }
+
+  #filterStatus:has(> option[value="Transferido"]:checked),
+  #filterStatus > option[value="Transferido"] {
+    --dropdown-status-color: #54b8ff;
+    --dropdown-option-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3 4 7l4 4'%3E%3C/path%3E%3Cpath d='M4 7h16'%3E%3C/path%3E%3Cpath d='m16 21 4-4-4-4'%3E%3C/path%3E%3Cpath d='M20 17H4'%3E%3C/path%3E%3C/svg%3E");
+  }
+
+  #filterStatus:has(> option[value="Afastado"]:checked),
+  #filterStatus > option[value="Afastado"] {
+    --dropdown-status-color: #b5a1ff;
+    --dropdown-option-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 21a8 8 0 0 1 13.292-6'%3E%3C/path%3E%3Ccircle cx='10' cy='8' r='5'%3E%3C/circle%3E%3Cpath d='M22 19h-6'%3E%3C/path%3E%3C/svg%3E");
+  }
+
+  #appShell #filterStatus > option::before {
+    color: var(--dropdown-status-color);
+  }
+
+  #appShell #filterStatus > option:not(:checked):is(:hover, :focus-visible) {
+    background-color: color-mix(in srgb, var(--dropdown-status-color) 13%, #10283c);
+  }
+
+  #appShell #filterStatus > option:checked:is(:hover, :focus-visible) {
+    box-shadow: inset 0 0 0 999px color-mix(in srgb, var(--dropdown-status-color) 10%, transparent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    #filterStatus > option {
+      transition: background-color 180ms ease, box-shadow 180ms ease;
+    }
   }
 }

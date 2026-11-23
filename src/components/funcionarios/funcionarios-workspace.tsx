@@ -706,11 +706,11 @@ function EmployeesView({
           <span>Situação</span>
           <select id="filterStatus" name="status" defaultValue={filters.status}>
             <option value="">Todas as situações</option>
-            <option>Ativo</option>
-            <option>Exonerado</option>
+            <option value="Ativo">Ativo</option>
+            <option value="Exonerado">Exonerado</option>
             <option value="Licenca">Licença</option>
-            <option>Transferido</option>
-            <option>Afastado</option>
+            <option value="Transferido">Transferido</option>
+            <option value="Afastado">Afastado</option>
           </select>
         </label>
         <button className="primary-action filter-submit" type="submit">
