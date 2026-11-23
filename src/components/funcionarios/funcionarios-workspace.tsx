@@ -80,7 +80,7 @@ import {
   escolaridadeOptions,
   normalizeEscolaridadeOption,
 } from "@/lib/funcionarios/escolaridades";
-import { roleLabels } from "@/lib/permissions/roles";
+import { canManageFuncionarios, roleLabels } from "@/lib/permissions/roles";
 import type { CurrentProfile } from "@/lib/auth/session";
 import type {
   ChartRow,
@@ -321,7 +321,7 @@ export function FuncionariosWorkspace({
               </div>
             </div>
             <div className="top-actions">
-              {referenceView ? <WorkspaceSearch dashboard={currentView === "dashboard"} /> : null}
+              {referenceView ? <WorkspaceSearch canEdit={canManageFuncionarios(profile.role)} /> : null}
               <span className="top-icon-button" aria-label="Sem avisos recentes">
                 <Bell size={18} aria-hidden="true" />
                 <span />

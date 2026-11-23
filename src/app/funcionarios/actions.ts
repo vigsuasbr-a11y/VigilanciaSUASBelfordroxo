@@ -23,6 +23,7 @@ import {
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { normalizeEscolaridadeOption } from "@/lib/funcionarios/escolaridades";
+import { canManageFuncionarios } from "@/lib/permissions/roles";
 import type { Database, Json, UserRole } from "@/types/database.types";
 
 type FuncionarioInsert = Database["public"]["Tables"]["funcionarios"]["Insert"];
@@ -52,7 +53,6 @@ const allowedRoles = new Set<UserRole>([
   "operador",
   "consulta",
 ]);
-const funcionarioManagerRoles = new Set<UserRole>(["administrador", "operador"]);
 
 export async function createUserAction(formData: FormData) {
   const { user, profile } = await requireActiveProfile();
@@ -800,10 +800,6 @@ function readUserRole(formData: FormData) {
 function readUserActive(formData: FormData) {
   const value = readString(formData, "is_active").toLowerCase();
   return !["false", "0", "inativo", "inativa"].includes(value);
-}
-
-function canManageFuncionarios(role: UserRole) {
-  return funcionarioManagerRoles.has(role);
 }
 
 function employeeSaveNotice(

@@ -13,3 +13,7 @@ export function canAccessAdmin(role?: string | null) {
 export function canAccessPanel(role?: string | null) {
   return Boolean(role);
 }
+
+export function canManageFuncionarios(role: UserRole) {
+  return role === "administrador" || role === "operador";
+}
