@@ -80,19 +80,20 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
             </div>
           </div>
           <div className={styles.intro}>
-            <h1>Sistema de Funcionários</h1>
+            <h1>Sistema de <strong>Funcionários</strong></h1>
             <p>Secretaria Municipal de Assistência Social e Cidadania</p>
           </div>
         </header>
         <div className={styles.access}>
           <LoginAccessArt />
           <section className={styles.card} aria-labelledby="accessTitle">
-            <h2 id="accessTitle">
+            <header className={styles.cardHeading}>
               <span className={styles.accessIcon}>
                 <UsersRound aria-hidden="true" strokeWidth={2.2} />
               </span>
-              Acesse sua conta
-            </h2>
+              <h2 id="accessTitle">Acesse sua conta</h2>
+              <p>Entre com suas credenciais para continuar</p>
+            </header>
             <EmployeeLoginForm redirectTo={redirectTo} isSupabaseReady={isReady} />
           </section>
           <footer className={styles.footer}>
