@@ -2,41 +2,18 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import {
-  BarChart3,
-  LockKeyhole,
-  Network,
-  ShieldCheck,
-  Sparkles,
-  UsersRound,
-} from "lucide-react";
+import { UsersRound } from "lucide-react";
 import { EmployeeLoginForm } from "@/components/funcionarios/employee-login-form";
 import { WelcomeSessionReset } from "@/components/funcionarios/welcome-toast";
 import { createSupabaseServerClient, isSupabaseConfigured } from "@/lib/supabase/server";
+import { LoginAccessArt, LoginIdentityArt, LoginNetwork } from "./login-art";
+import styles from "./login.module.css";
 
 export const metadata: Metadata = {
   title: "Login - Sistema de Funcionários",
 };
 
 export const dynamic = "force-dynamic";
-
-const loginFeatures = [
-  {
-    title: "Acesso seguro",
-    description: "Proteção de dados e autenticação para usuários autorizados.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Gestão eficiente",
-    description: "Controle de perfis, permissões e responsabilidades.",
-    icon: UsersRound,
-  },
-  {
-    title: "Monitoramento",
-    description: "Acompanhamento de acessos e atividades do sistema.",
-    icon: BarChart3,
-  },
-];
 
 type LoginPageProps = {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
@@ -83,110 +60,48 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   return (
     <>
       <link rel="stylesheet" href="/funcionarios/styles.css" />
-      <section id="loginScreen" className="login-screen funcionarios-system">
+      <main id="loginScreen" className={`funcionarios-system ${styles.screen}`}>
         <WelcomeSessionReset />
-        <div className="login-ambient login-ambient-one" aria-hidden="true" />
-        <div className="login-ambient login-ambient-two" aria-hidden="true" />
-        <div className="login-particles" aria-hidden="true" />
-        <svg className="login-network-art" viewBox="0 0 920 520" aria-hidden="true">
-          <path d="M24 430C152 480 254 455 388 408C556 350 626 386 884 304" />
-          <path d="M42 462C218 424 298 502 456 420C588 352 680 306 900 336" />
-          <circle cx="62" cy="444" r="6" />
-          <circle cx="286" cy="452" r="5" />
-          <circle cx="422" cy="394" r="5" />
-          <circle cx="596" cy="344" r="6" />
-          <circle cx="764" cy="324" r="5" />
-        </svg>
-        <div className="login-layout">
-          <aside className="login-intro" aria-label="Apresentação do sistema">
-            <p className="login-intro-kicker">
-              <ShieldCheck className="size-5" aria-hidden="true" />
-              Sistema central em rede
-            </p>
-            <h1>
-              <span>Assistência</span>
-              <span>Social</span>
-            </h1>
-            <span className="login-intro-line" aria-hidden="true" />
-            <p className="login-intro-subtitle">Gerenciamento de funcionários</p>
-            <p className="login-intro-description">
-              Gerenciamento inteligente de funcionários da Secretaria Municipal
-              de Assistência Social.
-            </p>
-
-            <div className="login-feature-grid">
-              {loginFeatures.map((feature) => {
-                const Icon = feature.icon;
-
-                return (
-                  <article key={feature.title} className="login-feature-card">
-                    <span className="login-feature-icon">
-                      <Icon className="size-6" aria-hidden="true" />
-                    </span>
-                    <div>
-                      <strong>{feature.title}</strong>
-                      <span>{feature.description}</span>
-                    </div>
-                  </article>
-                );
-              })}
+        <header className={styles.identity}>
+          <LoginIdentityArt />
+          <LoginNetwork />
+          <div className={styles.municipality}>
+            <Image
+              className={styles.crest}
+              src="/funcionarios/assets/iconebelford-web.png"
+              alt=""
+              width={56}
+              height={56}
+              priority
+            />
+            <div>
+              <span>Prefeitura de</span>
+              <strong>Belford Roxo</strong>
             </div>
-
-            <div className="login-bottom-note">
-              <LockKeyhole className="size-4" aria-hidden="true" />
-              Sistema restrito a usuários autorizados da SEMASC.
-            </div>
-          </aside>
-
-          <div className="login-card">
-            <div className="login-brand">
-              <Image
-                src="/funcionarios/assets/iconebelford-web.png"
-                alt="Brasão de Belford Roxo"
-                width={104}
-                height={104}
-                priority
-              />
-              <div className="login-brand-name">
-                <span>Prefeitura de</span>
-                <strong>
-                  Belford <em>Roxo</em>
-                </strong>
-              </div>
-              <p className="eyebrow">Sistema central em rede</p>
-              <h1>Assistência Social</h1>
-              <span>Gerenciamento de funcionários</span>
-            </div>
-            <div className="login-divider" aria-hidden="true">
-              <span>
-                <UsersRound className="size-5" aria-hidden="true" />
+          </div>
+          <div className={styles.intro}>
+            <h1>Sistema de Funcionários</h1>
+            <p>Secretaria Municipal de Assistência Social e Cidadania</p>
+          </div>
+        </header>
+        <div className={styles.access}>
+          <LoginAccessArt />
+          <section className={styles.card} aria-labelledby="accessTitle">
+            <h2 id="accessTitle">
+              <span className={styles.accessIcon}>
+                <UsersRound aria-hidden="true" strokeWidth={2.2} />
               </span>
-            </div>
+              Acesse sua conta
+            </h2>
             <EmployeeLoginForm redirectTo={redirectTo} isSupabaseReady={isReady} />
-            <div className="login-credit">
-              <div>
-                <strong>
-                  Criado por <b>Alessandro Araújo</b>
-                </strong>
-                <small>Tecnologia a serviço de quem mais precisa.</small>
-              </div>
-            </div>
-          </div>
-
-          <div className="login-footer">
-            <span>
-              <Sparkles className="size-4" aria-hidden="true" />
-              Tecnologia a serviço de quem mais precisa
-            </span>
-            <span>
-              Versão 1.0.0
-              <i aria-hidden="true" />
-              2026 SEMASC
-              <Network className="size-4" aria-hidden="true" />
-            </span>
-          </div>
+          </section>
+          <footer className={styles.footer}>
+            <span>Criado por Alessandro Araújo</span>
+            <span className={styles.footerLine} aria-hidden="true" />
+            <span>Versão 1.0.0</span>
+          </footer>
         </div>
-      </section>
+      </main>
     </>
   );
 }

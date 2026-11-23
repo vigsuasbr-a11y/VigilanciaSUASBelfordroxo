@@ -8,7 +8,8 @@ import {
   EyeOff,
   LoaderCircle,
   LockKeyhole,
-  UserRound,
+  Mail,
+  ShieldCheck,
 } from "lucide-react";
 
 type LoginResponse = {
@@ -116,16 +117,16 @@ export function EmployeeLoginForm({
     >
       <input type="hidden" name="redirectTo" value={redirectTo} />
       <label className="login-field">
-        <span className="login-field-label">Usuário</span>
+        <span className="login-field-label">E-mail</span>
         <span className="login-input user-input">
-          <UserRound className="login-input-icon" aria-hidden="true" />
+          <Mail className="login-input-icon" aria-hidden="true" />
           <input
             id="loginUser"
             name="email"
             type="text"
             value={identifier}
             onChange={(event) => setIdentifier(event.target.value)}
-            placeholder="Digite seu usuário"
+            placeholder="Digite seu e-mail"
             autoComplete="username"
             required
             disabled={!isSupabaseReady || isSubmitting}
@@ -193,7 +194,8 @@ export function EmployeeLoginForm({
           </>
         )}
       </button>
-      <p className={`login-hint${message ? " login-hint--error" : ""}`}>
+      <p className={`login-hint${message ? " login-hint--error" : ""}`} role="status">
+        {message ? null : <ShieldCheck aria-hidden="true" />}
         {message ?? "Acesso exclusivo para usuários autorizados da SEMASC."}
       </p>
     </form>
