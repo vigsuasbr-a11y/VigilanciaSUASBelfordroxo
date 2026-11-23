@@ -7,19 +7,28 @@ import {
   Bell,
   BriefcaseBusiness,
   Building2,
+  CalendarDays,
+  ChevronDown,
   CircleCheck,
+  ClipboardList,
   Clock3,
   Download,
   Eye,
   FileText,
   Filter,
+  GraduationCap,
+  Home,
   Info,
   KeyRound,
-  LayoutDashboard,
+  LayoutGrid,
+  Link2,
+  List,
   LogOut,
   Newspaper,
   Pencil,
+  Phone,
   Plus,
+  RotateCcw,
   Save,
   Search,
   Shield,
@@ -51,6 +60,7 @@ import { HeaderClock } from "@/components/funcionarios/header-clock";
 import { MobileMenuControls } from "@/components/funcionarios/mobile-menu-controls";
 import { NoticeToast } from "@/components/funcionarios/notice-toast";
 import { WelcomeToast } from "@/components/funcionarios/welcome-toast";
+import { WorkspaceSearch } from "@/components/funcionarios/workspace-search";
 import { PageSizeForm } from "@/components/funcionarios/page-size-form";
 import { PendingSubmitButton } from "@/components/funcionarios/pending-submit-button";
 import {
@@ -139,8 +149,8 @@ const viewTitles: Record<ViewName, string> = {
 };
 
 const viewSubtitles: Record<ViewName, string> = {
-  dashboard: "Visão geral dos funcionários da Assistência Social",
-  employees: "Cadastre, consulte e acompanhe a situação funcional dos profissionais.",
+  dashboard: "Visão geral do sistema de funcionários",
+  employees: "Gestão e consulta de funcionários da SEMASC",
   units: "Cadastre, consulte e gerencie as unidades da Assistência Social.",
   users: "Gerencie os acessos, perfis e permissões dos usuários do sistema.",
   reports: "Exportação e acompanhamento de relatórios",
@@ -173,6 +183,7 @@ export function FuncionariosWorkspace({
       ? "dashboard"
       : activeView;
   const lastUpdatedLabel = formatLastUpdated(new Date());
+  const referenceView = currentView === "dashboard" || currentView === "employees";
   const dialogUnitEmployeeCount = dialog.unit
     ? countEmployeesForUnit(data.employees, dialog.unit.id)
     : 0;
@@ -220,7 +231,8 @@ export function FuncionariosWorkspace({
   return (
     <>
       <link rel="stylesheet" href="/funcionarios/styles.css" />
-      <div id="appShell" className="app-shell funcionarios-system">
+      {referenceView || dialog.kind === "employee" ? <link rel="stylesheet" href="/funcionarios/workspace-reference.css" /> : null}
+      <div id="appShell" className={`app-shell funcionarios-system${referenceView ? " workspace-reference" : ""}`}>
         <aside id="appSidebar" className="sidebar" aria-label="Menu principal">
           <div className="brand">
             <Image
@@ -240,7 +252,7 @@ export function FuncionariosWorkspace({
 
           <div className="sidebar-title">
             <span>Sistema de Funcionários</span>
-            <strong>Assistência Social</strong>
+            <strong>{referenceView ? <Users size={24} aria-hidden="true" /> : null}Assistência Social</strong>
           </div>
 
           <nav className="menu">
@@ -308,11 +320,24 @@ export function FuncionariosWorkspace({
               </div>
             </div>
             <div className="top-actions">
+              {referenceView ? <WorkspaceSearch dashboard={currentView === "dashboard"} /> : null}
               <span className="top-icon-button" aria-label="Sem avisos recentes">
                 <Bell size={18} aria-hidden="true" />
                 <span />
               </span>
-              <div className="top-profile-chip" aria-label="Usuário conectado">
+              {referenceView ? (
+                <details className="workspace-profile">
+                  <summary className="top-profile-chip">
+                    <span className="session-avatar">{getInitials(profile.full_name || profile.email)}</span>
+                    <span className="session-copy">
+                      <strong>{profile.full_name || profile.email}</strong>
+                      <small>{roleLabels[profile.role]}</small>
+                    </span>
+                    <ChevronDown size={17} aria-hidden="true" />
+                  </summary>
+                  <Link href="/logout"><LogOut size={17} aria-hidden="true" /> Sair do sistema</Link>
+                </details>
+              ) : <div className="top-profile-chip" aria-label="Usuário conectado">
                 <span className="session-avatar">
                   {getInitials(profile.full_name || profile.email)}
                 </span>
@@ -320,9 +345,9 @@ export function FuncionariosWorkspace({
                   <strong>{profile.email}</strong>
                   <small>{roleLabels[profile.role]}</small>
                 </span>
-              </div>
-              <HeaderClock />
-              {primaryAction ? (
+              </div>}
+              {referenceView ? null : <HeaderClock />}
+              {primaryAction && currentView !== "employees" && currentView !== "dashboard" ? (
                 <Link
                   id="newEmployeeBtn"
                   className="primary-action"
@@ -358,6 +383,7 @@ export function FuncionariosWorkspace({
             id="dashboardView"
             className={`view${currentView === "dashboard" ? " active" : ""}`}
           >
+            {currentView === "dashboard" ? <HeaderClock dashboardName={(profile.full_name || profile.email).split(" ")[0]} /> : null}
             <DashboardView data={data} lastUpdatedLabel={lastUpdatedLabel} />
           </section>
 
@@ -409,6 +435,12 @@ export function FuncionariosWorkspace({
           >
             <AboutView />
           </section>
+          {referenceView ? (
+            <footer className="workspace-footer">
+              <span><strong>SEMASC</strong> Secretaria Municipal de Assistência Social e Cidadania</span>
+              <span>Sistema de Funcionários <small>Versão 1.0.0</small></span>
+            </footer>
+          ) : null}
         </main>
       </div>
 
@@ -550,37 +582,41 @@ function DashboardView({
               Funcionários por unidade
             </h2>
             <Link className="panel-link" href="/funcionarios?view=units">
-              Ver todas
+              Ver todas <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
-          <BarList rows={data.summary.porUnidade.slice(0, 8)} showPercent total={total} />
-          <Link className="soft-action" href="/funcionarios?view=units">
-            Ver todas as unidades
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
+          <BarList rows={data.summary.porUnidade.slice(0, 6)} showPercent total={total} />
         </section>
         <section className="panel dashboard-panel status-panel">
           <div className="panel-heading">
-            <h2>Distribuição por situação funcional</h2>
+            <h2><Building2 size={20} aria-hidden="true" /> Distribuição por situação funcional</h2>
           </div>
           <StatusChart rows={data.summary.porStatus} />
         </section>
-        <section className="panel dashboard-panel quick-panel">
-          <div className="panel-heading">
-            <h2>Informacoes rapidas</h2>
-          </div>
-          <QuickInfoGrid stats={quickStats} />
-        </section>
-        <section className="panel dashboard-panel wide-panel roles-panel">
-          <div className="panel-heading">
-            <h2>
-              <BriefcaseBusiness size={20} aria-hidden="true" />
-              Cargos com maior volume
-            </h2>
-          </div>
-          <RankedRoleList rows={data.summary.porCargo.slice(0, 5)} total={total} />
-        </section>
       </div>
+      <details className="dashboard-extra">
+        <summary>Ver informações rápidas e cargos com maior volume</summary>
+        <div className="dashboard-grid">
+          <section className="panel dashboard-panel quick-panel">
+            <div className="panel-heading">
+              <h2>Informações rápidas</h2>
+              <Link className="workspace-new" href="/funcionarios?view=employees&modal=employee">
+                <Plus size={16} aria-hidden="true" /> Novo funcionário
+              </Link>
+            </div>
+            <QuickInfoGrid stats={quickStats} />
+          </section>
+          <section className="panel dashboard-panel wide-panel roles-panel">
+            <div className="panel-heading">
+              <h2>
+                <BriefcaseBusiness size={20} aria-hidden="true" />
+                Cargos com maior volume
+              </h2>
+            </div>
+            <RankedRoleList rows={data.summary.porCargo.slice(0, 5)} total={total} />
+          </section>
+        </div>
+      </details>
     </>
   );
 }
@@ -604,11 +640,16 @@ function EmployeesView({
       <form className="filter-bar" action="/funcionarios">
         <input type="hidden" name="view" value="employees" />
         <div className="filter-panel-heading">
-          <h2>Filtros de busca</h2>
-          <span className="filter-advanced">
-            <X size={14} aria-hidden="true" />
-            Filtros avançados
-          </span>
+          <div className="workspace-filter-title">
+            <Filter size={26} aria-hidden="true" />
+            <div><h2>Filtros de busca</h2><p>Encontre funcionários utilizando os filtros abaixo.</p></div>
+          </div>
+          <div className="workspace-filter-actions">
+            <span className="filter-advanced"><X size={14} aria-hidden="true" /> Filtros avançados</span>
+            <Link id="createEmployeeFromList" className="workspace-new" href="/funcionarios?view=employees&modal=employee">
+              <Plus size={16} aria-hidden="true" /> Novo funcionário
+            </Link>
+          </div>
         </div>
         <div className="filter-grid">
         <label className="filter-search">
@@ -676,23 +717,24 @@ function EmployeesView({
           Buscar
         </button>
         <Link className="ghost-action filter-reset" href="/funcionarios?view=employees">
+          <RotateCcw size={17} aria-hidden="true" />
           Limpar filtros
         </Link>
         </div>
       </form>
 
       <div className="employee-overview" aria-label="Resumo dos funcionários">
-        <EmployeeStat className="stat-total" label="Total de funcionários" value={data.summary.total} note="funcionários cadastrados" />
-        <EmployeeStat className="stat-active" label="Funcionários ativos" value={data.summary.ativos} note={percent(data.summary.ativos)} />
-        <EmployeeStat className="stat-license" label="Em licença" value={licenseTotal} note={percent(licenseTotal)} />
-        <EmployeeStat className="stat-inactive" label="Inativos" value={inactiveTotal} note={percent(inactiveTotal)} />
+        <EmployeeStat className="stat-total" icon={Users} label="Total de funcionários" value={data.summary.total} note="funcionários cadastrados" />
+        <EmployeeStat className="stat-active" icon={UserCheck} label="Funcionários ativos" value={data.summary.ativos} note={percent(data.summary.ativos)} />
+        <EmployeeStat className="stat-license" icon={CalendarDays} label="Em licença" value={licenseTotal} note={percent(licenseTotal)} />
+        <EmployeeStat className="stat-inactive" icon={UserRoundX} label="Inativos" value={inactiveTotal} note={percent(inactiveTotal)} />
       </div>
 
       <section className="panel table-panel">
         <div className="panel-heading">
           <div className="list-heading">
             <div>
-              <h2>Funcionários cadastrados</h2>
+              <h2><List size={24} aria-hidden="true" /> Funcionários cadastrados</h2>
             </div>
           </div>
           <div className="table-heading-actions">
@@ -1048,7 +1090,7 @@ function EmployeeDialog({
     normalizeEscolaridadeOption(employee?.escolaridade) ?? "";
 
   return (
-    <dialog id="employeeDialog" className="modal" open>
+    <dialog id="employeeDialog" className="modal employee-reference" aria-labelledby="employeeFormTitle" open>
       <form
         id="employeeForm"
         className="employee-modal-form"
@@ -1082,12 +1124,18 @@ function EmployeeDialog({
           value={employee?.id ?? ""}
         />
         <div className="employee-modal-body">
+          <nav className="employee-section-nav" aria-label="Seções do cadastro">
+            <a href="#employee-personal"><UserRound aria-hidden="true" /><span><strong>Dados Pessoais</strong><small>Identificação e contato</small></span></a>
+            <a href="#employee-professional"><BriefcaseBusiness aria-hidden="true" /><span><strong>Vínculo Profissional</strong><small>Cargo, setor e unidade</small></span></a>
+            <a href="#employee-complementary"><ClipboardList aria-hidden="true" /><span><strong>Complementares</strong><small>Situação, e-mail e observações</small></span></a>
+          </nav>
           <div className="employee-compact-grid">
-            <h3 className="employee-section-heading">
-              Dados pessoais e contato
+            <h3 id="employee-personal" className="employee-section-heading">
+              <UserRound aria-hidden="true" /> Dados pessoais e contato
             </h3>
             <ValidatedField
               id="employeeName"
+              leadingIcon={<UserRound aria-hidden="true" />}
               name="nome"
               label="Nome completo"
               fieldClassName="employee-name-field"
@@ -1098,6 +1146,7 @@ function EmployeeDialog({
             <div className="employee-cpf-field">
               <ValidatedField
                 id="employeeCpf"
+                leadingIcon={<ClipboardList aria-hidden="true" />}
                 name="cpf"
                 label="CPF"
                 mask="cpf"
@@ -1111,6 +1160,7 @@ function EmployeeDialog({
             </div>
             <ValidatedField
               id="employeeBirth"
+              leadingIcon={<CalendarDays aria-hidden="true" />}
               name="nascimento"
               label="Data de nascimento"
               mask="date"
@@ -1121,6 +1171,8 @@ function EmployeeDialog({
             />
             <label>
               Escolaridade
+              <span className="employee-select-control">
+              <span className="validated-leading-icon"><GraduationCap aria-hidden="true" /></span>
               <select
                 id="employeeEducation"
                 name="escolaridade"
@@ -1133,9 +1185,11 @@ function EmployeeDialog({
                   </option>
                 ))}
               </select>
+              </span>
             </label>
             <ValidatedField
               id="employeePhone"
+              leadingIcon={<Phone aria-hidden="true" />}
               name="telefone"
               label="Telefone"
               mask="phone"
@@ -1143,9 +1197,10 @@ function EmployeeDialog({
               autoComplete="tel"
               defaultValue={employee?.telefone ?? ""}
             />
-            <h3 className="employee-section-heading">Vínculo profissional</h3>
+            <h3 id="employee-professional" className="employee-section-heading"><BriefcaseBusiness aria-hidden="true" /> Vínculo profissional</h3>
             <ValidatedField
               id="employeeRole"
+              leadingIcon={<BriefcaseBusiness aria-hidden="true" />}
               name="cargo"
               label="Cargo / Profissão"
               placeholder="Digite o cargo ou profissão"
@@ -1153,6 +1208,7 @@ function EmployeeDialog({
             />
             <ValidatedField
               id="employeeSector"
+              leadingIcon={<LayoutGrid aria-hidden="true" />}
               name="setor"
               label="Setor"
               placeholder="Informe o setor"
@@ -1160,6 +1216,8 @@ function EmployeeDialog({
             />
             <label>
               Unidade vinculada
+              <span className="employee-select-control">
+              <span className="validated-leading-icon"><Building2 aria-hidden="true" /></span>
               <select
                 id="employeeUnit"
                 name="unidade_id"
@@ -1172,9 +1230,11 @@ function EmployeeDialog({
                   </option>
                 ))}
               </select>
+              </span>
             </label>
             <ValidatedField
               id="employeeContract"
+              leadingIcon={<Link2 aria-hidden="true" />}
               name="vinculo"
               label="Tipo de vínculo"
               placeholder="Efetivo, contrato, comissionado..."
@@ -1182,6 +1242,7 @@ function EmployeeDialog({
             />
             <ValidatedField
               id="employeeWorkload"
+              leadingIcon={<Clock3 aria-hidden="true" />}
               name="carga_horaria"
               label="Carga horária"
               placeholder="40h semanais"
@@ -1189,12 +1250,14 @@ function EmployeeDialog({
             />
             <ValidatedField
               id="employeeAdmission"
+              leadingIcon={<CalendarDays aria-hidden="true" />}
               name="admissao"
               label="Data de admissão"
               mask="date"
               placeholder="dd/mm/aaaa"
               defaultValue={formatDateForInput(employee?.admissao)}
             />
+            <h3 id="employee-complementary" className="employee-section-heading"><ClipboardList aria-hidden="true" /> Complementares</h3>
             <label>
               Situação funcional
               <select
@@ -1237,14 +1300,14 @@ function EmployeeDialog({
         </div>
         <div className="form-actions employee-modal-actions">
           <p className="employee-footer-note">
-            <strong>* obrigatório</strong>
-            <span>Confira os dados antes de salvar.</span>
+            <strong>* Campos obrigatórios</strong>
           </p>
           <Link
             className="ghost-action"
             id="cancelEmployeeBtn"
             href="/funcionarios?view=employees"
           >
+            <X size={19} aria-hidden="true" />
             Cancelar
           </Link>
           <PendingSubmitButton
@@ -2207,7 +2270,7 @@ function MetricCard({
           <small>{note}</small>
         </div>
       </div>
-      <Sparkline tone={tone} />
+      <span className="metric-watermark" aria-hidden="true">{icon}</span>
       <span className="metric-trend">{trend}</span>
     </article>
   );
@@ -2215,11 +2278,13 @@ function MetricCard({
 
 function EmployeeStat({
   className,
+  icon: Icon,
   label,
   value,
   note,
 }: {
   className: string;
+  icon: LucideIcon;
   label: string;
   value: number;
   note: string;
@@ -2227,35 +2292,18 @@ function EmployeeStat({
   return (
     <article className={`employee-stat ${className}`}>
       <div className="employee-stat-head">
-        <span className="stat-icon" aria-hidden="true" />
+        <span className="stat-icon" aria-hidden="true"><Icon size={25} /></span>
         <div>
           <small>{label}</small>
           <strong>{value}</strong>
           <span>{note}</span>
         </div>
       </div>
-      <MiniTrendLine />
+      <span className="metric-watermark" aria-hidden="true"><Icon /></span>
       <span className="employee-stat-badge">
         {className === "stat-license" ? "Sem alteração" : note}
       </span>
     </article>
-  );
-}
-
-function MiniTrendLine() {
-  return (
-    <svg
-      className="employee-stat-line"
-      viewBox="0 0 220 54"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <path
-        d="M2 38 C18 34 25 29 39 30 C52 29 59 25 70 24 C82 22 91 24 101 18 C113 12 121 20 132 16 C144 12 156 9 168 18 C181 27 193 18 218 10"
-        fill="none"
-        pathLength="1"
-      />
-    </svg>
   );
 }
 
@@ -2282,7 +2330,7 @@ function BarList({
         <div key={row.label} className="bar-row">
           <div className="bar-label">
             <span className="bar-name">
-              {showPercent ? <Building2 size={15} aria-hidden="true" /> : null}
+              {showPercent ? <Building2 size={18} aria-hidden="true" /> : null}
               {row.label}
             </span>
             <strong>
@@ -2293,7 +2341,7 @@ function BarList({
           <div className="bar-track">
             <div
               className="bar-fill"
-              style={{ width: `${Math.max((row.total / max) * 100, 4)}%` }}
+              style={{ width: `${Math.max((row.total / max) * (showPercent ? 67 : 100), 4)}%` }}
             />
           </div>
         </div>
@@ -2334,7 +2382,8 @@ function StatusChart({ rows }: { rows: ChartRow[] }) {
     return <div className="empty-state">Sem dados para exibir.</div>;
   }
 
-  const colors = ["#0d63d8", "#f5b700", "#7c5cff", "#0bb885", "#e05050"];
+  const statusColors: Record<string, string> = { ativo: "#0988f4", exonerado: "#ffbd0b", licenca: "#a98aff", transferido: "#20cda0", afastado: "#fa788b" };
+  const colors = rows.map((row) => statusColors[normalizeText(row.label)] ?? "#7693ae");
   const gradient = rows
     .map((row, index) => {
       const start = rows
@@ -2349,8 +2398,9 @@ function StatusChart({ rows }: { rows: ChartRow[] }) {
     <div id="statusChart" className="donut-wrap">
       <div className="donut" style={{ background: `conic-gradient(${gradient})` }}>
         <div className="donut-total">
+          <Users size={22} aria-hidden="true" />
           <strong>{total}</strong>
-          <span>funcionários</span>
+          <span>Funcionários</span>
         </div>
       </div>
       <div className="legend">
@@ -2396,29 +2446,8 @@ function QuickInfoGrid({ stats }: { stats: QuickInfo[] }) {
   );
 }
 
-function Sparkline({ tone }: { tone: "blue" | "green" | "orange" | "purple" }) {
-  return (
-    <svg
-      className={`metric-sparkline sparkline-${tone}`}
-      viewBox="0 0 220 54"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <path
-        d="M2 39 C18 32 22 35 34 28 C48 18 56 44 71 30 C83 19 89 23 99 28 C112 35 123 23 135 30 C147 37 158 44 169 31 C184 14 197 30 218 18"
-        fill="none"
-        pathLength="1"
-      />
-      <path
-        d="M2 39 C18 32 22 35 34 28 C48 18 56 44 71 30 C83 19 89 23 99 28 C112 35 123 23 135 30 C147 37 158 44 169 31 C184 14 197 30 218 18 L218 54 L2 54 Z"
-        pathLength="1"
-      />
-    </svg>
-  );
-}
-
 const menuIcons: Record<ViewName, LucideIcon> = {
-  dashboard: LayoutDashboard,
+  dashboard: Home,
   employees: UserRound,
   units: Building2,
   users: Users,

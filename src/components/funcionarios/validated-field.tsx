@@ -3,6 +3,7 @@
 import {
   type ChangeEvent,
   type InputHTMLAttributes,
+  type ReactNode,
   useEffect,
   useId,
   useMemo,
@@ -23,6 +24,7 @@ type ValidatedFieldProps = Omit<
   defaultValue?: string | null;
   fieldClassName?: string;
   label: string;
+  leadingIcon?: ReactNode;
   mask?: MaskKind;
   matchLabel?: string;
   matchName?: string;
@@ -37,6 +39,7 @@ export function ValidatedField({
   fieldClassName,
   id,
   label,
+  leadingIcon,
   mask = "text",
   matchLabel,
   matchName,
@@ -139,6 +142,7 @@ export function ValidatedField({
         </span>
       </span>
       <span className="validated-control">
+        {leadingIcon ? <span className="validated-leading-icon">{leadingIcon}</span> : null}
         <input
           {...inputProps}
           ref={inputRef}
