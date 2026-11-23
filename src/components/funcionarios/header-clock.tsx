@@ -31,7 +31,7 @@ const compactTimeFormatter = new Intl.DateTimeFormat("pt-BR", {
   hour12: false,
 });
 
-export function HeaderClock() {
+export function HeaderClock({ dashboardName }: { dashboardName?: string } = {}) {
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -48,6 +48,27 @@ export function HeaderClock() {
     if (!now) return null;
     return buildClockViewModel(now);
   }, [now]);
+
+  if (dashboardName) {
+    return (
+      <section className="dashboard-welcome" aria-labelledby="dashboard-greeting">
+        <div>
+          <h2 id="dashboard-greeting">{clock ? `${clock.greeting}, ${dashboardName}!` : `Olá, ${dashboardName}!`} <span aria-hidden="true">👋</span></h2>
+          <p>Acompanhe os principais indicadores do quadro de funcionários.</p>
+        </div>
+        <div className="dashboard-date">
+          <span className="dashboard-date-icon"><CalendarDays size={24} aria-hidden="true" /></span>
+          {clock ? (
+            <time dateTime={clock.dateTime}>
+              <span>{clock.weekday},</span>
+              <span>{clock.date}</span>
+              <strong>{clock.time}</strong>
+            </time>
+          ) : <span>Horário local</span>}
+        </div>
+      </section>
+    );
+  }
 
   if (!clock) {
     return (

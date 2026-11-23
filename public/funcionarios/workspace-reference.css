@@ -1,0 +1,1273 @@
+#appShell.workspace-reference,
+#employeeDialog.employee-reference {
+  --text-1: #f4f7fd;
+  --text-2: #d3e0ef;
+  --text-3-readable: #b6c8dc;
+  --bg-page: #04111e;
+  --bg-card: #091b2b;
+  --bg-subtle: #102538;
+  --border: #203d55;
+  --border-strong: #48647d;
+  --surface: var(--bg-card);
+  --surface-card: var(--bg-card);
+  --surface-muted: var(--bg-subtle);
+  --surface-subtle: var(--bg-subtle);
+  --brand-50: #102e47;
+  --brand-100: #19456a;
+  --gold-500: #ffbf19;
+  --cyan: #20c8ff;
+  --focus: 0 0 0 3px rgb(32 200 255 / 32%);
+  --shadow-sm: none;
+  --shadow-md: 0 12px 26px rgb(1 6 12 / 28%);
+  color: var(--text-1);
+  color-scheme: dark;
+  font-family: var(--font-inter), Inter, Arial, sans-serif;
+}
+
+#appShell.workspace-reference {
+  --workspace-sidebar: clamp(244px, 18.2vw, 306px);
+  background: radial-gradient(ellipse at 36% 25%, #072034 0%, #04111e 57%, #03101c);
+}
+
+#appShell.workspace-reference .workspace {
+  padding: 0 clamp(15px, 1.3vw, 24px) 0;
+  background: radial-gradient(ellipse at 38% 22%, #071b2c, #04111e 68%);
+  scrollbar-color: #31526b #04111e;
+}
+
+#appShell.workspace-reference .sidebar {
+  position: relative;
+  isolation: isolate;
+  overflow-x: hidden;
+  flex-basis: var(--workspace-sidebar);
+  width: var(--workspace-sidebar);
+  min-width: var(--workspace-sidebar);
+  max-width: var(--workspace-sidebar);
+  gap: 20px;
+  padding: 22px clamp(15px, 1.4vw, 24px) 54px;
+  border-right: 1px solid #13334c;
+  background: linear-gradient(149deg, #03111e, #031b2d 58%, #05233b);
+}
+
+#appShell.workspace-reference .sidebar::after,
+#appShell.workspace-reference .workspace-footer::before {
+  display: block;
+  position: absolute;
+  right: -18%;
+  left: -18%;
+  bottom: -47px;
+  height: 106px;
+  z-index: -1;
+  border-top: 2px solid #f3b12e;
+  border-radius: 50%;
+  background: #051525;
+  box-shadow: 0 -8px 22px rgb(247 172 39 / 24%), 0 -2px 7px rgb(255 193 44 / 55%);
+  transform: rotate(-12deg);
+  pointer-events: none;
+  content: "";
+}
+
+#appShell.workspace-reference .brand {
+  position: relative;
+  grid-template-columns: clamp(54px, 4.5vw, 76px) minmax(0, 1fr);
+  padding: 0 0 31px;
+  margin-bottom: 11px;
+  border: 0;
+}
+
+#appShell.workspace-reference .brand::after {
+  display: block;
+  position: absolute;
+  inset: auto -24px 2px;
+  height: 28px;
+  border-bottom: 2px solid #eab13b;
+  border-radius: 0 0 70% 46%;
+  box-shadow: 0 5px 12px -7px #f5bd4e;
+  transform: rotate(-5deg);
+  content: "";
+}
+
+#appShell.workspace-reference .brand-crest {
+  width: 100%;
+  height: auto;
+  max-height: 82px;
+  scale: 1.2;
+}
+
+#appShell.workspace-reference .brand-copy :is(span, small),
+#appShell.workspace-reference .session-copy small {
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference .brand-copy strong {
+  color: var(--text-1);
+  padding: 1px 0;
+  font-size: clamp(16px, 1.37vw, 23px);
+  white-space: nowrap;
+  text-transform: none;
+  letter-spacing: -.035em;
+}
+
+#appShell.workspace-reference .brand-copy span {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 13px;
+}
+
+#appShell.workspace-reference .brand-copy small {
+  font-size: 11px;
+}
+
+#appShell.workspace-reference .sidebar-title {
+  padding: 1px 4px 0;
+  border: 0;
+  background: none;
+}
+
+#appShell.workspace-reference .sidebar-title span {
+  color: var(--cyan);
+  font-size: clamp(11px, 1vw, 15px);
+}
+
+#appShell.workspace-reference .sidebar-title strong {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--text-1);
+  font-size: clamp(17px, 1.45vw, 24px);
+}
+
+#appShell.workspace-reference .sidebar-title svg,
+#appShell.workspace-reference .logout-button svg {
+  color: var(--gold-500);
+}
+
+#appShell.workspace-reference .menu {
+  gap: 5px;
+}
+
+#appShell.workspace-reference .menu-item {
+  min-height: clamp(44px, 5.5vh, 55px);
+  gap: 17px;
+  padding: 0 15px;
+  border-radius: 11px;
+  color: var(--text-2);
+  font-size: clamp(14px, 1vw, 17px);
+}
+
+#appShell.workspace-reference .menu-item:hover {
+  background: #0d273c;
+  color: var(--text-1);
+}
+
+#appShell.workspace-reference .menu-item svg {
+  width: 23px;
+  height: 23px;
+}
+
+#appShell.workspace-reference .menu-item.active {
+  border-color: transparent;
+  border-left: 2px solid var(--gold-500);
+  background: linear-gradient(100deg, #60470f, #3e3019);
+  color: #fff;
+  box-shadow: -4px 0 12px rgb(255 190 38 / 19%);
+}
+
+#appShell.workspace-reference .menu-item.active svg {
+  color: var(--gold-500);
+}
+
+#appShell.workspace-reference .signature {
+  position: relative;
+  margin-top: auto;
+  padding: 22px 0 8px;
+  border: 0;
+}
+
+#appShell.workspace-reference .signature::before {
+  position: absolute;
+  top: 0;
+  right: -26px;
+  left: -26px;
+  height: 20px;
+  border-top: 1px solid #1397dd;
+  border-radius: 64% 82% 0 0;
+  box-shadow: 0 -5px 17px -9px #28c7ff;
+  content: "";
+}
+
+#appShell.workspace-reference .sidebar-safe {
+  display: none;
+}
+
+#appShell.workspace-reference .session-avatar {
+  color: #fff;
+  background: linear-gradient(135deg, #09689f, #10324c);
+}
+
+#appShell.workspace-reference .logout-button {
+  min-height: 46px;
+  border: 1px solid #225176;
+  border-radius: 10px;
+  color: var(--text-1);
+  background: #082339;
+}
+
+#appShell.workspace-reference .topbar {
+  isolation: auto;
+  min-height: 78px;
+  gap: clamp(12px, 1.6vw, 26px);
+  padding: 6px 0;
+  border-color: #102c44;
+  background: #041321;
+  box-shadow: 20px 0 #041321, -20px 0 #041321;
+}
+
+#appShell.workspace-reference .topbar-heading {
+  align-items: center;
+  gap: clamp(14px, 2vw, 34px);
+}
+
+#appShell.workspace-reference .topbar-heading .eyebrow {
+  display: none;
+}
+
+#appShell.workspace-reference :is(#viewTitle, .dashboard-welcome h2) {
+  margin: 0;
+  color: var(--text-1);
+  font-size: clamp(23px, 1.75vw, 30px);
+  font-weight: 750;
+  letter-spacing: -.035em;
+  line-height: 1.17;
+}
+
+#appShell.workspace-reference #viewSubtitle {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-2);
+  font-size: clamp(12px, .95vw, 16px);
+}
+
+#appShell.workspace-reference .menu-toggle {
+  display: inline-grid;
+  color: var(--text-1);
+  border: 0;
+  background: transparent;
+}
+
+#appShell.workspace-reference .menu-toggle svg {
+  width: 27px;
+  height: 27px;
+}
+
+#appShell.workspace-reference .top-actions {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  gap: clamp(10px, 1.55vw, 27px);
+}
+
+#appShell.workspace-reference .workspace-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(100%, 510px);
+  min-width: 145px;
+  height: 50px;
+  padding: 0 15px;
+  border: 1px solid #1c354c;
+  border-radius: 30px;
+  background: linear-gradient(105deg, #102538, #152536);
+}
+
+#appShell.workspace-reference .workspace-search input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  color: var(--text-1);
+  background: transparent;
+  box-shadow: none;
+}
+
+#appShell.workspace-reference .workspace-search :is(svg, kbd) {
+  flex: none;
+}
+
+#appShell.workspace-reference .workspace-search kbd {
+  padding: 4px 9px;
+  border-radius: 16px;
+  background: #23364a;
+  color: var(--text-1);
+  font: inherit;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+#appShell.workspace-reference .workspace-search:focus-within {
+  box-shadow: var(--focus);
+}
+
+#appShell.workspace-reference .top-icon-button,
+#appShell.workspace-reference .top-profile-chip {
+  color: var(--text-1);
+  background: linear-gradient(135deg, #0c1e30, #071623);
+  border: 1px solid #1b354d;
+}
+
+#appShell.workspace-reference .top-icon-button {
+  display: grid;
+  border-radius: 50%;
+  width: 49px;
+  height: 49px;
+}
+
+#appShell.workspace-reference .top-icon-button > span {
+  background: #ff645b;
+}
+
+#appShell.workspace-reference .workspace-profile {
+  position: relative;
+  flex: 0 0 clamp(158px, 16vw, 265px);
+}
+
+#appShell.workspace-reference .workspace-profile summary {
+  display: flex;
+  min-height: 56px;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  justify-content: start;
+  padding: 6px 12px;
+  border-radius: 32px;
+  cursor: pointer;
+  list-style: none;
+}
+
+#appShell.workspace-reference .workspace-profile .session-avatar {
+  width: 40px;
+  height: 40px;
+  font-size: 15px;
+}
+
+#appShell.workspace-reference .workspace-profile .session-copy strong {
+  font-size: 15px;
+}
+
+#appShell.workspace-reference .workspace-profile summary::-webkit-details-marker {
+  display: none;
+}
+
+#appShell.workspace-reference .workspace-profile summary > svg {
+  margin-inline-start: auto;
+  flex: none;
+}
+
+#appShell.workspace-reference .workspace-profile > a {
+  position: absolute;
+  z-index: 4;
+  right: 0;
+  top: calc(100% + 5px);
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  padding: 11px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card);
+  white-space: nowrap;
+}
+
+#appShell.workspace-reference .view.active {
+  padding-top: 16px;
+}
+
+#appShell.workspace-reference .dashboard-welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  min-height: 106px;
+  margin-bottom: 16px;
+  padding: 13px clamp(16px, 1.7vw, 29px);
+  border: 1px solid #123550;
+  border-radius: 18px;
+  background:
+    linear-gradient(90deg, #041b2d 33%, #06243a66 60%, #041725 82%),
+    url("./assets/login-background.png") center 51% / cover;
+}
+
+#appShell.workspace-reference .dashboard-welcome p {
+  margin: 5px 0 0;
+  font-size: clamp(13px, 1vw, 17px);
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference .dashboard-date,
+#appShell.workspace-reference .dashboard-date-icon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#appShell.workspace-reference .dashboard-date-icon {
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid #10324e;
+  border-radius: 50%;
+  color: #09b9ff;
+}
+
+#appShell.workspace-reference .dashboard-date time {
+  display: grid;
+  min-width: 148px;
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference .dashboard-date time strong {
+  color: var(--gold-500);
+  font-size: 19px;
+  font-variant-numeric: tabular-nums;
+}
+
+#appShell.workspace-reference :is(.dashboard-metric-grid, .employee-overview) {
+  margin: 0 0 18px;
+  gap: clamp(10px, 1.18vw, 20px);
+}
+
+#appShell.workspace-reference :is(.metric-card, .employee-stat) {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  min-height: clamp(147px, 18.4vh, 190px);
+  padding: clamp(12px, 1.3vw, 22px);
+  border: 1px solid color-mix(in srgb, var(--tile-tone) 30%, #18354b);
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse at 4% 0, color-mix(in srgb, var(--tile-tone) 26%, transparent), transparent 42%),
+    linear-gradient(145deg, #082031, #071523 78%);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--tile-tone) 28%, transparent);
+}
+
+#appShell.workspace-reference :is(.metric-blue, .stat-total) { --tile-tone: #09bfff; }
+#appShell.workspace-reference :is(.metric-green, .stat-active) { --tile-tone: #20dfa0; }
+#appShell.workspace-reference :is(.metric-orange, .stat-license) { --tile-tone: #ffbd18; }
+#appShell.workspace-reference .metric-purple { --tile-tone: #bc7df7; }
+#appShell.workspace-reference .stat-inactive { --tile-tone: #fc627d; }
+
+#appShell.workspace-reference :is(.metric-card-main, .employee-stat-head) {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(10px, 1.2vw, 20px);
+}
+
+#appShell.workspace-reference .employee-stat {
+  min-height: 165px;
+  padding-block: 13px;
+}
+
+#appShell.workspace-reference :is(.metric-icon, .stat-icon) {
+  display: grid;
+  place-items: center;
+  width: clamp(36px, 3vw, 49px);
+  height: clamp(36px, 3vw, 49px);
+  color: var(--tile-tone);
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--tile-tone) 22%, #072036);
+}
+
+#appShell.workspace-reference .stat-icon::before {
+  display: none;
+}
+
+#appShell.workspace-reference :is(.metric-card-main, .employee-stat-head) > div > strong {
+  color: var(--text-1);
+  font-size: clamp(29px, 2.68vw, 45px);
+  line-height: 1.08;
+  letter-spacing: -.045em;
+}
+
+#appShell.workspace-reference :is(.metric-card-main > div > span, .employee-stat-head > div > small) {
+  color: var(--text-1);
+  font-size: clamp(12px, 1vw, 17px);
+  font-weight: 650;
+}
+
+#appShell.workspace-reference :is(.metric-card-main > div > small, .employee-stat-head > div > span) {
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference :is(.metric-trend, .employee-stat-badge) {
+  align-self: flex-start;
+  width: fit-content;
+  margin-top: 8px;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 18px;
+  color: var(--text-1);
+  background: color-mix(in srgb, var(--tile-tone) 21%, #071724);
+  font-size: 12px;
+}
+
+#appShell.workspace-reference .metric-blue .metric-trend {
+  padding-inline: 0;
+  background: transparent;
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference .metric-watermark {
+  position: absolute;
+  z-index: -1;
+  right: 9px;
+  bottom: 28%;
+  color: var(--tile-tone);
+  opacity: .16;
+}
+
+#appShell.workspace-reference .metric-watermark svg {
+  width: clamp(38px, 5vw, 77px);
+  height: clamp(38px, 5vw, 77px);
+}
+
+#appShell.workspace-reference .dashboard-grid-upgraded {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+  gap: clamp(12px, 1.2vw, 22px);
+  align-items: stretch;
+}
+
+#appShell.workspace-reference .dashboard-grid-upgraded > .dashboard-panel {
+  grid-column: auto;
+  width: auto;
+}
+
+#appShell.workspace-reference :is(.panel, .filter-bar) {
+  border: 1px solid #1a405d;
+  border-radius: 18px;
+  color: var(--text-1);
+  background: linear-gradient(146deg, #0d2236, #071624 85%);
+  box-shadow: 0 8px 19px #02090f6b;
+}
+
+#appShell.workspace-reference .dashboard-panel {
+  padding: clamp(15px, 1.5vw, 24px);
+  background:
+    linear-gradient(145deg, #0d2236, #071624 85%) padding-box,
+    linear-gradient(130deg, #ffbf19, #203d55 24%, #14385a 80%) border-box;
+  border-color: transparent;
+}
+
+#appShell.workspace-reference .panel-heading h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-1);
+  font-size: clamp(16px, 1.27vw, 22px);
+  letter-spacing: -.03em;
+}
+
+#appShell.workspace-reference :is(.panel-heading h2 svg, .panel-link, .table-export svg, .donut-total svg) {
+  color: var(--gold-500);
+}
+
+#appShell.workspace-reference .panel-link {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  white-space: nowrap;
+}
+
+#appShell.workspace-reference .bar-list {
+  gap: 12px;
+  margin-top: 19px;
+}
+
+#appShell.workspace-reference .bar-row {
+  position: relative;
+  padding: 0 0 0 54px;
+}
+
+#appShell.workspace-reference .bar-name svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: content-box;
+  padding: 11px;
+  border-radius: 15px;
+  color: #1fc3fb;
+  background: #0d3555;
+}
+
+#appShell.workspace-reference .bar-label :is(.bar-name, strong) {
+  color: var(--text-1);
+}
+
+#appShell.workspace-reference .bar-label small {
+  background: #172e45;
+  color: var(--text-1);
+}
+
+#appShell.workspace-reference .bar-track {
+  height: 10px;
+  margin-top: 2px;
+  background: linear-gradient(90deg, #153961, #122639);
+}
+
+#appShell.workspace-reference .bar-fill {
+  background: linear-gradient(90deg, #0080e9, #2aaefe);
+  box-shadow: 0 0 9px rgb(21 161 255 / 27%);
+}
+
+#appShell.workspace-reference .bar-row:first-child .bar-fill {
+  background: linear-gradient(90deg, #0de6ff, #1f93fa);
+}
+
+#appShell.workspace-reference .donut-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 10px;
+}
+
+#appShell.workspace-reference .donut {
+  width: min(100%, clamp(155px, 14vw, 232px));
+  max-width: none;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin: 8px 0 0;
+}
+
+#appShell.workspace-reference .donut-total {
+  inset: 20%;
+  border: 0;
+  border-radius: 50%;
+  background: #071827;
+  color: var(--text-1);
+}
+
+#appShell.workspace-reference .donut-total strong {
+  color: var(--text-1);
+  font-size: clamp(25px, 2.7vw, 42px);
+}
+
+#appShell.workspace-reference .donut-total span {
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference .legend {
+  width: 100%;
+  max-width: 360px;
+}
+
+#appShell.workspace-reference .legend-row {
+  padding: 4px 0;
+  border: none;
+}
+
+#appShell.workspace-reference .legend-row :is(span, strong) {
+  color: var(--text-1);
+}
+
+#appShell.workspace-reference .legend-row small {
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference .dashboard-extra {
+  margin: 12px 0;
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference .dashboard-extra summary {
+  width: fit-content;
+  cursor: pointer;
+}
+
+#appShell.workspace-reference .dashboard-extra[open] > div {
+  margin-top: 12px;
+}
+
+#appShell.workspace-reference .filter-bar {
+  padding: 13px clamp(14px, 1.6vw, 26px) 20px;
+  margin-bottom: 16px;
+  background: linear-gradient(145deg, #082337, #061827 75%);
+}
+
+#appShell.workspace-reference :is(.workspace-filter-title, .workspace-filter-actions) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#appShell.workspace-reference .workspace-filter-title > svg {
+  color: var(--cyan);
+}
+
+#appShell.workspace-reference .workspace-filter-title h2 {
+  margin: 0;
+  color: var(--text-1);
+  font-size: clamp(17px, 1.23vw, 22px);
+}
+
+#appShell.workspace-reference .workspace-filter-title p {
+  margin: 0;
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference :is(.workspace-new, .filter-advanced) {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--gold-500);
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+#appShell.workspace-reference .workspace-new {
+  padding: 3px 0;
+  min-height: 0;
+  border: 0;
+  color: var(--gold-500);
+  background: transparent;
+  box-shadow: none;
+}
+
+#appShell.workspace-reference .filter-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: end;
+  gap: 11px clamp(11px, 1.3vw, 22px);
+}
+
+#appShell.workspace-reference .filter-grid > * { grid-column: span 3; }
+#appShell.workspace-reference .filter-grid > :nth-child(1) { grid-column: span 5; }
+#appShell.workspace-reference .filter-grid > :nth-child(2) { grid-column: span 4; }
+
+#appShell.workspace-reference .filter-grid :is(label, label > span:first-child, input, select) {
+  color: var(--text-1);
+}
+
+#appShell.workspace-reference .filter-grid :is(input, select) {
+  min-height: 41px;
+  border-color: var(--border-strong);
+  border-radius: 10px;
+  background-color: #10273a;
+}
+
+#appShell.workspace-reference :is(.filter-grid, .workspace-search) input::placeholder,
+#employeeDialog.employee-reference :is(input, textarea)::placeholder {
+  color: var(--text-3-readable);
+  opacity: 1;
+}
+
+#appShell.workspace-reference .filter-grid select,
+#employeeDialog.employee-reference select {
+  appearance: auto;
+  background-image: none;
+}
+
+#appShell.workspace-reference .filter-reset,
+#employeeDialog.employee-reference .ghost-action {
+  border: 1px solid #577089;
+  color: var(--text-1);
+  background: #0d2236;
+}
+
+#appShell.workspace-reference .filter-submit,
+#employeeDialog.employee-reference .primary-action {
+  border: 1px solid #ffd86f;
+  color: #061322;
+  background: linear-gradient(#ffca44, #efa310);
+  box-shadow: inset 0 1px 0 #fff0b8a3;
+}
+
+#appShell.workspace-reference .filter-submit:hover,
+#employeeDialog.employee-reference .primary-action:hover:not(:disabled) {
+  color: #061322;
+  background: #ffd059;
+}
+
+#appShell.workspace-reference .table-panel {
+  padding: clamp(12px, 1.25vw, 21px);
+}
+
+#appShell.workspace-reference .table-panel .panel-heading {
+  padding: 0 4px 14px;
+  background: transparent;
+}
+
+#appShell.workspace-reference .table-panel .table-heading-actions :is(label, span:not(.result-count)) {
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference .table-panel :is(.result-count, select, .row-menu-trigger) {
+  color: var(--text-1);
+  border-color: var(--border-strong);
+  background: #132d43;
+}
+
+#appShell.workspace-reference .table-panel .result-count {
+  color: var(--cyan);
+  background: #082d4d;
+  border-color: #1769a5;
+}
+
+#appShell.workspace-reference .employee-table-scroll {
+  border: 1px solid #234156;
+  border-radius: 10px;
+}
+
+#appShell.workspace-reference .employees-table :is(th, td) {
+  color: var(--text-1);
+  border-color: #233c50;
+}
+
+#appShell.workspace-reference .employees-table th {
+  background: #14293b;
+}
+
+#appShell.workspace-reference .employees-table tbody tr,
+#appShell.workspace-reference #employeesView .employees-table td {
+  background: #091a29;
+}
+
+#appShell.workspace-reference #employeesView .employees-table tbody tr:hover td {
+  background: #10273b;
+}
+
+#appShell.workspace-reference .employee-avatar {
+  color: #fff;
+  background: #154974;
+}
+
+#appShell.workspace-reference .employee-avatar[data-tone="1"],
+#appShell.workspace-reference .employee-avatar[data-tone="3"] {
+  color: #fff;
+  background: #544018;
+}
+
+#appShell.workspace-reference .employees-table .status-pill.status-ativo {
+  color: #44f3b1;
+  background: #0a3d35;
+}
+
+#appShell.workspace-reference .employees-table .status-pill.status-exonerado {
+  color: #ff9ca8;
+  background: #4a2332;
+}
+
+#appShell.workspace-reference .table-footer :is(a, button) {
+  color: var(--text-1);
+  background: #142a3e;
+  border-color: #29445e;
+}
+
+body:has(#appShell.workspace-reference) .employee-actions-popover {
+  color: #f4f7fd;
+  border-color: #34536e;
+  background: #0d2236;
+}
+
+body:has(#appShell.workspace-reference) .employee-actions-popover a {
+  color: inherit;
+}
+
+body:has(#appShell.workspace-reference) .employee-actions-popover a:hover {
+  background: #193850;
+}
+
+body:has(#appShell.workspace-reference) .employee-actions-popover .danger-action {
+  color: #ff9ca8;
+}
+
+#appShell.workspace-reference .workspace-footer {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  min-height: 68px;
+  margin: 12px 0 0;
+  padding: 16px 22px;
+  border-top: 1px solid #18354d;
+  color: var(--text-1);
+  background: #041421;
+}
+
+#appShell.workspace-reference .workspace-footer::before {
+  right: -80px;
+  left: auto;
+  top: -112px;
+  width: 330px;
+  border-top: 0;
+  border-bottom: 2px solid #f3b12e;
+  box-shadow: 0 3px 16px #f5b83d69;
+}
+
+#appShell.workspace-reference .workspace-footer > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+#appShell.workspace-reference .workspace-footer strong {
+  padding-right: 14px;
+  border-right: 1px solid var(--gold-500);
+  font-size: 21px;
+}
+
+#appShell.workspace-reference .workspace-footer small {
+  padding-left: 14px;
+  border-left: 1px solid #48647d;
+  font-size: inherit;
+}
+
+body:has(#employeeDialog.employee-reference[open]) #appShell::after {
+  background: #03101aae;
+  backdrop-filter: blur(4px);
+}
+
+#employeeDialog.employee-reference {
+  width: min(1070px, calc(100% - 36px));
+  max-width: 1070px;
+  max-height: min(900px, calc(100dvh - 44px));
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  background:
+    radial-gradient(ellipse at 50% 0, #0a2237, #051523 70%) padding-box,
+    linear-gradient(125deg, #d3a347, #457694 29%, #305271 77%, #23a7d2) border-box;
+  box-shadow: 0 26px 70px #0009;
+}
+
+#employeeDialog.employee-reference .employee-modal-form {
+  display: flex;
+  flex-direction: column;
+  max-height: min(898px, calc(100dvh - 46px));
+  background: transparent;
+}
+
+#employeeDialog.employee-reference .modal-header {
+  flex: none;
+  padding: clamp(14px, 2vw, 26px) clamp(17px, 3vw, 40px);
+  border-color: #183449;
+  background: transparent;
+}
+
+#employeeDialog.employee-reference .modal-title-icon {
+  width: clamp(49px, 5vw, 73px);
+  height: clamp(49px, 5vw, 73px);
+  border: 1px solid #70511f;
+  border-radius: 18px;
+  color: #ffc543;
+  background: radial-gradient(ellipse at bottom, #61441c, #171f25 76%);
+}
+
+#employeeDialog.employee-reference #employeeFormTitle {
+  color: var(--text-1);
+  font-size: clamp(23px, 2.5vw, 36px);
+  letter-spacing: -.045em;
+}
+
+#employeeDialog.employee-reference .modal-header p {
+  color: var(--text-2);
+  font-size: clamp(12px, 1.2vw, 18px);
+}
+
+#employeeDialog.employee-reference .modal-close-button {
+  color: var(--text-1);
+  border: 1px solid var(--border);
+  background: #0c2134;
+}
+
+#employeeDialog.employee-reference .employee-modal-body {
+  min-height: 0;
+  padding: 16px clamp(17px, 3vw, 40px) 24px;
+  overflow-y: auto;
+  background: transparent;
+  scrollbar-color: #31526b transparent;
+}
+
+#employeeDialog.employee-reference .employee-section-nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(6px, 3.9vw, 59px);
+  margin-bottom: 24px;
+}
+
+#employeeDialog.employee-reference .employee-section-nav a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 64px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  background: #081c2e;
+  color: var(--text-2);
+}
+
+#employeeDialog.employee-reference .employee-section-nav a:not(:last-child)::after {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: clamp(6px, 3.9vw, 59px);
+  height: 1px;
+  background: #35556d;
+  content: "";
+}
+
+#employeeDialog.employee-reference .employee-section-nav a > svg {
+  flex: none;
+  box-sizing: content-box;
+  width: 25px;
+  height: 25px;
+  padding: 9px;
+  border-radius: 14px;
+  color: inherit;
+  background: #152d43;
+}
+
+#employeeDialog.employee-reference .employee-section-nav a :is(strong, small) {
+  display: block;
+  color: inherit;
+}
+
+#employeeDialog.employee-reference .employee-section-nav a small {
+  font-size: 12px;
+}
+
+#employeeDialog.employee-reference:not(:has(.employee-section-heading:target)) .employee-section-nav a:first-child,
+#employeeDialog.employee-reference:has(#employee-personal:target) a[href="#employee-personal"],
+#employeeDialog.employee-reference:has(#employee-professional:target) a[href="#employee-professional"],
+#employeeDialog.employee-reference:has(#employee-complementary:target) a[href="#employee-complementary"] {
+  border-color: #ffbd2b;
+  color: #fff7e7;
+  background: linear-gradient(135deg, #302c21, #1b2228);
+  box-shadow: 0 0 13px #ffb72f55, inset 0 -2px #e4aa35;
+}
+
+#employeeDialog.employee-reference .employee-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 5px 0 0;
+  padding-bottom: 10px;
+  scroll-margin-top: 14px;
+  color: var(--text-1);
+  font-size: clamp(17px, 1.6vw, 23px);
+  line-height: 1.2;
+}
+
+#employeeDialog.employee-reference .employee-section-heading svg {
+  flex: none;
+  width: 23px;
+  color: var(--gold-500);
+}
+
+#employeeDialog.employee-reference .employee-compact-grid {
+  column-gap: clamp(12px, 2vw, 28px);
+  row-gap: 13px;
+}
+
+#employeeDialog.employee-reference .employee-compact-grid :is(label, input, select, textarea) {
+  color: var(--text-1);
+}
+
+#employeeDialog.employee-reference .employee-compact-grid :is(input, select, textarea) {
+  min-height: 46px;
+  border-color: #36536c;
+  border-radius: 11px;
+  background-color: #0c2235;
+}
+
+#employeeDialog.employee-reference .employee-compact-grid :is(input, select, textarea):focus-visible {
+  border-color: var(--cyan);
+  box-shadow: var(--focus);
+}
+
+#employeeDialog.employee-reference .validated-control:has(.validated-leading-icon) input,
+#employeeDialog.employee-reference .employee-select-control select {
+  padding-inline-start: 45px;
+}
+
+#employeeDialog.employee-reference :is(.validated-control, .employee-select-control) {
+  position: relative;
+  display: block;
+  height: auto;
+}
+
+#employeeDialog.employee-reference .validated-leading-icon {
+  position: absolute;
+  inset: 50% auto auto 13px;
+  transform: translateY(-50%);
+  color: #acc7df;
+  line-height: 0;
+  pointer-events: none;
+}
+
+#employeeDialog.employee-reference .validated-leading-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+#employeeDialog.employee-reference .employee-modal-actions {
+  flex: none;
+  padding: 16px clamp(17px, 3vw, 40px);
+  border-color: #234156;
+  background: #0a1e30;
+}
+
+#employeeDialog.employee-reference .employee-footer-note strong {
+  color: var(--text-2);
+}
+
+#employeeDialog.employee-reference .employee-modal-actions :is(.ghost-action, .primary-action) {
+  min-height: 48px;
+  padding-inline: 22px;
+  border-radius: 13px;
+}
+
+#appShell.workspace-reference :is(a, button, select, summary):focus-visible,
+#employeeDialog.employee-reference :is(a, button):focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+@media (min-width: 1101px) {
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .sidebar {
+    flex-basis: 78px;
+    width: 78px;
+    min-width: 78px;
+    max-width: 78px;
+    padding-inline: 10px;
+  }
+}
+
+@media (max-width: 1100px) {
+  #appShell.workspace-reference .sidebar {
+    position: fixed;
+    width: min(288px, calc(100vw - 40px));
+    min-width: 0;
+    max-width: 288px;
+  }
+}
+
+@media (max-width: 850px) {
+  #appShell.workspace-reference .topbar {
+    flex-wrap: wrap;
+  }
+
+  #appShell.workspace-reference .workspace-profile {
+    flex-basis: 46px;
+  }
+
+  #appShell.workspace-reference .workspace-profile summary {
+    width: 46px;
+    min-height: 46px;
+    padding: 3px;
+  }
+
+  #appShell.workspace-reference .workspace-profile summary .session-copy,
+  #appShell.workspace-reference .workspace-profile summary > svg,
+  #appShell.workspace-reference .workspace-search kbd {
+    display: none;
+  }
+
+  #appShell.workspace-reference :is(.dashboard-metric-grid, .employee-overview) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #appShell.workspace-reference .dashboard-grid-upgraded {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #appShell.workspace-reference .filter-grid > :nth-child(n) {
+    grid-column: span 6;
+  }
+
+  #appShell.workspace-reference .filter-grid > :first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  #appShell.workspace-reference .top-actions {
+    flex-basis: 100%;
+  }
+
+  #appShell.workspace-reference .workspace-search {
+    height: 43px;
+  }
+
+  #appShell.workspace-reference .dashboard-welcome {
+    display: grid;
+  }
+
+  #appShell.workspace-reference .dashboard-date time {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 6px;
+    align-items: center;
+  }
+
+  #appShell.workspace-reference .dashboard-date-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  #appShell.workspace-reference .filter-panel-heading {
+    flex-wrap: wrap;
+  }
+
+  #appShell.workspace-reference .filter-grid > :nth-child(n) {
+    grid-column: 1 / -1;
+  }
+
+  #employeeDialog.employee-reference {
+    inset-inline: 0;
+    margin-inline: auto;
+    width: calc(100% - 16px);
+    border-radius: 18px;
+  }
+
+  #employeeDialog.employee-reference .employee-section-nav {
+    gap: 5px;
+    margin-bottom: 15px;
+  }
+
+  #employeeDialog.employee-reference .employee-section-nav a {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    padding: 7px 3px;
+    font-size: 10px;
+  }
+
+  #employeeDialog.employee-reference .employee-section-nav a small,
+  #employeeDialog.employee-reference .employee-section-nav a::after {
+    display: none;
+  }
+
+  #employeeDialog.employee-reference .employee-section-nav a > svg {
+    width: 16px;
+    height: 16px;
+    padding: 3px;
+  }
+
+  #employeeDialog.employee-reference .employee-compact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #employeeDialog.employee-reference .employee-name-field {
+    grid-column: 1;
+  }
+}
