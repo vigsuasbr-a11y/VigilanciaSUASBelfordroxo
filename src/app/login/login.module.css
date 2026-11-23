@@ -1,8 +1,14 @@
 .screen {
+  --login-gold: #f5b82e;
+  --login-ink: #f8fafc;
+  --login-muted: #b8c9db;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
   height: 100dvh;
   overflow: auto;
+  color: var(--login-ink);
+  color-scheme: dark;
+  background: radial-gradient(ellipse at 60% 20%, #0a2c52, #061629 64%, #04111f);
   font-family: var(--font-jakarta), var(--font-admin);
 }
 
@@ -12,13 +18,19 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: clamp(122px, 14vh, 158px);
+  gap: clamp(100px, 14vh, 155px);
   padding: clamp(42px, 6vw, 96px) clamp(36px, 5.5vw, 96px);
-  color: #fff;
+}
+
+.identity::before {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
   background:
-    linear-gradient(180deg, #041c40 0%, #041e46 22%, rgb(3 25 61 / 54%) 47%, transparent 78%),
-    url("/funcionarios/assets/login-background.png") 76% bottom / cover;
-  background-color: #041c40;
+    linear-gradient(90deg, #041324 2%, rgb(4 19 36 / 93%) 22%, rgb(5 22 42 / 46%) 68%, #071d35 100%),
+    linear-gradient(0deg, #041324 4%, transparent 44%, rgb(4 19 36 / 25%) 70%, #051528 100%),
+    url("/funcionarios/assets/tela-fundo-prefeitura-e-semasc.webp") 38% center / cover no-repeat;
+  content: "";
 }
 
 .identityArt,
@@ -35,9 +47,10 @@
   position: absolute;
   z-index: -1;
   top: clamp(38px, 5.6vh, 72px);
-  right: 5.9%;
-  width: min(42%, 336px);
+  right: 6%;
+  width: min(33%, 280px);
   height: auto;
+  opacity: .62;
   pointer-events: none;
 }
 
@@ -90,31 +103,28 @@
 }
 
 .intro h1 {
-  max-width: 10ch;
   margin: 0;
-  color: #fff;
-  font-size: clamp(40px, 5.05vw, 84px);
+  font-size: clamp(42px, 5.3vw, 84px);
   font-weight: 800;
   letter-spacing: -0.055em;
-  line-height: .99;
+  line-height: 1.01;
+  text-shadow: 0 4px 20px rgb(4 19 36 / 65%);
 }
 
-.intro h1::before {
+.intro h1 strong {
   display: block;
-  width: 52px;
-  height: 5px;
-  margin-bottom: 24px;
-  border-radius: 2px;
-  background: var(--gold-500);
-  content: "";
+  color: #fbd064;
+  font-weight: inherit;
 }
 
 .intro p {
-  max-width: 31ch;
-  margin: 20px 0 0;
-  color: #e2ebfb;
-  font-size: clamp(15px, 1.52vw, 24px);
-  line-height: 1.42;
+  max-width: 28ch;
+  margin: 28px 0 0;
+  padding-inline-start: 16px;
+  border-inline-start: 3px solid var(--login-gold);
+  font-family: var(--font-admin);
+  font-size: clamp(15px, 1.52vw, 23px);
+  line-height: 1.5;
   text-shadow: 0 2px 8px #031632;
 }
 
@@ -125,42 +135,64 @@
   display: grid;
   grid-template-rows: 1fr auto 1fr;
   justify-items: center;
-  padding: 32px clamp(28px, 5.1vw, 82px);
-  background: linear-gradient(142deg, #e8effb, #f4f7fc 62%, #e9f1fc);
+  padding: 32px clamp(28px, 4vw, 76px) 32px clamp(22px, 2.6vw, 48px);
+  background: linear-gradient(145deg, rgb(4 16 31 / 68%), transparent 42%, rgb(10 44 82 / 60%));
 }
 
 .card {
   grid-row: 2;
   width: min(100%, 632px);
-  padding: clamp(32px, 3.25vw, 52px);
-  border: 1px solid #fff;
-  border-radius: clamp(20px, 2.2vw, 34px);
-  background: linear-gradient(145deg, #fcfdff, #f4f8ff);
-  box-shadow: 0 25px 52px rgb(26 67 123 / 24%), 0 3px 12px rgb(26 67 123 / 7%);
+  padding: clamp(28px, 3vw, 48px);
+  border: 1px solid transparent;
+  border-radius: 24px;
+  background:
+    linear-gradient(145deg, #10243b, #081b30 56%, #061628) padding-box,
+    linear-gradient(135deg, #f5b82e, #425a75 40%, #304e6e 66%, #b5873b) border-box;
+  box-shadow: 0 24px 52px rgb(2 9 18 / 45%);
+  animation: login-card-in 360ms ease-out both;
+}
+
+@keyframes login-card-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cardHeading {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  margin-bottom: clamp(22px, 2.3vw, 34px);
+  text-align: center;
 }
 
 .card h2 {
-  display: flex;
-  align-items: center;
-  gap: clamp(12px, 1.4vw, 23px);
-  margin: 0 0 clamp(22px, 2.25vw, 36px);
-  color: #0a2149;
-  font-size: clamp(25px, 2.62vw, 43px);
+  margin: 0;
+  font-size: clamp(24px, 2.45vw, 37px);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.2;
 }
 
+.cardHeading p {
+  margin: 0;
+  color: var(--login-muted);
+  font-family: var(--font-admin);
+  font-size: clamp(13px, 1.1vw, 16px);
+}
+
 .accessIcon {
-  flex: none;
   display: grid;
   place-items: center;
-  order: -1;
-  width: clamp(44px, 4.5vw, 72px);
+  width: clamp(52px, 5vw, 76px);
   aspect-ratio: 1;
+  margin-bottom: 7px;
+  border: 1px solid transparent;
   border-radius: 16px;
-  color: #0a3770;
-  background: #dcecfb;
+  color: #fbd064;
+  background:
+    linear-gradient(145deg, #163453, #0a2037) padding-box,
+    linear-gradient(130deg, #f5b82e, #377ab5 57%, #d4a13b) border-box;
+  box-shadow: 0 6px 18px rgb(4 13 25 / 35%);
 }
 
 .accessIcon svg {
@@ -168,67 +200,103 @@
   height: 57%;
 }
 
-.card h2::before {
-  flex: 0 0 2px;
-  height: 1.1em;
-  background: #e5a715;
-  content: "";
-}
-
 .card :global(.login-form) {
   gap: clamp(12px, 1.5vw, 22px);
 }
 
 .card :global(.login-field-label) {
-  color: #0a2149;
-  font-size: clamp(14px, 1.25vw, 19px);
-  font-weight: 700;
+  color: var(--login-ink);
+  font-family: var(--font-admin);
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .card :global(.login-input) {
-  height: clamp(48px, 3.7vw, 58px);
-  border-color: #b9cde7;
-  border-radius: 13px;
-  background: #f6f9ff;
-  box-shadow: 0 3px 8px rgb(26 67 123 / 12%);
+  height: clamp(52px, 3.7vw, 56px);
+  border-color: #617089;
+  border-radius: 12px;
+  background: #142a40;
+  box-shadow: none;
 }
 
 .card :global(.login-input:focus-within) {
-  border-color: #4d8dd8;
-  box-shadow: var(--focus), 0 3px 8px rgb(26 67 123 / 12%);
+  border-color: #fbd064;
+  box-shadow: 0 0 0 3px rgb(245 184 46 / 23%);
 }
 
 .card :global(.login-form .login-field .login-input input:not([type="hidden"])) {
   height: 100%;
-  font-size: clamp(16px, 1.25vw, 19px);
+  color: var(--login-ink);
+  font-family: var(--font-admin);
+  font-size: var(--login-input-size, 15px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.card :global(.login-input input::placeholder) {
+  color: var(--login-muted);
+  font-size: inherit;
+  opacity: 1;
 }
 
 .card :global(.login-input-icon) {
-  color: #234574;
+  color: #fbd064;
 }
 
 .card :global(.password-toggle) {
   top: 50%;
+  color: var(--login-muted);
   transform: translateY(-50%);
 }
 
+.card :global(.password-toggle:hover:not(:disabled)) {
+  color: var(--login-ink);
+  background: #223f5c;
+}
+
 .card :global(.login-remember) {
-  color: #0a2149;
-  font-size: clamp(14px, 1.12vw, 17px);
+  color: var(--login-ink);
+  font-family: var(--font-admin);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.card :global(.login-remember input) {
+  accent-color: var(--login-gold);
+}
+
+.card :global(.password-toggle:focus-visible),
+.card :global(.login-remember input:focus-visible),
+.card :global(.login-submit:focus-visible) {
+  outline: 2px solid #fbd064;
+  outline-offset: 3px;
 }
 
 .card :global(.login-form .login-submit) {
-  height: clamp(48px, 4vw, 64px);
-  border-radius: 999px;
-  background: linear-gradient(155deg, #0563b4, #05214f 78%);
-  box-shadow: 0 9px 18px rgb(6 66 138 / 28%);
-  font-size: clamp(16px, 1.45vw, 23px);
-  font-weight: 750;
+  height: clamp(52px, 4vw, 56px);
+  border-color: #fbd064;
+  border-radius: 14px;
+  color: #061629;
+  background: linear-gradient(#ffd675, #f5b82e 62%, #eaa626);
+  box-shadow: 0 6px 18px rgb(245 184 46 / 16%);
+  font-family: var(--font-jakarta), var(--font-admin);
+  font-size: 16px;
+  font-weight: 700;
+  transition: background-color 150ms ease, box-shadow 150ms ease;
 }
 
 .card :global(.login-form .login-submit:hover:not(:disabled)) {
-  background: linear-gradient(155deg, #0870c1, #0a3166 78%);
-  box-shadow: 0 9px 18px rgb(6 66 138 / 32%);
+  color: #061629;
+  background: linear-gradient(#ffe199, #ffcb54 65%, #f5b82e);
+  box-shadow: 0 7px 21px rgb(245 184 46 / 24%);
+}
+
+.card :global(.login-form .login-submit:disabled) {
+  border-color: #617089;
+  color: #d5dfe9;
+  background: #33485d;
+  box-shadow: none;
+  opacity: 1;
 }
 
 .card :global(.login-hint) {
@@ -238,12 +306,19 @@
   gap: 12px;
   min-height: 52px;
   border-radius: 16px;
-  font-size: clamp(12px, 1vw, 16px);
+  font-family: var(--font-admin);
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .card :global(.login-hint:not(.login-hint--error)) {
-  color: #0a2149;
-  background: #e5eefb;
+  color: var(--login-ink);
+  background: #132f4a;
+}
+
+.card :global(.login-hint--error) {
+  color: #ffd7d4;
+  background: #402735;
 }
 
 .card :global(.login-hint) svg {
@@ -252,8 +327,8 @@
   width: 24px;
   height: 24px;
   padding-inline-end: 12px;
-  border-inline-end: 1px solid #dca727;
-  color: #125fae;
+  border-inline-end: 1px solid #9e7630;
+  color: #fbd064;
 }
 
 .footer {
@@ -266,14 +341,15 @@
   align-items: center;
   width: min(100%, 632px);
   margin-top: 24px;
-  color: var(--text-3-readable);
-  font-size: clamp(12px, 1.05vw, 16px);
+  color: var(--login-muted);
+  font-family: var(--font-admin);
+  font-size: 12px;
 }
 
 .footerLine {
   flex: 1 1 20px;
   height: 1px;
-  background: #b7cbe3;
+  background: #3c526e;
 }
 
 @media (max-width: 920px) {
@@ -285,7 +361,10 @@
   .identity {
     gap: 24px;
     padding: 28px max(24px, calc((100% - 520px) / 2));
-    background-position: center, 72% 60%;
+  }
+
+  .identity::before {
+    background-position: center, center, 55% 48%;
   }
 
   .crest {
@@ -303,19 +382,12 @@
     opacity: .62;
   }
 
-  .skyline {
-    display: none;
-  }
-
   .intro h1 {
-    max-width: none;
     font-size: clamp(26px, 5.8vw, 40px);
   }
 
-  .intro h1::before {
-    width: 38px;
-    height: 4px;
-    margin-bottom: 12px;
+  .intro h1 strong {
+    display: inline;
   }
 
   .intro p {
@@ -335,12 +407,9 @@
   }
 
   .card {
+    --login-input-size: 16px;
     padding: 24px;
     border-radius: 16px;
-  }
-
-  .card h2 {
-    margin-bottom: 20px;
   }
 
   .accessIcon {
@@ -363,6 +432,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+
   .signal {
     display: none;
     animation: none;
