@@ -532,6 +532,65 @@
   height: clamp(38px, 5vw, 77px);
 }
 
+#appShell.workspace-reference .stat-total {
+  --stat-glow-color: #00cfff;
+  --stat-glow-cycle: 4.25s;
+  --stat-glow-phase: -.7s;
+}
+
+#appShell.workspace-reference .stat-active {
+  --stat-glow-color: #00e5a0;
+  --stat-glow-cycle: 4.7s;
+  --stat-glow-phase: -2s;
+}
+
+#appShell.workspace-reference .stat-license {
+  --stat-glow-color: #ffbf24;
+  --stat-glow-cycle: 4.9s;
+  --stat-glow-phase: -1.4s;
+}
+
+#appShell.workspace-reference .stat-inactive {
+  --stat-glow-color: #ff5478;
+  --stat-glow-cycle: 4.5s;
+  --stat-glow-phase: -3s;
+}
+
+#appShell.workspace-reference .employee-stat .metric-watermark {
+  opacity: .72;
+}
+
+#appShell.workspace-reference .stat-total .metric-watermark {
+  opacity: .46;
+}
+
+#appShell.workspace-reference .employee-stat-glow {
+  --stat-glow-low:
+    drop-shadow(0 0 1px color-mix(in srgb, currentColor 38%, transparent))
+    drop-shadow(0 0 4px color-mix(in srgb, currentColor 14%, transparent));
+  --stat-glow-high:
+    drop-shadow(0 0 1px color-mix(in srgb, currentColor 87%, transparent))
+    drop-shadow(0 0 4px color-mix(in srgb, currentColor 49%, transparent));
+  color: var(--stat-glow-color);
+  filter: var(--stat-glow-low);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #appShell.workspace-reference .employee-stat-glow {
+    animation: employee-stat-light var(--stat-glow-cycle) ease-in-out var(--stat-glow-phase) infinite;
+  }
+}
+
+@keyframes employee-stat-light {
+  0%, 100% {
+    filter: var(--stat-glow-low);
+  }
+
+  43%, 56% {
+    filter: var(--stat-glow-high);
+  }
+}
+
 #appShell.workspace-reference .dashboard-grid-upgraded {
   display: grid;
   grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);

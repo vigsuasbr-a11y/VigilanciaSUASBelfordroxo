@@ -2293,14 +2293,14 @@ function EmployeeStat({
   return (
     <article className={`employee-stat ${className}`}>
       <div className="employee-stat-head">
-        <span className="stat-icon" aria-hidden="true"><Icon size={25} /></span>
+        <span className="stat-icon" aria-hidden="true"><Icon className="employee-stat-glow" size={25} /></span>
         <div>
           <small>{label}</small>
           <strong>{value}</strong>
           <span>{note}</span>
         </div>
       </div>
-      <span className="metric-watermark" aria-hidden="true"><Icon /></span>
+      <span className="metric-watermark" aria-hidden="true"><Icon className="employee-stat-glow" /></span>
       <span className="employee-stat-badge">
         {className === "stat-license" ? "Sem alteração" : note}
       </span>
