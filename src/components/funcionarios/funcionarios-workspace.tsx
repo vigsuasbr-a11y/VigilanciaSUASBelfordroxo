@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
   ArrowRight,
-  Bell,
   BriefcaseBusiness,
   Building2,
   CalendarDays,
@@ -183,7 +182,6 @@ export function FuncionariosWorkspace({
       ? "dashboard"
       : activeView;
   const lastUpdatedLabel = formatLastUpdated(new Date());
-  const referenceView = currentView === "dashboard" || currentView === "employees";
   const dialogUnitEmployeeCount = dialog.unit
     ? countEmployeesForUnit(data.employees, dialog.unit.id)
     : 0;
@@ -231,9 +229,9 @@ export function FuncionariosWorkspace({
   return (
     <>
       <link rel="stylesheet" href="/funcionarios/styles.css" />
-      {referenceView || dialog.kind === "employee" ? <link rel="stylesheet" href="/funcionarios/workspace-reference.css" /> : null}
+      <link rel="stylesheet" href="/funcionarios/workspace-reference.css" />
       <link rel="stylesheet" href="/funcionarios/dropdowns.css" />
-      <div id="appShell" className={`app-shell funcionarios-system${referenceView ? " workspace-reference" : ""}`}>
+      <div id="appShell" className="app-shell funcionarios-system workspace-reference">
         <aside id="appSidebar" className="sidebar" aria-label="Menu principal">
           <div className="brand">
             <Image
@@ -253,7 +251,7 @@ export function FuncionariosWorkspace({
 
           <div className="sidebar-title">
             <span>Sistema de Funcionários</span>
-            <strong>{referenceView ? <Users size={24} aria-hidden="true" /> : null}Assistência Social</strong>
+            <strong><Users size={24} aria-hidden="true" />Assistência Social</strong>
           </div>
 
           <nav className="menu">
@@ -294,17 +292,10 @@ export function FuncionariosWorkspace({
                 <small id="currentUserRole">{roleLabels[profile.role]}</small>
               </span>
             </div>
-            <Link id="logoutBtn" className="logout-button" href="/logout">
+            <Link id="logoutBtn" className="logout-button" href="/logout" aria-label="Sair do sistema" data-sidebar-tooltip="Sair do sistema">
               <LogOut size={17} aria-hidden="true" />
-              Sair do sistema
+              <span className="sidebar-link-label">Sair do sistema</span>
             </Link>
-            <div className="sidebar-safe">
-              <ShieldCheck size={22} aria-hidden="true" />
-              <div>
-                <strong>Sistema seguro</strong>
-                <span>Acesso restrito a usuários autorizados.</span>
-              </div>
-            </div>
           </div>
         </aside>
 
@@ -321,37 +312,22 @@ export function FuncionariosWorkspace({
               </div>
             </div>
             <div className="top-actions">
-              {referenceView ? <WorkspaceSearch canEdit={canManageFuncionarios(profile.role)} /> : null}
-              <span className="top-icon-button" aria-label="Sem avisos recentes">
-                <Bell size={18} aria-hidden="true" />
-                <span />
-              </span>
-              {referenceView ? (
-                <details className="workspace-profile">
-                  <summary className="top-profile-chip">
-                    <span className="session-avatar">{getInitials(profile.full_name || profile.email)}</span>
-                    <span className="session-copy">
-                      <strong>{profile.full_name || profile.email}</strong>
-                      <small>{roleLabels[profile.role]}</small>
-                    </span>
-                    <ChevronDown size={17} aria-hidden="true" />
-                  </summary>
-                  <Link href="/logout"><LogOut size={17} aria-hidden="true" /> Sair do sistema</Link>
-                </details>
-              ) : <div className="top-profile-chip" aria-label="Usuário conectado">
-                <span className="session-avatar">
-                  {getInitials(profile.full_name || profile.email)}
-                </span>
-                <span className="session-copy">
-                  <strong>{profile.email}</strong>
-                  <small>{roleLabels[profile.role]}</small>
-                </span>
-              </div>}
-              {referenceView ? null : <HeaderClock />}
+              <WorkspaceSearch canEdit={canManageFuncionarios(profile.role)} />
+              <details className="workspace-profile">
+                <summary className="top-profile-chip" aria-label="Opções da conta">
+                  <span className="session-avatar">{getInitials(profile.full_name || profile.email)}</span>
+                  <span className="session-copy">
+                    <strong>{profile.full_name || profile.email}</strong>
+                    <small>{roleLabels[profile.role]}</small>
+                  </span>
+                  <ChevronDown size={17} aria-hidden="true" />
+                </summary>
+                <Link href="/logout"><LogOut size={17} aria-hidden="true" /> Sair do sistema</Link>
+              </details>
               {primaryAction && currentView !== "employees" && currentView !== "dashboard" ? (
                 <Link
                   id="newEmployeeBtn"
-                  className="primary-action"
+                  className="primary-action workspace-create"
                   href={primaryAction.href}
                 >
                   {primaryAction.icon}
@@ -436,12 +412,10 @@ export function FuncionariosWorkspace({
           >
             <AboutView />
           </section>
-          {referenceView ? (
-            <footer className="workspace-footer">
-              <span><strong>SEMASC</strong> Secretaria Municipal de Assistência Social e Cidadania</span>
-              <span>Sistema de Funcionários <small>Versão 2.0.0</small></span>
-            </footer>
-          ) : null}
+          <footer className="workspace-footer">
+            <span><strong>SEMASC</strong> Secretaria Municipal de Assistência Social e Cidadania</span>
+            <span>Sistema de Funcionários <small>Versão 2.0.0</small></span>
+          </footer>
         </main>
       </div>
 
@@ -646,7 +620,10 @@ function EmployeesView({
             <div><h2>Filtros de busca</h2><p>Encontre funcionários utilizando os filtros abaixo.</p></div>
           </div>
           <div className="workspace-filter-actions">
-            <span className="filter-advanced"><X size={14} aria-hidden="true" /> Filtros avançados</span>
+            <label className="filter-advanced">
+              <input id="employeeAdvancedFilters" type="checkbox" defaultChecked className="sr-only" aria-controls="filterEducation filterStatus" />
+              <ChevronDown size={15} aria-hidden="true" /> Filtros avançados
+            </label>
             <Link id="createEmployeeFromList" className="workspace-new" href="/funcionarios?view=employees&modal=employee">
               <Plus size={16} aria-hidden="true" /> Novo funcionário
             </Link>
@@ -687,7 +664,7 @@ function EmployeesView({
             defaultValue={filters.cargo}
           />
         </label>
-        <label>
+        <label className="filter-advanced-field">
           <span>Escolaridade</span>
           <select
             id="filterEducation"
@@ -702,7 +679,7 @@ function EmployeesView({
             ))}
           </select>
         </label>
-        <label>
+        <label className="filter-advanced-field">
           <span>Situação</span>
           <select id="filterStatus" name="status" defaultValue={filters.status}>
             <option value="">Todas as situações</option>
@@ -888,15 +865,15 @@ function ReportsView({
       </div>
       <div className="report-grid">
         <article>
-          <strong>Relatório geral</strong>
+          <strong><FileText size={20} aria-hidden="true" /> Relatório geral</strong>
           <span>Todos os funcionários com unidade, cargo, contato e situação funcional.</span>
         </article>
         <article>
-          <strong>Relatório por unidade</strong>
+          <strong><Building2 size={20} aria-hidden="true" /> Relatório por unidade</strong>
           <span>Use o filtro de unidade antes de exportar.</span>
         </article>
         <article>
-          <strong>Relatório por situação</strong>
+          <strong><UserCheck size={20} aria-hidden="true" /> Relatório por situação</strong>
           <span>Exporte ativos, exonerados, licenças, transferidos ou afastados.</span>
         </article>
       </div>
@@ -929,7 +906,7 @@ function AboutView() {
         </div>
         <div className="about-version-card" aria-label="Versão do sistema">
           <FileText size={34} aria-hidden="true" />
-          <strong>Versão 1.0</strong>
+          <strong>Versão 2.0.0</strong>
           <span>Portal SEMASC</span>
         </div>
       </section>
@@ -2383,7 +2360,13 @@ function StatusChart({ rows }: { rows: ChartRow[] }) {
     return <div className="empty-state">Sem dados para exibir.</div>;
   }
 
-  const statusColors: Record<string, string> = { ativo: "#0988f4", exonerado: "#ffbd0b", licenca: "#a98aff", transferido: "#20cda0", afastado: "#fa788b" };
+  const statusColors: Record<string, string> = {
+    ativo: "var(--tone-active)",
+    exonerado: "var(--tone-inactive)",
+    licenca: "var(--tone-leave)",
+    transferido: "var(--tone-info)",
+    afastado: "var(--tone-unit)",
+  };
   const colors = rows.map((row) => statusColors[normalizeText(row.label)] ?? "#7693ae");
   const gradient = rows
     .map((row, index) => {
@@ -2473,11 +2456,13 @@ function MenuLink({
     <Link
       className={`menu-item${isActive ? " active" : ""}`}
       data-view={view}
+      data-sidebar-tooltip={children}
       href={`/funcionarios?view=${view}`}
+      aria-label={children}
       aria-current={isActive ? "page" : undefined}
     >
       <Icon size={19} aria-hidden="true" />
-      {children}
+      <span className="sidebar-link-label">{children}</span>
     </Link>
   );
 }

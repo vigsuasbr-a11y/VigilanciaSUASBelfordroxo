@@ -1,38 +1,53 @@
 #appShell.workspace-reference,
-#employeeDialog.employee-reference {
-  --text-1: #f4f7fd;
-  --text-2: #d3e0ef;
-  --text-3-readable: #b6c8dc;
-  --bg-page: #04111e;
-  --bg-card: #091b2b;
-  --bg-subtle: #102538;
-  --border: #203d55;
-  --border-strong: #48647d;
+#employeeDialog.employee-reference,
+body:has(#appShell.workspace-reference) dialog.modal:not(.employee-reference) {
+  --text-1: #edf3fa;
+  --text-2: #a7b9ca;
+  --text-3-readable: #8299ae;
+  --bg-page: #071827;
+  --bg-card: #10263a;
+  --bg-subtle: #142d43;
+  --border: #294158;
+  --border-strong: #60788e;
   --surface: var(--bg-card);
   --surface-card: var(--bg-card);
   --surface-muted: var(--bg-subtle);
   --surface-subtle: var(--bg-subtle);
   --brand-50: #102e47;
   --brand-100: #19456a;
-  --gold-500: #ffbf19;
-  --cyan: #20c8ff;
-  --focus: 0 0 0 3px rgb(32 200 255 / 32%);
+  --gold-500: #d6a443;
+  --cyan: #3299e3;
+  --tone-info: #469cd9;
+  --tone-active: #2db58a;
+  --tone-leave: #d8ac49;
+  --tone-inactive: #d66b80;
+  --tone-unit: #9286c8;
+  --control-size: 40px;
+  --control-radius: 10px;
+  --card-radius: 14px;
+  --dialog-radius: 20px;
+  --workspace-gap: 12px;
+  --heading-font: var(--font-jakarta), var(--font-admin);
+  --focus: 0 0 0 2px rgb(50 153 227 / 38%);
   --shadow-sm: none;
-  --shadow-md: 0 12px 26px rgb(1 6 12 / 28%);
+  --shadow-md: 0 8px 20px rgb(1 6 12 / 20%);
   color: var(--text-1);
   color-scheme: dark;
   font-family: var(--font-inter), Inter, Arial, sans-serif;
 }
 
 #appShell.workspace-reference {
-  --workspace-sidebar: clamp(244px, 18.2vw, 306px);
-  background: radial-gradient(ellipse at 36% 25%, #072034 0%, #04111e 57%, #03101c);
+  --workspace-sidebar: 224px;
+  background: var(--bg-page);
 }
 
 #appShell.workspace-reference .workspace {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: none;
   padding: 0 clamp(15px, 1.3vw, 24px) 0;
-  background: radial-gradient(ellipse at 38% 22%, #071b2c, #04111e 68%);
-  scrollbar-color: #31526b #04111e;
+  background: var(--bg-page);
+  scrollbar-color: var(--border-strong) var(--bg-page);
 }
 
 #appShell.workspace-reference .sidebar {
@@ -43,10 +58,10 @@
   width: var(--workspace-sidebar);
   min-width: var(--workspace-sidebar);
   max-width: var(--workspace-sidebar);
-  gap: 20px;
-  padding: 22px clamp(15px, 1.4vw, 24px) 54px;
-  border-right: 1px solid #13334c;
-  background: linear-gradient(149deg, #03111e, #031b2d 58%, #05233b);
+  gap: 16px;
+  padding: 16px 15px 28px;
+  border-right: 1px solid var(--border);
+  background: linear-gradient(155deg, #081927, #0b2234);
 }
 
 #appShell.workspace-reference .sidebar::after,
@@ -58,10 +73,10 @@
   bottom: -47px;
   height: 106px;
   z-index: -1;
-  border-top: 2px solid #f3b12e;
+  border-top: 1px solid #9d7938;
   border-radius: 50%;
   background: #051525;
-  box-shadow: 0 -8px 22px rgb(247 172 39 / 24%), 0 -2px 7px rgb(255 193 44 / 55%);
+  box-shadow: 0 -3px 9px rgb(214 164 67 / 14%);
   transform: rotate(-12deg);
   pointer-events: none;
   content: "";
@@ -69,9 +84,10 @@
 
 #appShell.workspace-reference .brand {
   position: relative;
-  grid-template-columns: clamp(54px, 4.5vw, 76px) minmax(0, 1fr);
-  padding: 0 0 31px;
-  margin-bottom: 11px;
+  grid-template-columns: 49px minmax(0, 1fr);
+  gap: 10px;
+  padding: 0 0 22px;
+  margin-bottom: 2px;
   border: 0;
 }
 
@@ -80,9 +96,9 @@
   position: absolute;
   inset: auto -24px 2px;
   height: 28px;
-  border-bottom: 2px solid #eab13b;
+  border-bottom: 1px solid #a17d3b;
   border-radius: 0 0 70% 46%;
-  box-shadow: 0 5px 12px -7px #f5bd4e;
+  box-shadow: 0 4px 8px -7px #d6a443;
   transform: rotate(-5deg);
   content: "";
 }
@@ -102,7 +118,7 @@
 #appShell.workspace-reference .brand-copy strong {
   color: var(--text-1);
   padding: 1px 0;
-  font-size: clamp(16px, 1.37vw, 23px);
+  font-size: 18px;
   white-space: nowrap;
   text-transform: none;
   letter-spacing: -.035em;
@@ -126,7 +142,7 @@
 
 #appShell.workspace-reference .sidebar-title span {
   color: var(--cyan);
-  font-size: clamp(11px, 1vw, 15px);
+  font-size: 11px;
 }
 
 #appShell.workspace-reference .sidebar-title strong {
@@ -134,7 +150,13 @@
   align-items: center;
   gap: 9px;
   color: var(--text-1);
-  font-size: clamp(17px, 1.45vw, 24px);
+  font-size: 17px;
+}
+
+#appShell.workspace-reference .sidebar-title svg {
+  width: 19px;
+  height: 19px;
+  flex: none;
 }
 
 #appShell.workspace-reference .sidebar-title svg,
@@ -143,16 +165,18 @@
 }
 
 #appShell.workspace-reference .menu {
-  gap: 5px;
+  gap: 3px;
 }
 
 #appShell.workspace-reference .menu-item {
-  min-height: clamp(44px, 5.5vh, 55px);
-  gap: 17px;
-  padding: 0 15px;
-  border-radius: 11px;
+  min-height: 40px;
+  height: 40px;
+  flex-basis: 40px;
+  gap: 12px;
+  padding: 0 12px;
+  border-radius: var(--control-radius);
   color: var(--text-2);
-  font-size: clamp(14px, 1vw, 17px);
+  font-size: 13px;
 }
 
 #appShell.workspace-reference .menu-item:hover {
@@ -161,16 +185,16 @@
 }
 
 #appShell.workspace-reference .menu-item svg {
-  width: 23px;
-  height: 23px;
+  width: 19px;
+  height: 19px;
+  flex: none;
 }
 
 #appShell.workspace-reference .menu-item.active {
   border-color: transparent;
-  border-left: 2px solid var(--gold-500);
-  background: linear-gradient(100deg, #60470f, #3e3019);
-  color: #fff;
-  box-shadow: -4px 0 12px rgb(255 190 38 / 19%);
+  background: #30291e;
+  color: var(--text-1);
+  box-shadow: none;
 }
 
 #appShell.workspace-reference .menu-item.active svg {
@@ -190,14 +214,10 @@
   right: -26px;
   left: -26px;
   height: 20px;
-  border-top: 1px solid #1397dd;
+  border-top: 1px solid #285774;
   border-radius: 64% 82% 0 0;
-  box-shadow: 0 -5px 17px -9px #28c7ff;
+  box-shadow: none;
   content: "";
-}
-
-#appShell.workspace-reference .sidebar-safe {
-  display: none;
 }
 
 #appShell.workspace-reference .session-avatar {
@@ -215,12 +235,12 @@
 
 #appShell.workspace-reference .topbar {
   isolation: auto;
-  min-height: 78px;
+  min-height: 66px;
   gap: clamp(12px, 1.6vw, 26px);
   padding: 6px 0;
   border-color: #102c44;
-  background: #041321;
-  box-shadow: 20px 0 #041321, -20px 0 #041321;
+  background: var(--bg-page);
+  box-shadow: 20px 0 var(--bg-page), -20px 0 var(--bg-page);
 }
 
 #appShell.workspace-reference .topbar-heading {
@@ -235,8 +255,9 @@
 #appShell.workspace-reference :is(#viewTitle, .dashboard-welcome h2) {
   margin: 0;
   color: var(--text-1);
-  font-size: clamp(23px, 1.75vw, 30px);
-  font-weight: 750;
+  font-family: var(--heading-font);
+  font-size: clamp(22px, 1.5vw, 24px);
+  font-weight: 700;
   letter-spacing: -.035em;
   line-height: 1.17;
 }
@@ -245,7 +266,7 @@
   display: block;
   margin-top: 4px;
   color: var(--text-2);
-  font-size: clamp(12px, .95vw, 16px);
+  font-size: 13px;
 }
 
 #appShell.workspace-reference .menu-toggle {
@@ -272,13 +293,13 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  width: min(100%, 510px);
+  width: min(100%, 390px);
   min-width: 145px;
-  height: 50px;
+  height: var(--control-size);
   padding: 0 15px;
-  border: 1px solid #1c354c;
-  border-radius: 30px;
-  background: linear-gradient(105deg, #102538, #152536);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--control-radius);
+  background: var(--bg-card);
 }
 
 #appShell.workspace-reference .workspace-search input {
@@ -432,22 +453,10 @@
   background: #17364d;
 }
 
-#appShell.workspace-reference .top-icon-button,
 #appShell.workspace-reference .top-profile-chip {
   color: var(--text-1);
   background: linear-gradient(135deg, #0c1e30, #071623);
   border: 1px solid #1b354d;
-}
-
-#appShell.workspace-reference .top-icon-button {
-  display: grid;
-  border-radius: 50%;
-  width: 49px;
-  height: 49px;
-}
-
-#appShell.workspace-reference .top-icon-button > span {
-  background: #ff645b;
 }
 
 #appShell.workspace-reference .workspace-profile {
@@ -457,25 +466,30 @@
 
 #appShell.workspace-reference .workspace-profile summary {
   display: flex;
-  min-height: 56px;
+  min-height: var(--control-size);
   width: 100%;
   min-width: 0;
   max-width: none;
   justify-content: start;
-  padding: 6px 12px;
-  border-radius: 32px;
+  padding: 4px 10px;
+  border-radius: var(--control-radius);
   cursor: pointer;
   list-style: none;
 }
 
 #appShell.workspace-reference .workspace-profile .session-avatar {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
+  flex-basis: 32px;
   font-size: 15px;
 }
 
 #appShell.workspace-reference .workspace-profile .session-copy strong {
-  font-size: 15px;
+  font-size: 13px;
+}
+
+#appShell.workspace-reference .workspace-profile summary:hover {
+  background: var(--bg-subtle);
 }
 
 #appShell.workspace-reference .workspace-profile summary::-webkit-details-marker {
@@ -511,19 +525,19 @@
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  min-height: 106px;
-  margin-bottom: 16px;
-  padding: 13px clamp(16px, 1.7vw, 29px);
-  border: 1px solid #123550;
-  border-radius: 18px;
+  min-height: 80px;
+  margin-bottom: var(--workspace-gap);
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
   background:
-    linear-gradient(90deg, #041b2d 33%, #06243a66 60%, #041725 82%),
+    linear-gradient(90deg, #10263a 34%, #10263ac9 70%, #10263a 89%),
     url("./assets/login-background.png") center 51% / cover;
 }
 
 #appShell.workspace-reference .dashboard-welcome p {
   margin: 5px 0 0;
-  font-size: clamp(13px, 1vw, 17px);
+  font-size: 13px;
   color: var(--text-2);
 }
 
@@ -536,11 +550,11 @@
 
 #appShell.workspace-reference .dashboard-date-icon {
   justify-content: center;
-  width: 54px;
-  height: 54px;
-  border: 1px solid #10324e;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
   border-radius: 50%;
-  color: #09b9ff;
+  color: var(--tone-info);
 }
 
 #appShell.workspace-reference .dashboard-date time {
@@ -556,49 +570,49 @@
 }
 
 #appShell.workspace-reference :is(.dashboard-metric-grid, .employee-overview) {
-  margin: 0 0 18px;
-  gap: clamp(10px, 1.18vw, 20px);
+  margin: 0 0 var(--workspace-gap);
+  gap: var(--workspace-gap);
 }
 
 #appShell.workspace-reference :is(.metric-card, .employee-stat) {
   position: relative;
   isolation: isolate;
   min-width: 0;
-  min-height: clamp(147px, 18.4vh, 190px);
-  padding: clamp(12px, 1.3vw, 22px);
-  border: 1px solid color-mix(in srgb, var(--tile-tone) 30%, #18354b);
-  border-radius: 18px;
-  background:
-    radial-gradient(ellipse at 4% 0, color-mix(in srgb, var(--tile-tone) 26%, transparent), transparent 42%),
-    linear-gradient(145deg, #082031, #071523 78%);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--tile-tone) 28%, transparent);
+  min-height: 124px;
+  padding: 12px 16px;
+  gap: 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  background: var(--bg-card);
+  box-shadow: none;
 }
 
-#appShell.workspace-reference :is(.metric-blue, .stat-total) { --tile-tone: #09bfff; }
-#appShell.workspace-reference :is(.metric-green, .stat-active) { --tile-tone: #20dfa0; }
-#appShell.workspace-reference :is(.metric-orange, .stat-license) { --tile-tone: #ffbd18; }
-#appShell.workspace-reference .metric-purple { --tile-tone: #bc7df7; }
-#appShell.workspace-reference .stat-inactive { --tile-tone: #fc627d; }
+#appShell.workspace-reference :is(.metric-blue, .stat-total) { --tile-tone: var(--tone-info); }
+#appShell.workspace-reference :is(.metric-green, .stat-active) { --tile-tone: var(--tone-active); }
+#appShell.workspace-reference .stat-license { --tile-tone: var(--tone-leave); }
+#appShell.workspace-reference .metric-purple { --tile-tone: var(--tone-unit); }
+#appShell.workspace-reference :is(.metric-orange, .stat-inactive) { --tile-tone: var(--tone-inactive); }
 
 #appShell.workspace-reference :is(.metric-card-main, .employee-stat-head) {
   display: flex;
   align-items: flex-start;
-  gap: clamp(10px, 1.2vw, 20px);
+  gap: 10px;
 }
 
-#appShell.workspace-reference .employee-stat {
-  min-height: 165px;
-  padding-block: 13px;
+#appShell.workspace-reference :is(.metric-card-main, .employee-stat-head) > div {
+  min-width: 0;
+  line-height: 1.35;
 }
 
 #appShell.workspace-reference :is(.metric-icon, .stat-icon) {
   display: grid;
   place-items: center;
-  width: clamp(36px, 3vw, 49px);
-  height: clamp(36px, 3vw, 49px);
+  width: 34px;
+  height: 34px;
+  flex-basis: 34px;
   color: var(--tile-tone);
-  border-radius: 13px;
-  background: color-mix(in srgb, var(--tile-tone) 22%, #072036);
+  border-radius: var(--control-radius);
+  background: color-mix(in srgb, var(--tile-tone) 15%, var(--bg-subtle));
 }
 
 #appShell.workspace-reference .stat-icon::before {
@@ -607,31 +621,34 @@
 
 #appShell.workspace-reference :is(.metric-card-main, .employee-stat-head) > div > strong {
   color: var(--text-1);
-  font-size: clamp(29px, 2.68vw, 45px);
+  font-size: clamp(30px, 2.25vw, 34px);
   line-height: 1.08;
   letter-spacing: -.045em;
+  font-variant-numeric: tabular-nums;
 }
 
 #appShell.workspace-reference :is(.metric-card-main > div > span, .employee-stat-head > div > small) {
   color: var(--text-1);
-  font-size: clamp(12px, 1vw, 17px);
-  font-weight: 650;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 #appShell.workspace-reference :is(.metric-card-main > div > small, .employee-stat-head > div > span) {
   color: var(--text-2);
+  font-size: 12px;
 }
 
 #appShell.workspace-reference :is(.metric-trend, .employee-stat-badge) {
   align-self: flex-start;
   width: fit-content;
-  margin-top: 8px;
-  padding: 6px 12px;
+  margin-top: 3px;
+  padding: 3px 8px;
   border: 0;
   border-radius: 18px;
   color: var(--text-1);
-  background: color-mix(in srgb, var(--tile-tone) 21%, #071724);
+  background: color-mix(in srgb, var(--tile-tone) 13%, var(--bg-subtle));
   font-size: 12px;
+  line-height: 1.28;
 }
 
 #appShell.workspace-reference .metric-blue .metric-trend {
@@ -646,54 +663,44 @@
   right: 9px;
   bottom: 28%;
   color: var(--tile-tone);
-  opacity: .16;
+  opacity: .15;
 }
 
 #appShell.workspace-reference .metric-watermark svg {
-  width: clamp(38px, 5vw, 77px);
-  height: clamp(38px, 5vw, 77px);
+  width: clamp(40px, 3.9vw, 56px);
+  height: clamp(40px, 3.9vw, 56px);
 }
 
 #appShell.workspace-reference .stat-total {
-  --stat-glow-color: #00cfff;
-  --stat-glow-cycle: 4.25s;
+  --stat-glow-cycle: 4.8s;
   --stat-glow-phase: -.7s;
 }
 
 #appShell.workspace-reference .stat-active {
-  --stat-glow-color: #00e5a0;
-  --stat-glow-cycle: 4.7s;
+  --stat-glow-cycle: 5.3s;
   --stat-glow-phase: -2s;
 }
 
 #appShell.workspace-reference .stat-license {
-  --stat-glow-color: #ffbf24;
-  --stat-glow-cycle: 4.9s;
+  --stat-glow-cycle: 5.8s;
   --stat-glow-phase: -1.4s;
 }
 
 #appShell.workspace-reference .stat-inactive {
-  --stat-glow-color: #ff5478;
-  --stat-glow-cycle: 4.5s;
+  --stat-glow-cycle: 5.1s;
   --stat-glow-phase: -3s;
 }
 
 #appShell.workspace-reference .employee-stat .metric-watermark {
-  opacity: .72;
-}
-
-#appShell.workspace-reference .stat-total .metric-watermark {
-  opacity: .46;
+  opacity: .22;
 }
 
 #appShell.workspace-reference .employee-stat-glow {
   --stat-glow-low:
-    drop-shadow(0 0 1px color-mix(in srgb, currentColor 38%, transparent))
-    drop-shadow(0 0 4px color-mix(in srgb, currentColor 14%, transparent));
+    drop-shadow(0 0 2px color-mix(in srgb, currentColor 18%, transparent));
   --stat-glow-high:
-    drop-shadow(0 0 1px color-mix(in srgb, currentColor 87%, transparent))
-    drop-shadow(0 0 4px color-mix(in srgb, currentColor 49%, transparent));
-  color: var(--stat-glow-color);
+    drop-shadow(0 0 2px color-mix(in srgb, currentColor 45%, transparent));
+  color: var(--tile-tone);
   filter: var(--stat-glow-low);
 }
 
@@ -726,19 +733,16 @@
 }
 
 #appShell.workspace-reference :is(.panel, .filter-bar) {
-  border: 1px solid #1a405d;
-  border-radius: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
   color: var(--text-1);
-  background: linear-gradient(146deg, #0d2236, #071624 85%);
-  box-shadow: 0 8px 19px #02090f6b;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
 }
 
 #appShell.workspace-reference .dashboard-panel {
-  padding: clamp(15px, 1.5vw, 24px);
-  background:
-    linear-gradient(145deg, #0d2236, #071624 85%) padding-box,
-    linear-gradient(130deg, #ffbf19, #203d55 24%, #14385a 80%) border-box;
-  border-color: transparent;
+  padding: 16px;
+  background: var(--bg-card);
 }
 
 #appShell.workspace-reference .panel-heading h2 {
@@ -746,7 +750,8 @@
   align-items: center;
   gap: 10px;
   color: var(--text-1);
-  font-size: clamp(16px, 1.27vw, 22px);
+  font-family: var(--heading-font);
+  font-size: clamp(16px, 1.2vw, 18px);
   letter-spacing: -.03em;
 }
 
@@ -794,16 +799,16 @@
 #appShell.workspace-reference .bar-track {
   height: 10px;
   margin-top: 2px;
-  background: linear-gradient(90deg, #153961, #122639);
+  background: var(--bg-subtle);
 }
 
 #appShell.workspace-reference .bar-fill {
-  background: linear-gradient(90deg, #0080e9, #2aaefe);
-  box-shadow: 0 0 9px rgb(21 161 255 / 27%);
+  background: #3b83b8;
+  box-shadow: none;
 }
 
 #appShell.workspace-reference .bar-row:first-child .bar-fill {
-  background: linear-gradient(90deg, #0de6ff, #1f93fa);
+  background: var(--tone-info);
 }
 
 #appShell.workspace-reference .donut-wrap {
@@ -814,7 +819,7 @@
 }
 
 #appShell.workspace-reference .donut {
-  width: min(100%, clamp(155px, 14vw, 232px));
+  width: min(100%, clamp(148px, 12vw, 188px));
   max-width: none;
   height: auto;
   aspect-ratio: 1;
@@ -826,13 +831,14 @@
   inset: 20%;
   border: 0;
   border-radius: 50%;
-  background: #071827;
+  background: var(--bg-card);
   color: var(--text-1);
 }
 
 #appShell.workspace-reference .donut-total strong {
   color: var(--text-1);
-  font-size: clamp(25px, 2.7vw, 42px);
+  font-size: clamp(25px, 2.25vw, 33px);
+  font-variant-numeric: tabular-nums;
 }
 
 #appShell.workspace-reference .donut-total span {
@@ -872,9 +878,8 @@
 }
 
 #appShell.workspace-reference .filter-bar {
-  padding: 13px clamp(14px, 1.6vw, 26px) 20px;
-  margin-bottom: 16px;
-  background: linear-gradient(145deg, #082337, #061827 75%);
+  padding: 12px 16px;
+  margin-bottom: var(--workspace-gap);
 }
 
 #appShell.workspace-reference :is(.workspace-filter-title, .workspace-filter-actions) {
@@ -890,28 +895,63 @@
 #appShell.workspace-reference .workspace-filter-title h2 {
   margin: 0;
   color: var(--text-1);
-  font-size: clamp(17px, 1.23vw, 22px);
+  font-family: var(--heading-font);
+  font-size: 17px;
 }
 
 #appShell.workspace-reference .workspace-filter-title p {
   margin: 0;
   color: var(--text-2);
+  font-size: 13px;
 }
 
 #appShell.workspace-reference :is(.workspace-new, .filter-advanced) {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  color: var(--gold-500);
+  color: var(--text-2);
   font-weight: 650;
   white-space: nowrap;
+}
+
+#appShell.workspace-reference .filter-advanced {
+  position: relative;
+  cursor: pointer;
+}
+
+#appShell.workspace-reference #employeeAdvancedFilters {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  clip-path: inset(50%);
+}
+
+#appShell.workspace-reference .filter-advanced:has(input:focus-visible) {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+#appShell.workspace-reference .filter-advanced:has(input:checked) svg {
+  rotate: 180deg;
+}
+
+#appShell.workspace-reference .filter-bar:has(#employeeAdvancedFilters:not(:checked)) .filter-advanced-field {
+  display: none;
+}
+
+#appShell.workspace-reference .filter-bar:has(#employeeAdvancedFilters:not(:checked)) .filter-grid > :is(.filter-submit, .filter-reset) {
+  grid-column: span 6;
 }
 
 #appShell.workspace-reference .workspace-new {
   padding: 3px 0;
   min-height: 0;
   border: 0;
-  color: var(--gold-500);
+  color: #8bc9f4;
   background: transparent;
   box-shadow: none;
 }
@@ -920,7 +960,7 @@
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   align-items: end;
-  gap: 11px clamp(11px, 1.3vw, 22px);
+  gap: 8px var(--workspace-gap);
 }
 
 #appShell.workspace-reference .filter-grid > * { grid-column: span 3; }
@@ -932,10 +972,10 @@
 }
 
 #appShell.workspace-reference .filter-grid :is(input, select) {
-  min-height: 41px;
+  min-height: var(--control-size);
   border-color: var(--border-strong);
-  border-radius: 10px;
-  background-color: #10273a;
+  border-radius: var(--control-radius);
+  background-color: var(--bg-subtle);
 }
 
 #appShell.workspace-reference :is(.filter-grid, .workspace-search) input::placeholder,
@@ -952,27 +992,27 @@
 
 #appShell.workspace-reference .filter-reset,
 #employeeDialog.employee-reference .ghost-action {
-  border: 1px solid #577089;
+  border: 1px solid var(--border-strong);
   color: var(--text-1);
-  background: #0d2236;
+  background: var(--bg-subtle);
 }
 
 #appShell.workspace-reference .filter-submit,
 #employeeDialog.employee-reference .primary-action {
-  border: 1px solid #ffd86f;
-  color: #061322;
-  background: linear-gradient(#ffca44, #efa310);
-  box-shadow: inset 0 1px 0 #fff0b8a3;
+  border: 1px solid var(--gold-500);
+  color: var(--bg-page);
+  background: var(--gold-500);
+  box-shadow: none;
 }
 
 #appShell.workspace-reference .filter-submit:hover,
 #employeeDialog.employee-reference .primary-action:hover:not(:disabled) {
   color: #061322;
-  background: #ffd059;
+  background: #e2b956;
 }
 
 #appShell.workspace-reference .table-panel {
-  padding: clamp(12px, 1.25vw, 21px);
+  padding: 12px 16px;
 }
 
 #appShell.workspace-reference .table-panel .panel-heading {
@@ -1003,20 +1043,30 @@
 
 #appShell.workspace-reference .employees-table :is(th, td) {
   color: var(--text-1);
-  border-color: #233c50;
+  border-color: var(--border);
 }
 
 #appShell.workspace-reference .employees-table th {
-  background: #14293b;
+  background: var(--bg-subtle);
 }
 
 #appShell.workspace-reference .employees-table tbody tr,
 #appShell.workspace-reference #employeesView .employees-table td {
-  background: #091a29;
+  background: var(--bg-card);
 }
 
 #appShell.workspace-reference #employeesView .employees-table tbody tr:hover td {
-  background: #10273b;
+  background: var(--bg-subtle);
+}
+
+#appShell.workspace-reference #employeesView .employees-table td {
+  height: 52px;
+}
+
+#appShell.workspace-reference #employeesView :is(.employee-identity-copy > strong, .employee-role > strong, .employee-unit > span, .employee-contact > small) {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
 }
 
 #appShell.workspace-reference .employee-avatar {
@@ -1031,13 +1081,28 @@
 }
 
 #appShell.workspace-reference .employees-table .status-pill.status-ativo {
-  color: #44f3b1;
-  background: #0a3d35;
+  color: #80dabe;
+  background: #163a38;
 }
 
 #appShell.workspace-reference .employees-table .status-pill.status-exonerado {
-  color: #ff9ca8;
-  background: #4a2332;
+  color: #ef9cab;
+  background: #3d2937;
+}
+
+#appShell.workspace-reference .employees-table .status-pill.status-licenca {
+  color: #eac780;
+  background: #3d3426;
+}
+
+#appShell.workspace-reference .employees-table .status-pill.status-transferido {
+  color: #91c4e8;
+  background: #203a50;
+}
+
+#appShell.workspace-reference .employees-table .status-pill.status-afastado {
+  color: #c5b9e9;
+  background: #332e49;
 }
 
 #appShell.workspace-reference .table-footer :is(a, button) {
@@ -1133,12 +1198,10 @@ body:has(#employeeDialog.employee-reference[open]) #appShell::after {
   max-width: 1070px;
   max-height: min(900px, calc(100dvh - 44px));
   overflow: hidden;
-  border: 1px solid transparent;
-  border-radius: 30px;
-  background:
-    radial-gradient(ellipse at 50% 0, #0a2237, #051523 70%) padding-box,
-    linear-gradient(125deg, #d3a347, #457694 29%, #305271 77%, #23a7d2) border-box;
-  box-shadow: 0 26px 70px #0009;
+  border: 1px solid var(--border);
+  border-radius: var(--dialog-radius);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-md);
 }
 
 #employeeDialog.employee-reference .employee-modal-form {
@@ -1158,15 +1221,16 @@ body:has(#employeeDialog.employee-reference[open]) #appShell::after {
 #employeeDialog.employee-reference .modal-title-icon {
   width: clamp(49px, 5vw, 73px);
   height: clamp(49px, 5vw, 73px);
-  border: 1px solid #70511f;
-  border-radius: 18px;
-  color: #ffc543;
-  background: radial-gradient(ellipse at bottom, #61441c, #171f25 76%);
+  border: 1px solid #635040;
+  border-radius: var(--card-radius);
+  color: var(--gold-500);
+  background: #352d25;
 }
 
 #employeeDialog.employee-reference #employeeFormTitle {
   color: var(--text-1);
-  font-size: clamp(23px, 2.5vw, 36px);
+  font-family: var(--heading-font);
+  font-size: clamp(22px, 2.2vw, 30px);
   letter-spacing: -.045em;
 }
 
@@ -1244,10 +1308,10 @@ body:has(#employeeDialog.employee-reference[open]) #appShell::after {
 #employeeDialog.employee-reference:has(#employee-personal:target) a[href="#employee-personal"],
 #employeeDialog.employee-reference:has(#employee-professional:target) a[href="#employee-professional"],
 #employeeDialog.employee-reference:has(#employee-complementary:target) a[href="#employee-complementary"] {
-  border-color: #ffbd2b;
-  color: #fff7e7;
-  background: linear-gradient(135deg, #302c21, #1b2228);
-  box-shadow: 0 0 13px #ffb72f55, inset 0 -2px #e4aa35;
+  border-color: #8b713d;
+  color: var(--text-1);
+  background: #322d24;
+  box-shadow: inset 0 -2px var(--gold-500);
 }
 
 #employeeDialog.employee-reference .employee-section-heading {
@@ -1337,19 +1401,522 @@ body:has(#employeeDialog.employee-reference[open]) #appShell::after {
   outline-offset: 3px;
 }
 
-@media (min-width: 1101px) {
-  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .sidebar {
-    flex-basis: 78px;
-    width: 78px;
-    min-width: 78px;
-    max-width: 78px;
-    padding-inline: 10px;
+/* Visual surfaces shared across the workspace views. */
+#appShell.workspace-reference :is(
+  .units-filter-panel, .users-filter-panel, .units-table-panel, .users-table-panel,
+  .access-profile-info, .unit-card, .user-card, .about-card, .about-feature-panel
+) {
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  color: var(--text-1);
+  background: var(--bg-card);
+}
+
+#appShell.workspace-reference :is(.publications-admin-hero, .about-hero) {
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  background: var(--bg-card);
+}
+
+#appShell.workspace-reference :is(.unit-metric-card, .user-metric-card, .publication-stat-card) {
+  --tile-tone: var(--tone-info);
+  min-height: 120px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  color: var(--text-1);
+  background: var(--bg-card);
+}
+
+#appShell.workspace-reference :is(.unit-metric-green, .user-metric-green, .publication-stat-card.tone-green) {
+  --tile-tone: var(--tone-active);
+}
+
+#appShell.workspace-reference :is(.unit-metric-orange, .publication-stat-card.tone-amber) {
+  --tile-tone: var(--tone-leave);
+}
+
+#appShell.workspace-reference :is(.unit-metric-purple, .user-metric-purple, .user-metric-navy) {
+  --tile-tone: var(--tone-unit);
+}
+
+#appShell.workspace-reference :is(.user-metric-red, .publication-stat-card.tone-red) {
+  --tile-tone: var(--tone-inactive);
+}
+
+#appShell.workspace-reference :is(.unit-metric-card, .user-metric-card, .publication-stat-card) strong {
+  color: var(--text-1);
+  font-family: var(--heading-font);
+  font-size: clamp(29px, 2.2vw, 34px);
+  font-variant-numeric: tabular-nums;
+}
+
+#appShell.workspace-reference :is(.unit-metric-card, .user-metric-card, .publication-stat-card) > div > span {
+  color: var(--text-1);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+#appShell.workspace-reference :is(.unit-metric-card, .user-metric-card, .publication-stat-card) small {
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference :is(.unit-metric-icon, .user-metric-icon, .publication-stat-icon) {
+  color: var(--tile-tone);
+  background: color-mix(in srgb, var(--tile-tone) 15%, var(--bg-subtle));
+}
+
+#appShell.workspace-reference :is(.units-filter-grid, .users-filter-grid) input:not([type="hidden"]) {
+  border-color: var(--border-strong);
+  color: var(--text-1);
+  background: var(--bg-subtle);
+}
+
+#appShell.workspace-reference :is(.units-filter-grid, .users-filter-grid) input::placeholder {
+  color: var(--text-3-readable);
+  opacity: 1;
+}
+
+#appShell.workspace-reference :is(.units-table-scroll, .users-table-scroll) {
+  border-color: var(--border);
+  background: var(--bg-card);
+}
+
+#appShell.workspace-reference :is(.units-list-heading, .users-list-heading) {
+  padding: 12px 16px;
+  border-color: var(--border);
+  background: var(--bg-card);
+}
+
+#appShell.workspace-reference :is(.units-filter-heading, .users-filter-heading, .units-list-heading, .users-list-heading, .access-profile-heading) h2,
+#appShell.workspace-reference :is(.about-card h3, .about-feature-panel h3, .about-version-card strong) {
+  color: var(--text-1);
+  font-family: var(--heading-font);
+  font-size: 17px;
+}
+
+#appShell.workspace-reference :is(.about-card, .about-feature-panel) {
+  min-height: 0;
+  padding: 16px 20px;
+}
+
+#appShell.workspace-reference :is(.about-definition-list dd, .about-feature-card strong) {
+  color: var(--text-1);
+}
+
+#appShell.workspace-reference :is(.units-filter-heading, .users-filter-heading, .access-profile-heading) p,
+#appShell.workspace-reference :is(.units-list-heading, .users-list-heading) > div:first-child > span,
+#appShell.workspace-reference :is(.about-card p, .about-definition-list dt, .about-feature-card p, .about-version-card span) {
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference .about-definition-list > div {
+  border-color: var(--border);
+}
+
+#appShell.workspace-reference :is(.units-table, .users-table) {
+  background: var(--bg-card);
+}
+
+#appShell.workspace-reference :is(.units-table, .users-table) th {
+  color: var(--text-1);
+  background: var(--bg-subtle);
+}
+
+#appShell.workspace-reference :is(.units-table, .users-table) td {
+  height: 52px;
+  padding-block: 8px;
+  border-color: var(--border);
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference :is(.unit-avatar, .user-avatar, .unit-type-badge, .publication-count-pill, .about-badge, .about-card-icon, .about-feature-card > span) {
+  border-color: #285488;
+  color: #8cd6ff;
+  background: #103452;
+}
+
+#appShell.workspace-reference :is(.panel-kicker, .about-card-kicker) {
+  color: var(--cyan);
+}
+
+#appShell.workspace-reference .about-card-kicker {
+  background: transparent;
+}
+
+#appShell.workspace-reference .about-footer-bar > :is(strong, span) {
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference :is(.units-list-heading, .users-list-heading) .eyebrow {
+  color: var(--cyan);
+}
+
+#appShell.workspace-reference :is(.units-list-actions, .users-list-actions) .result-count {
+  color: #a1d2f4;
+  background: #193a51;
+}
+
+#appShell.workspace-reference :is(.units-page-size, .users-page-size) span {
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference :is(
+  .unit-name-cell small, .user-identity > div > span,
+  .users-pagination > span, .units-pagination > span,
+  .access-security-note span, .publications-admin-heading > div > span:not(.panel-kicker),
+  .publication-admin-meta > span:not(.publication-status), .publication-admin-content > small
+) {
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference :is(.unit-linked-count, .user-role-badge) {
+  color: #acd4ee;
+  background: #1a3b51;
+}
+
+#appShell.workspace-reference .publication-admin-meta .publication-origin {
+  color: #acd4ee;
+  background: #1a3b51;
+}
+
+#appShell.workspace-reference .user-role-badge :is(strong, small) {
+  color: inherit;
+}
+
+#appShell.workspace-reference .access-security-note strong {
+  color: var(--text-1);
+}
+
+#appShell.workspace-reference .access-profile-grid > article {
+  border-color: var(--border);
+  color: var(--text-2);
+  background: var(--bg-subtle);
+}
+
+#appShell.workspace-reference .access-profile-grid :is(strong, span) {
+  color: inherit;
+}
+
+#appShell.workspace-reference :is(.unit-status-badge.status-ativa, .user-status-badge.status-active, .publication-status.status-publicado) {
+  color: #80dabe;
+  background: #163a38;
+}
+
+#appShell.workspace-reference :is(.unit-status-badge.status-inativa, .user-status-badge.status-inactive, .publication-status.status-arquivado) {
+  color: #ef9cab;
+  background: #3d2937;
+}
+
+#appShell.workspace-reference .publication-status.status-rascunho {
+  color: #eac780;
+  background: #3d3426;
+}
+
+#appShell.workspace-reference :is(.report-grid > article, .publication-admin-card, .publication-admin-empty-state, .about-feature-card, .about-footer-bar, .about-version-card, .access-security-note) {
+  border-color: #23455e;
+  color: var(--text-2);
+  background: var(--bg-subtle);
+}
+
+#appShell.workspace-reference .report-grid > article strong {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-1);
+}
+
+#appShell.workspace-reference .report-grid > article svg {
+  color: var(--gold-500);
+}
+
+#appShell.workspace-reference .report-grid > article span {
+  color: var(--text-2);
+}
+
+#appShell.workspace-reference .publication-admin-card:hover {
+  border-color: #34607b;
+  background: #142d43;
+}
+
+#appShell.workspace-reference :is(.primary-action, .workspace-create) {
+  color: var(--bg-page);
+  border-color: var(--gold-500);
+  background: var(--gold-500);
+  box-shadow: none;
+}
+
+#appShell.workspace-reference .primary-action:hover:not(:disabled) {
+  color: var(--bg-page);
+  background: #e2b956;
+}
+
+#appShell.workspace-reference :is(.secondary-action, .units-clear-button, .users-clear-button, .units-shell .row-menu-trigger, .users-shell .row-menu-trigger) {
+  border-color: var(--border-strong);
+  color: var(--text-1);
+  background: var(--bg-subtle);
+}
+
+#appShell.workspace-reference :is(.secondary-action, .filter-reset):hover:not(:disabled) {
+  border-color: #60819c;
+  color: var(--text-1);
+  background: #1a3448;
+}
+
+#appShell.workspace-reference :is(.primary-action, .secondary-action, .filter-reset):active:not(:disabled) {
+  filter: brightness(.94);
+}
+
+#appShell.workspace-reference .report-actions .secondary-action {
+  color: #a2d7fa;
+  border-color: #427398;
+}
+
+@media (min-width: 851px) {
+  #appShell.workspace-reference :is(.primary-action, .secondary-action, .filter-reset) {
+    min-height: var(--control-size);
+    border-radius: var(--control-radius);
   }
+}
+
+#appShell.workspace-reference :is(.primary-action, .secondary-action, .filter-reset):disabled {
+  opacity: .62;
+  cursor: not-allowed;
+}
+
+#appShell.workspace-reference .workspace-create {
+  flex: none;
+  white-space: nowrap;
+}
+
+#appShell.workspace-reference :is(.units-pagination, .users-pagination) button {
+  color: var(--text-1);
+  border-color: var(--border-strong);
+  background: #10283c;
+}
+
+#appShell.workspace-reference :is(.units-pagination, .users-pagination) button.active {
+  border-color: #b38c30;
+  background: #4a3918;
+}
+
+body:has(#appShell.workspace-reference) :is(.unit-row-menu-popover, .user-row-menu-popover) {
+  color: #f4f7fd;
+  border-color: #34536e;
+  background: #0d2236;
+}
+
+body:has(#appShell.workspace-reference) :is(.unit-row-menu-popover, .user-row-menu-popover) :is(a, button, svg) {
+  color: inherit;
+  background: transparent;
+}
+
+body:has(#appShell.workspace-reference) :is(.unit-row-menu-popover, .user-row-menu-popover) :is(a, button):is(:hover, :focus-visible) {
+  background: #193850;
+}
+
+body:has(#appShell.workspace-reference) :is(.unit-row-menu-popover, .user-row-menu-popover) .danger-action {
+  color: #ff9ca8;
+}
+
+body:has(#appShell.workspace-reference) dialog.modal:not(.employee-reference) {
+  border-color: var(--border);
+  border-radius: var(--dialog-radius);
+  background: var(--bg-card);
+}
+
+body:has(#appShell.workspace-reference) dialog.modal:not(.employee-reference) :is(
+  form, .modal-header, .unit-modal-body, .user-modal-body, .publication-modal-layout,
+  .form-section, .unit-form-section, .user-form-section, .publication-fieldset
+) {
+  background: transparent;
+}
+
+body:has(#appShell.workspace-reference) dialog.modal:not(.employee-reference) .modal-header p,
+body:has(#appShell.workspace-reference) dialog.modal:not(.employee-reference) :is(.role-radio-card, .user-status-options) small {
+  color: var(--text-2);
+}
+
+body:has(#appShell.workspace-reference) dialog.modal:not(.employee-reference) :is(.role-radio-card, .user-status-options) strong {
+  color: var(--text-1);
+}
+
+body:has(#appShell.workspace-reference) dialog.modal:not(.employee-reference) :is(.role-radio-card, .user-status-options label) {
+  border-color: var(--border-strong);
+  background: var(--bg-subtle);
+}
+
+body:has(#appShell.workspace-reference) dialog.modal:not(.employee-reference) :is(.role-radio-card, .user-status-options label):has(input:checked) {
+  border-color: var(--gold-500);
+  background: #322d24;
+}
+
+body:has(#appShell.workspace-reference) dialog.modal .validated-required {
+  color: #ef9cab;
+}
+
+body:has(#appShell.workspace-reference) dialog.modal:not(.employee-reference) :is(
+  .form-actions, .modal-close-button, .unit-details-card, .user-details-card, .unit-details-section, .user-details-section
+) {
+  border-color: #2b5670;
+  color: var(--text-1);
+  background: #102538;
+}
+
+body:has(#appShell.workspace-reference) dialog.modal:not(.employee-reference) :is(input, textarea):not([type="hidden"], [type="checkbox"], [type="radio"]) {
+  border-color: var(--border-strong);
+  color: var(--text-1);
+  background: #10283c;
+}
+
+body:has(#appShell.workspace-reference) dialog.modal:not(.employee-reference) :is(input, textarea)::placeholder {
+  color: var(--text-3-readable);
+  opacity: 1;
+}
+
+body:has(#appShell.workspace-reference) dialog.modal:not(.employee-reference) .primary-action {
+  border: 1px solid var(--gold-500);
+  color: var(--bg-page);
+  background: var(--gold-500);
+}
+
+body:has(#appShell.workspace-reference) dialog.modal:not(.employee-reference) .secondary-action {
+  border-color: var(--border-strong);
+  color: var(--text-1);
+  background: #10283c;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #appShell.workspace-reference #viewTitle,
+  body:has(#appShell.workspace-reference) dialog.modal[open] {
+    animation: workspace-enter 340ms ease-out both;
+  }
+
+  #appShell.workspace-reference :is(.menu-item, .workspace-profile summary, .primary-action, .secondary-action, .filter-reset) {
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+  }
+}
+
+@keyframes workspace-enter {
+  from { opacity: 0; translate: 0 4px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@media (min-width: 1101px) {
+  #appShell.workspace-reference #appSidebar {
+    flex: 0 0 var(--workspace-sidebar);
+    width: auto;
+    min-width: 0;
+    max-width: none;
+  }
+
+  body.funcionarios-sidebar-interacted #appShell.workspace-reference #appSidebar {
+    transition: flex-basis 250ms ease-in-out;
+  }
+
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .sidebar {
+    --workspace-sidebar: 76px;
+    gap: 14px;
+    padding-inline: 8px;
+  }
+
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .sidebar :is(.brand-copy, .sidebar-title, .sidebar-link-label, .session-copy) {
+    display: none;
+  }
+
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .sidebar::after,
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .brand::after,
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .signature::before {
+    content: none;
+  }
+
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .brand {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0;
+    margin: 0;
+  }
+
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .brand-crest {
+    width: 42px;
+    max-width: 100%;
+    scale: none;
+  }
+
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .menu {
+    align-items: center;
+  }
+
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference :is(.menu-item, .logout-button) {
+    display: grid;
+    place-items: center;
+    flex: 0 0 44px;
+    inline-size: 44px;
+    min-inline-size: 44px;
+    max-inline-size: 44px;
+    block-size: 44px;
+    min-block-size: 44px;
+    padding: 0;
+    margin-inline: auto;
+  }
+
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .menu-item {
+    border: 1px solid transparent;
+  }
+
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .menu-item.active {
+    border-color: #896826;
+    background: #483719;
+    box-shadow: none;
+  }
+
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .menu-item.active::before {
+    display: none;
+  }
+
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .signature {
+    flex: none;
+    padding-block: 10px 0;
+  }
+
+  body.funcionarios-sidebar-collapsed #appShell.workspace-reference .sidebar-user {
+    display: grid;
+    place-items: center;
+    padding: 0 0 8px;
+  }
+
+  body.funcionarios-sidebar-interacted:not(.funcionarios-sidebar-collapsed) #appShell.workspace-reference .sidebar :is(.brand-copy, .sidebar-title, .sidebar-link-label, .session-copy) {
+    animation: sidebar-text-reveal 0s 250ms both;
+  }
+
+  body.funcionarios-sidebar-interacted:not(.funcionarios-sidebar-collapsed) #appShell.workspace-reference .sidebar .sidebar-link-label {
+    white-space: nowrap;
+  }
+}
+
+@keyframes sidebar-text-reveal {
+  from { visibility: hidden; }
+  to { visibility: visible; }
+}
+
+.workspace-sidebar-tooltip {
+  position: fixed;
+  z-index: 150;
+  inset-inline-start: 83px;
+  transform: translateY(-50%);
+  padding: 6px 10px;
+  border: 1px solid #294b65;
+  border-radius: 8px;
+  background: #0a2032;
+  color: #f4f7fd;
+  font-size: 13px;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 6px 14px #02080f8c;
 }
 
 @media (min-width: 1101px) and (max-height: 780px) {
   #appShell.workspace-reference {
-    --workspace-sidebar: clamp(218px, 16.5vw, 265px);
+    --workspace-sidebar: 220px;
   }
 
   #appShell.workspace-reference .sidebar {
@@ -1359,32 +1926,8 @@ body:has(#employeeDialog.employee-reference[open]) #appShell::after {
   }
 
   #appShell.workspace-reference .brand {
-    grid-template-columns: 49px minmax(0, 1fr);
-    gap: 10px;
     margin-bottom: 5px;
     padding-bottom: 19px;
-  }
-
-  #appShell.workspace-reference .brand-copy strong {
-    font-size: 18px;
-  }
-
-  #appShell.workspace-reference .sidebar-title span {
-    font-size: 11px;
-  }
-
-  #appShell.workspace-reference .sidebar-title strong {
-    font-size: 17px;
-  }
-
-  #appShell.workspace-reference .sidebar-title svg {
-    width: 19px;
-    height: 19px;
-    flex: none;
-  }
-
-  #appShell.workspace-reference .menu {
-    gap: 3px;
   }
 
   #appShell.workspace-reference .menu-item {
@@ -1393,11 +1936,6 @@ body:has(#employeeDialog.employee-reference[open]) #appShell::after {
     min-height: 36px;
     padding: 0 12px;
     gap: 11px;
-  }
-
-  #appShell.workspace-reference .menu-item svg {
-    width: 19px;
-    height: 19px;
   }
 
   #appShell.workspace-reference .signature {
@@ -1415,25 +1953,6 @@ body:has(#employeeDialog.employee-reference[open]) #appShell::after {
 
   #appShell.workspace-reference :is(#viewTitle, .dashboard-welcome h2) {
     font-size: clamp(21px, 1.55vw, 26px);
-  }
-
-  #appShell.workspace-reference .workspace-search {
-    height: 41px;
-  }
-
-  #appShell.workspace-reference .top-icon-button {
-    width: 40px;
-    height: 40px;
-  }
-
-  #appShell.workspace-reference .workspace-profile summary {
-    min-height: 46px;
-    padding-block: 4px;
-  }
-
-  #appShell.workspace-reference .workspace-profile .session-avatar {
-    width: 34px;
-    height: 34px;
   }
 
   #appShell.workspace-reference .view.active {
@@ -1583,6 +2102,17 @@ body:has(#employeeDialog.employee-reference[open]) #appShell::after {
     width: min(288px, calc(100vw - 40px));
     min-width: 0;
     max-width: 288px;
+    visibility: hidden;
+    transition: transform 250ms ease-in-out, visibility 0s 250ms;
+  }
+
+  body.funcionarios-menu-open #appShell.workspace-reference .sidebar {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  body.funcionarios-menu-open #appShell.workspace-reference .sidebar-backdrop {
+    background: #030d18a6;
   }
 }
 
@@ -1628,6 +2158,14 @@ body:has(#employeeDialog.employee-reference[open]) #appShell::after {
     flex-basis: 100%;
   }
 
+  #appShell.workspace-reference .top-actions:has(.workspace-create) {
+    flex-wrap: wrap;
+  }
+
+  #appShell.workspace-reference .workspace-create {
+    margin-inline-start: auto;
+  }
+
   #appShell.workspace-reference .workspace-search {
     height: 43px;
   }
@@ -1653,6 +2191,10 @@ body:has(#employeeDialog.employee-reference[open]) #appShell::after {
   }
 
   #appShell.workspace-reference .filter-grid > :nth-child(n) {
+    grid-column: 1 / -1;
+  }
+
+  #appShell.workspace-reference .filter-bar:has(#employeeAdvancedFilters:not(:checked)) .filter-grid > :is(.filter-submit, .filter-reset) {
     grid-column: 1 / -1;
   }
 
