@@ -31,7 +31,7 @@ export function ContactSection({ showPageLink = true }: ContactSectionProps) {
               icon={<Phone className="size-5" aria-hidden="true" />}
               label="Telefone"
               value={siteConfig.phone}
-              href={`tel:${siteConfig.phone.replace(/\D/g, "")}`}
+              href={siteConfig.phoneHref}
             />
             <ContactItem
               icon={<MapPin className="size-5" aria-hidden="true" />}

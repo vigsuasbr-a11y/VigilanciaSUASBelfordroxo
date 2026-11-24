@@ -21,7 +21,6 @@ export const metadata: Metadata = {
   title: "Contato",
 };
 
-const phoneDigits = siteConfig.phone.replace(/\D/g, "");
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   siteConfig.address,
 )}`;
@@ -40,7 +39,7 @@ const contactChannels = [
     title: "Telefone",
     description: "Canal direto para orientações e encaminhamentos da equipe responsável.",
     value: siteConfig.phone,
-    href: `tel:+55${phoneDigits}`,
+    href: siteConfig.phoneHref,
     icon: Phone,
     action: "Ligar agora",
     tone: "green",
@@ -92,7 +91,7 @@ export default function ContatoPage() {
                   Enviar mensagem
                 </a>
                 <a
-                  href={`tel:+55${phoneDigits}`}
+                  href={siteConfig.phoneHref}
                   className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-[#cfe0f4] bg-white px-5 text-sm font-semibold text-[#06285f] transition hover:-translate-y-0.5 hover:border-[#91bdf0] hover:bg-blue-50"
                 >
                   <Phone className="size-4" aria-hidden="true" />

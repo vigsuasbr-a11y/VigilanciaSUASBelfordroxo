@@ -1,3 +1,5 @@
+const phone = "+55 21 99796-3649";
+
 export const siteConfig = {
   name: "Portal da Vigilancia Socioassistencial",
   displayName: "Portal da Vigilância Socioassistencial",
@@ -7,7 +9,8 @@ export const siteConfig = {
   address:
     "SEMASC Secretaria de Assistência Social e Cidadania - Vila Medeiros, Belford Roxo - RJ, 26112-180",
   email: "vigsuasbr@gmail.com",
-  phone: "(21) 98041-2171",
+  phone,
+  phoneHref: `tel:+${phone.replace(/\D/g, "")}`,
 };
 
 export const navItems = [
