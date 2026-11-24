@@ -1347,6 +1347,236 @@ body:has(#employeeDialog.employee-reference[open]) #appShell::after {
   }
 }
 
+@media (min-width: 1101px) and (max-height: 780px) {
+  #appShell.workspace-reference {
+    --workspace-sidebar: clamp(218px, 16.5vw, 265px);
+  }
+
+  #appShell.workspace-reference .sidebar {
+    gap: 10px;
+    padding-block: 12px 20px;
+    padding-inline: 15px;
+  }
+
+  #appShell.workspace-reference .brand {
+    grid-template-columns: 49px minmax(0, 1fr);
+    gap: 10px;
+    margin-bottom: 5px;
+    padding-bottom: 19px;
+  }
+
+  #appShell.workspace-reference .brand-copy strong {
+    font-size: 18px;
+  }
+
+  #appShell.workspace-reference .sidebar-title span {
+    font-size: 11px;
+  }
+
+  #appShell.workspace-reference .sidebar-title strong {
+    font-size: 17px;
+  }
+
+  #appShell.workspace-reference .sidebar-title svg {
+    width: 19px;
+    height: 19px;
+    flex: none;
+  }
+
+  #appShell.workspace-reference .menu {
+    gap: 3px;
+  }
+
+  #appShell.workspace-reference .menu-item {
+    flex-basis: 36px;
+    height: 36px;
+    min-height: 36px;
+    padding: 0 12px;
+    gap: 11px;
+  }
+
+  #appShell.workspace-reference .menu-item svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  #appShell.workspace-reference .signature {
+    padding-block: 13px 4px;
+  }
+
+  #appShell.workspace-reference .logout-button {
+    height: 38px;
+    min-height: 38px;
+  }
+
+  #appShell.workspace-reference .topbar {
+    min-height: 62px;
+  }
+
+  #appShell.workspace-reference :is(#viewTitle, .dashboard-welcome h2) {
+    font-size: clamp(21px, 1.55vw, 26px);
+  }
+
+  #appShell.workspace-reference .workspace-search {
+    height: 41px;
+  }
+
+  #appShell.workspace-reference .top-icon-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  #appShell.workspace-reference .workspace-profile summary {
+    min-height: 46px;
+    padding-block: 4px;
+  }
+
+  #appShell.workspace-reference .workspace-profile .session-avatar {
+    width: 34px;
+    height: 34px;
+  }
+
+  #appShell.workspace-reference .view.active {
+    padding-top: 11px;
+  }
+
+  #appShell.workspace-reference .dashboard-welcome {
+    min-height: 72px;
+    margin-bottom: 11px;
+    padding-block: 9px;
+  }
+
+  #appShell.workspace-reference .dashboard-date-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  #appShell.workspace-reference .dashboard-date time {
+    font-size: 13px;
+    line-height: 1.25;
+  }
+
+  #appShell.workspace-reference .dashboard-date time strong {
+    font-size: 17px;
+  }
+
+  #appShell.workspace-reference :is(.dashboard-metric-grid, .employee-overview) {
+    margin-bottom: 12px;
+    gap: 12px;
+  }
+
+  #appShell.workspace-reference :is(.metric-card, .employee-stat) {
+    min-height: 110px;
+    padding: 9px 13px;
+    gap: 6px;
+    border-radius: 15px;
+  }
+
+  #appShell.workspace-reference :is(.metric-icon, .stat-icon) {
+    flex-basis: 34px;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+
+  #appShell.workspace-reference :is(.metric-icon, .stat-icon) svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  #appShell.workspace-reference :is(.metric-card-main, .employee-stat-head) > div > strong {
+    font-size: clamp(27px, 2.35vw, 38px);
+  }
+
+  #appShell.workspace-reference :is(.metric-trend, .employee-stat-badge) {
+    margin-top: 5px;
+    padding-block: 3px;
+  }
+
+  #appShell.workspace-reference .metric-watermark svg {
+    width: clamp(43px, 4vw, 58px);
+    height: clamp(43px, 4vw, 58px);
+  }
+
+  #appShell.workspace-reference .dashboard-panel {
+    padding: 11px 16px;
+  }
+
+  #appShell.workspace-reference .bar-list {
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  #appShell.workspace-reference .bar-row {
+    padding-inline-start: 38px;
+  }
+
+  #appShell.workspace-reference .bar-name svg {
+    width: 16px;
+    height: 16px;
+    padding: 6px;
+    border-radius: 9px;
+  }
+
+  #appShell.workspace-reference .bar-label small {
+    padding: 2px 8px;
+    line-height: 1.25;
+  }
+
+  #appShell.workspace-reference .bar-track {
+    height: 7px;
+  }
+
+  #appShell.workspace-reference .donut-wrap {
+    gap: 5px;
+  }
+
+  #appShell.workspace-reference .donut {
+    width: min(100%, clamp(125px, 24dvh, 167px));
+  }
+
+  #appShell.workspace-reference .donut-total strong {
+    font-size: 28px;
+  }
+
+  #appShell.workspace-reference .donut-total svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  #appShell.workspace-reference .legend-row {
+    padding-block: 2px;
+  }
+
+  #appShell.workspace-reference .filter-bar {
+    padding-block: 10px 13px;
+    margin-bottom: 11px;
+  }
+
+  #appShell.workspace-reference .filter-grid {
+    row-gap: 8px;
+  }
+
+  #appShell.workspace-reference .filter-grid :is(input, select, .filter-submit, .filter-reset) {
+    min-height: 36px;
+    height: 36px;
+  }
+
+  #appShell.workspace-reference .table-panel .panel-heading {
+    padding-bottom: 9px;
+  }
+
+  #appShell.workspace-reference #employeesView .employees-table td {
+    height: 48px;
+    padding-block: 5px;
+  }
+
+  #appShell.workspace-reference .workspace-footer {
+    min-height: 52px;
+    padding-block: 10px;
+  }
+}
+
 @media (max-width: 1100px) {
   #appShell.workspace-reference .sidebar {
     position: fixed;
